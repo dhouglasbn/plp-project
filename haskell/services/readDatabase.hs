@@ -1,6 +1,0 @@
--- readFile :: FilePath -> IO -> String
--- readFile fileName = do
---     handle <- openFile fileName ReadMode
---     content <- hGetContents handle
---     hClose handle
---     return content
