@@ -1,3 +1,10 @@
+module Models.Alimentos where
+
+import {-# SOURCE #-} Models.Usuario
+
+import System.IO (IOMode(WriteMode), openFile, hPutStr, withFile, hGetContents, hClose, IOMode(ReadMode))
+import Data.List (find)
+
 data Alimento = Alimento {
   nome_alimento :: String,
   kcal :: Float,

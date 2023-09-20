@@ -1,3 +1,12 @@
+module Models.Usuario where
+
+import Models.Alimentos
+import Models.ExercioRegistrado
+
+
+import System.IO (IOMode(WriteMode), openFile, hPutStr, withFile, hGetContents, hClose, IOMode(ReadMode))
+
+
 data Usuario = Usuario {
   id :: Int,
   senha :: String,
@@ -92,3 +101,14 @@ atualizarSenha usuario = do
   putStrLn "Senha atualizada com sucesso!"
   return usuarioAtualizado
 
+-- Função de parser para extrair a senha de uma linha do arquivo
+parseUsuario :: String -> Usuario
+parseUsuario linha = case words linha of
+    [senha, nome] -> Usuario senha nome
+    _ -> Usuario "" ""
+
+findUsuario :: String -> [Usuario] -> Maybe Usuario
+findUsuario _ [] = Nothing
+findUsuario senha (u:us) = if senha == senha u
+                            then Just u 
+                            else findUsuario senha us

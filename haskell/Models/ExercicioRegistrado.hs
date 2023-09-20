@@ -1,3 +1,12 @@
+module Models.ExercicioRegistrado where
+
+import Models.ExerciciosAerobicos
+import Models.ExerciciosAnaerobicos
+
+
+import Data.Time (UTCTime, getCurrentTime, utctDay)
+
+
 data ExercicioRegistrado = ExercicioRegistrado
   { exercicioRealizado :: Either ExercicioAnaerobico ExercicioAerobico,
     tempoGastoExercicio :: Float,

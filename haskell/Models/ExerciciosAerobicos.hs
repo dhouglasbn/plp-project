@@ -1,3 +1,11 @@
+module Models.ExerciciosAerobicos where 
+
+import Models.ExercicioRegistrado
+import Models.Usuario
+
+import System.IO (IOMode(WriteMode), openFile, hPutStr, withFile, hGetContents, hClose, IOMode(ReadMode))
+import Data.List (find)
+
 -- Estrutura de dados para exercícios
 data ExercicioAerobico = ExercicioAerobico
   { nomeExercicio :: String,
