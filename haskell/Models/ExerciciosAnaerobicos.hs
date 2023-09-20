@@ -1,10 +1,9 @@
 module Models.ExerciciosAnaerobicos where
 
-import Models.ExercicioRegistrado
-import Models.Usuario
 
 import System.IO (IOMode(WriteMode), openFile, hPutStr, withFile, hGetContents, hClose, IOMode(ReadMode))
 import Data.List (find)
+import Text.XHtml (area)
 
 -- Estrutura de dados para exercícios anaeróbicos
 data ExercicioAnaerobico = ExercicioAnaerobico
@@ -20,16 +19,6 @@ calcularPerdaCaloricaAnaerobico :: Float -> Float -> Float
 calcularPerdaCaloricaAnaerobico pesoUsuario duracaoExercicio =
   4.0 * pesoUsuario * duracaoExercicio
 
--- Função para obter exercícios anaeróbicos do dia
-exerciciosAnaerobicosDoDia :: Usuario -> [ExercicioRegistrado]
-exerciciosAnaerobicosDoDia usuario =
-  let exerciciosRegistrados = exerciciosAnaerobicos usuario
-      dataAtual = getCurrentTime
-  in filter (\exercicio -> sameDay (dataHoraExercicio exercicio) dataAtual) exerciciosRegistrados
-
--- Função para obter todos os exercícios anaeróbicos feitos
-exerciciosAnaerobicosTodos :: Usuario -> [ExercicioRegistrado]
-exerciciosAnaerobicosTodos usuario = return (exerciciosAnaerobicos usuario)
 
 -- Função para buscar um exercício anaeróbico por nome em um arquivo
 buscarExercicioAnaerobicoPorNome :: FilePath -> String -> IO (Maybe ExercicioAnaerobico)
@@ -46,7 +35,7 @@ buscarExercicioAnaerobicoPorNome arquivo nomeExercicio = do
 lerExerciciosAnaerobicos :: FilePath -> IO [ExercicioAnaerobico]
 lerExerciciosAnaerobicos arquivo = do
   conteudo <- readFile arquivo
-  let linhas = lines conteúdo
+  let linhas = lines conteudo
   return (map parseExercicioAnaerobico linhas)
 
 -- Função para analisar uma linha e criar um exercício anaeróbico
@@ -68,55 +57,7 @@ obterExercicioAnaerobicoPeloNome exercicios nomeExercicio =
 
 -- Função para filtrar exercícios anaeróbicos por área muscular
 filtrarExerciciosPorAreaMuscular :: [ExercicioAnaerobico] -> String -> [ExercicioAnaerobico]
-filtrarExerciciosPorAreaMuscular exercicios areaMuscular =
-  filter (\exercicio -> areaMuscular exercicio == areaMuscular) exercicios
-
-adicionarExercicioAnaerobico :: Usuario -> IO Usuario
-adicionarExercicioAnaerobico usuario = do
-  putStrLn "Digite o nome do exercício anaeróbico:"
-  nomeExercicio <- getLine
-  putStrLn "Digite a duração do exercício (em horas):"
-  duracaoStr <- getLine
-  putStrLn "Digite quantas series foram feitas"
-  seriesStr <- getLine
-  putStrLn "Digite quantas repetiçoes por serie"
-  repeticoesStr <- getLine
-  
-  let duracao = read duracaoStr :: Float
-  let series = read seriesStr :: Int
-  let repeticoes = read repeticoesStr :: Int
-  
-  let exercicioAerobicoEncontrado = buscarExercicioAnaerobicoPorNome "exerciciosAnaerobicos.txt" nomeExercicio
-
-  case exercicioAerobicoEncontrado of
-    Just exercicioAnaerobico -> do
-      let metExercicio = met exercicioAerobico
-      let pesoUsuario = peso usuario
-
-      let gastoCalorico = calcularPerdaCaloricaAnaerobico pesoUsuario duracao
-
-      horaAtual <- getCurrentTime
-
-      -- Cria o exercício registrado
-      let exercicioRegistrado = ExercicioRegistrado
-            { exercicioRealizado = Left exercicioAnaerobico
-            , tempoGastoExercicio = duracao
-            , dataHoraExercicio = horaAtual
-            , kcalGasto = gastoCalorico
-            }
-
-      let novoUsuario = usuario { exerciciosAnaerobicos = exercicioRegistrado : exerciciosAnaerobicos usuario }
-
-      putStrLn $ "Exercício anaeróbico adicionado com sucesso! Gasto calórico: " ++ show gastoCalorico ++ " calorias."
-
-      return novoUsuario
-
-    Nothing -> do
-      putStrLn "Exercício anaeróbico não encontrado."
-      return usuario
+filtrarExerciciosPorAreaMuscular exercicios area =
+  filter (\exercicio -> areaMuscular exercicio == area) exercicios
 
 
--- Função para obter exercícios por área de ativação
-exerciciosPorArea :: [ExercicioAnaerobico] -> String -> [ExercicioAnaerobico]
-exerciciosPorArea exercicios areaDesejada =
-  filter (\exercicio -> areaAtivacao exercicio == areaDesejada) exercicios

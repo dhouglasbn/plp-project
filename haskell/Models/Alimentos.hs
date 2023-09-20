@@ -1,7 +1,5 @@
 module Models.Alimentos where
 
-import {-# SOURCE #-} Models.Usuario
-
 import System.IO (IOMode(WriteMode), openFile, hPutStr, withFile, hGetContents, hClose, IOMode(ReadMode))
 import Data.List (find)
 
@@ -68,8 +66,8 @@ lerAlimentosComoString arquivo = do
 
 -- Função para obter um alimento específico pelo nome
 obterAlimentoPeloNome :: [Alimento] -> String -> Maybe Alimento
-obterAlimentoPeloNome alimentos nomeAlimento =
-  find (\alimento -> nomeAlimento alimento == nomeAlimento) alimentos
+obterAlimentoPeloNome alimentos nomeAliment =
+  find (\alimento -> nome_alimento alimento == nomeAliment) alimentos
 
 -- Função para adicionar um alimento a uma lista de alimentos
 adicionarAlimento :: Alimento -> [Alimento] -> [Alimento]
@@ -96,20 +94,4 @@ calcularValorNutricionalTotal alimentos =
       totalGorduras = sum (map gorduras alimentos)
       totalCarboidratos = sum (map carboidratos alimentos)
   in (totalKcal, totalProteinas, totalGorduras, totalCarboidratos)
-
-
--- Função para calcular as calorias diárias necessárias para manter o peso
-caloriasManterPeso :: Usuario -> Float
-caloriasManterPeso usuario
-  | genero usuario == "M" = 88.362 + (13.397 * peso usuario) + (4.799 * altura usuario) - (5.677 * fromIntegral (idade usuario))
-  | genero usuario == "F" = 447.593 + (9.247 * peso usuario) + (3.098 * altura usuario) - (4.330 * fromIntegral (idade usuario))
-  | otherwise = 0.0
-
--- Função para calcular o valor total das calorias diárias para perder peso
-caloriasDiariasPerderPeso :: Usuario -> Float -> Float
-caloriasDiariasPerderPeso usuario metaPeso = caloriasManterPeso usuario - (500 * (peso usuario - metaPeso))
-
--- Função para calcular o valor total das calorias diárias para ganhar peso
-caloriasDiariasGanharPeso :: Usuario -> Float -> Float
-caloriasDiariasGanharPeso usuario metaPeso = caloriasManterPeso usuario + (500 * (metaPeso - peso usuario))
 
