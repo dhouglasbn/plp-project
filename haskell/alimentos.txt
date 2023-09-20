@@ -1,0 +1,598 @@
+id  name  category/id  category/name  nutrients/kcal  nutrients/protein  nutrients/lipids  nutrients/carbohydrates
+1  Arroz, integral, cozido  1  Cereais e derivados  124  2.6  1  25.8
+2  Arroz, integral, cru  1  Cereais e derivados  360  7.3  1.9  77.5
+3  Arroz, tipo 1, cozido  1  Cereais e derivados  128  2.5  0.2  28.1
+4  Arroz, tipo 1, cru  1  Cereais e derivados  358  7.2  0.3  78.8
+5  Arroz, tipo 2, cozido  1  Cereais e derivados  130  2.6  0.4  28.2
+6  Arroz, tipo 2, cru  1  Cereais e derivados  358  7.2  0.3  78.9
+7  Aveia, flocos, crua  1  Cereais e derivados  394  13.9  8.5  66.6
+8  Biscoito, doce, maisena  1  Cereais e derivados  443  8.1  12  75.2
+9  Biscoito, doce, recheado com chocolate  1  Cereais e derivados  472  6.4  19.6  70.5
+10  Biscoito, doce, recheado com morango  1  Cereais e derivados  471  5.7  19.6  71
+11  Biscoito, doce, wafer, recheado de chocolate  1  Cereais e derivados  502  5.6  24.7  67.5
+12  Biscoito, doce, wafer, recheado de morango  1  Cereais e derivados  513  4.5  26.4  67.4
+13  Biscoito, salgado, cream cracker  1  Cereais e derivados  432  10.1  14.4  68.7
+14  Bolo, mistura para  1  Cereais e derivados  419  6.2  6.1  84.7
+15  Bolo, pronto, aipim  1  Cereais e derivados  324  4.4  12.7  47.9
+16  Bolo, pronto, chocolate  1  Cereais e derivados  410  6.2  18.5  54.7
+17  Bolo, pronto, coco  1  Cereais e derivados  333  5.7  11.3  52.3
+18  Bolo, pronto, milho  1  Cereais e derivados  311  4.8  12.4  45.1
+19  Canjica, branca, crua  1  Cereais e derivados  358  7.2  1  78.1
+20  Canjica, com leite integral  1  Cereais e derivados  112  2.4  1.2  23.6
+21  Cereais, milho, flocos, com sal  1  Cereais e derivados  370  7.3  1.6  80.8
+22  Cereais, milho, flocos, sem sal  1  Cereais e derivados  363  6.9  1.2  80.4
+23  Cereais, mingau, milho, infantil  1  Cereais e derivados  394  6.4  1.1  87.3
+24  Cereais, mistura para vitamina, trigo, cevada e aveia  1  Cereais e derivados  381  8.9  2.1  81.6
+25  Cereal matinal, milho  1  Cereais e derivados  365  7.2  1  83.8
+26  Cereal matinal, milho, açúcar  1  Cereais e derivados  377  4.7  0.7  88.8
+27  Creme de arroz, pó  1  Cereais e derivados  386  7  1.2  83.9
+28  Creme de milho, pó  1  Cereais e derivados  333  4.8  1.6  86.1
+29  Curau, milho verde  1  Cereais e derivados  78  2.4  1.6  13.9
+30  Curau, milho verde, mistura para  1  Cereais e derivados  402  2.2  13.4  79.8
+31  Farinha, de arroz, enriquecida  1  Cereais e derivados  363  1.3  0.3  85.5
+32  Farinha, de centeio, integral  1  Cereais e derivados  336  12.5  1.8  73.3
+33  Farinha, de milho, amarela  1  Cereais e derivados  351  7.2  1.5  79.1
+34  Farinha, de rosca  1  Cereais e derivados  371  11.4  1.5  75.8
+35  Farinha, de trigo  1  Cereais e derivados  360  9.8  1.4  75.1
+36  Farinha, láctea, de cereais  1  Cereais e derivados  415  11.9  5.8  77.8
+37  Lasanha, massa fresca, cozida  1  Cereais e derivados  164  5.8  1.2  32.5
+38  Lasanha, massa fresca, crua  1  Cereais e derivados  220  7  1.3  45.1
+39  Macarrão, instantâneo  1  Cereais e derivados  436  8.8  17.2  62.4
+40  Macarrão, trigo, cru  1  Cereais e derivados  371  10  1.3  77.9
+41  Macarrão, trigo, cru, com ovos  1  Cereais e derivados  371  10.3  2  76.6
+42  Milho, amido, cru  1  Cereais e derivados  361  0.6  0  87.1
+43  Milho, fubá, cru  1  Cereais e derivados  353  7.2  1.9  78.9
+44  Milho, verde, cru  1  Cereais e derivados  138  6.6  0.6  28.6
+45  Milho, verde, enlatado, drenado  1  Cereais e derivados  98  3.2  2.4  17.1
+46  Mingau tradicional, pó  1  Cereais e derivados  373  0.6  0.4  89.3
+47  Pamonha, barra para cozimento, pré-cozida  1  Cereais e derivados  171  2.6  4.8  30.7
+48  Pão, aveia, forma  1  Cereais e derivados  343  12.4  5.7  59.6
+49  Pão, de soja  1  Cereais e derivados  309  11.3  3.6  56.5
+50  Pão, glúten, forma  1  Cereais e derivados  253  12  2.7  44.1
+51  Pão, milho, forma  1  Cereais e derivados  292  8.3  3.1  56.4
+52  Pão, trigo, forma, integral  1  Cereais e derivados  253  9.4  3.7  49.9
+53  Pão, trigo, francês  1  Cereais e derivados  300  8  3.1  58.6
+54  Pão, trigo, sovado  1  Cereais e derivados  311  8.4  2.8  61.5
+55  Pastel, de carne, cru  1  Cereais e derivados  289  10.7  8.8  42
+56  Pastel, de carne, frito  1  Cereais e derivados  388  10.1  20.1  43.8
+57  Pastel, de queijo, cru  1  Cereais e derivados  308  9.9  9.6  45.9
+58  Pastel, de queijo, frito  1  Cereais e derivados  422  8.7  22.7  48.1
+59  Pastel, massa, crua  1  Cereais e derivados  310  6.9  5.5  57.4
+60  Pastel, massa, frita  1  Cereais e derivados  570  6  40.9  49.3
+61  Pipoca, com óleo de soja, sem sal  1  Cereais e derivados  448  9.9  15.9  70.3
+62  Polenta, pré-cozida  1  Cereais e derivados  103  2.3  0.3  23.3
+63  Torrada, pão francês  1  Cereais e derivados  377  10.5  3.3  74.6
+64  Abóbora, cabotian, cozida  2  Verduras, hortaliças e derivados  48  1.4  0.7  10.8
+65  Abóbora, cabotian, crua  2  Verduras, hortaliças e derivados  39  1.7  0.5  8.4
+66  Abóbora, menina brasileira, crua  2  Verduras, hortaliças e derivados  14  0.6  0  3.3
+67  Abóbora, moranga, crua  2  Verduras, hortaliças e derivados  12  1  0.1  2.7
+68  Abóbora, moranga, refogada  2  Verduras, hortaliças e derivados  29  0.4  0.8  6
+69  Abóbora, pescoço, crua  2  Verduras, hortaliças e derivados  24  0.7  0.1  6.1
+70  Abobrinha, italiana, cozida  2  Verduras, hortaliças e derivados  15  1.1  0.2  3
+71  Abobrinha, italiana, crua  2  Verduras, hortaliças e derivados  19  1.1  0.1  4.3
+72  Abobrinha, italiana, refogada  2  Verduras, hortaliças e derivados  24  1.1  0.8  4.2
+73  Abobrinha, paulista, crua  2  Verduras, hortaliças e derivados  31  0.6  0.1  7.9
+74  Acelga, crua  2  Verduras, hortaliças e derivados  21  1.4  0.1  4.6
+75  Agrião, cru  2  Verduras, hortaliças e derivados  17  2.7  0.2  2.3
+76  Aipo, cru  2  Verduras, hortaliças e derivados  19  0.8  0.1  4.3
+77  Alface, americana, crua  2  Verduras, hortaliças e derivados  9  0.6  0.1  1.7
+78  Alface, crespa, crua  2  Verduras, hortaliças e derivados  11  1.3  0.2  1.7
+79  Alface, lisa, crua  2  Verduras, hortaliças e derivados  14  1.7  0.1  2.4
+80  Alface, roxa, crua  2  Verduras, hortaliças e derivados  13  0.9  0.2  2.5
+81  Alfavaca, crua  2  Verduras, hortaliças e derivados  29  2.7  0.5  5.2
+82  Alho, cru  2  Verduras, hortaliças e derivados  113  7  0.2  23.9
+83  Alho-poró, cru  2  Verduras, hortaliças e derivados  32  1.4  0.1  6.9
+84  Almeirão, cru  2  Verduras, hortaliças e derivados  18  1.8  0.2  3.3
+85  Almeirão, refogado  2  Verduras, hortaliças e derivados  65  1.7  4.8  5.7
+86  Batata, baroa, cozida  2  Verduras, hortaliças e derivados  80  0.9  0.2  18.9
+87  Batata, baroa, crua  2  Verduras, hortaliças e derivados  101  1  0.2  24
+88  Batata, doce, cozida  2  Verduras, hortaliças e derivados  77  0.6  0.1  18.4
+89  Batata, doce, crua  2  Verduras, hortaliças e derivados  118  1.3  0.1  28.2
+90  Batata, frita, tipo chips, industrializada  2  Verduras, hortaliças e derivados  543  5.6  36.6  51.2
+91  Batata, inglesa, cozida  2  Verduras, hortaliças e derivados  52  1.2  0  11.9
+92  Batata, inglesa, crua  2  Verduras, hortaliças e derivados  64  1.8  0  14.7
+93  Batata, inglesa, frita  2  Verduras, hortaliças e derivados  267  5  13.1  35.6
+94  Batata, inglesa, sauté  2  Verduras, hortaliças e derivados  68  1.3  0.9  14.1
+95  Berinjela, cozida  2  Verduras, hortaliças e derivados  19  0.7  0.1  4.5
+96  Berinjela, crua  2  Verduras, hortaliças e derivados  20  1.2  0.1  4.4
+97  Beterraba, cozida  2  Verduras, hortaliças e derivados  32  1.3  0.1  7.2
+98  Beterraba, crua  2  Verduras, hortaliças e derivados  49  1.9  0.1  11.1
+99  Biscoito, polvilho doce  2  Verduras, hortaliças e derivados  438  1.3  12.2  80.5
+100  Brócolis, cozido  2  Verduras, hortaliças e derivados  25  2.1  0.5  4.4
+101  Brócolis, cru  2  Verduras, hortaliças e derivados  25  3.6  0.3  4
+102  Cará, cozido  2  Verduras, hortaliças e derivados  78  1.5  0.1  18.9
+103  Cará, cru  2  Verduras, hortaliças e derivados  96  2.3  0.1  23
+104  Caruru, cru  2  Verduras, hortaliças e derivados  34  3.2  0.6  6
+105  Catalonha, crua  2  Verduras, hortaliças e derivados  24  1.9  0.3  4.8
+106  Catalonha, refogada  2  Verduras, hortaliças e derivados  63  2  4.8  4.8
+107  Cebola, crua  2  Verduras, hortaliças e derivados  39  1.7  0.1  8.9
+108  Cebolinha, crua  2  Verduras, hortaliças e derivados  20  1.9  0.4  3.4
+109  Cenoura, cozida  2  Verduras, hortaliças e derivados  30  0.8  0.2  6.7
+110  Cenoura, crua  2  Verduras, hortaliças e derivados  34  1.3  0.2  7.7
+111  Chicória, crua  2  Verduras, hortaliças e derivados  14  1.1  0.1  2.9
+112  Chuchu, cozido  2  Verduras, hortaliças e derivados  19  0.4  0  4.8
+113  Chuchu, cru  2  Verduras, hortaliças e derivados  17  0.7  0.1  4.1
+114  Coentro, folhas desidratadas  2  Verduras, hortaliças e derivados  309  20.9  10.4  48
+115  Couve, manteiga, crua  2  Verduras, hortaliças e derivados  27  2.9  0.5  4.3
+116  Couve, manteiga, refogada  2  Verduras, hortaliças e derivados  90  1.7  6.6  8.7
+117  Couve-flor, crua  2  Verduras, hortaliças e derivados  23  1.9  0.2  4.5
+118  Couve-flor, cozida  2  Verduras, hortaliças e derivados  19  1.2  0.3  3.9
+119  Espinafre, Nova Zelândia, cru  2  Verduras, hortaliças e derivados  16  2  0.2  2.6
+120  Espinafre, Nova Zelândia, refogado  2  Verduras, hortaliças e derivados  67  2.7  5.4  4.2
+121  Farinha, de mandioca, crua  2  Verduras, hortaliças e derivados  361  1.6  0.3  87.9
+122  Farinha, de mandioca, torrada  2  Verduras, hortaliças e derivados  365  1.2  0.3  89.2
+123  Farinha, de puba  2  Verduras, hortaliças e derivados  360  1.6  0.5  87.3
+124  Fécula, de mandioca  2  Verduras, hortaliças e derivados  331  0.5  0.3  81.1
+125  Feijão, broto, cru  2  Verduras, hortaliças e derivados  39  4.2  0.1  7.8
+126  Inhame, cru  2  Verduras, hortaliças e derivados  97  2.1  0.2  23.2
+127  Jiló, cru  2  Verduras, hortaliças e derivados  27  1.4  0.2  6.2
+128  Jurubeba, crua  2  Verduras, hortaliças e derivados  126  4.4  3.9  23.1
+129  Mandioca, cozida  2  Verduras, hortaliças e derivados  125  0.6  0.3  30.1
+130  Mandioca, crua  2  Verduras, hortaliças e derivados  151  1.1  0.3  36.2
+131  Mandioca, farofa, temperada  2  Verduras, hortaliças e derivados  406  2.1  9.1  80.3
+132  Mandioca, frita  2  Verduras, hortaliças e derivados  300  1.4  11.2  50.3
+133  Manjericão, cru  2  Verduras, hortaliças e derivados  21  2  0.4  3.6
+134  Maxixe, cru  2  Verduras, hortaliças e derivados  14  1.4  0.1  2.7
+135  Mostarda, folha, crua  2  Verduras, hortaliças e derivados  18  2.1  0.2  3.2
+136  Nhoque, batata, cozido  2  Verduras, hortaliças e derivados  181  5.9  1.9  36.8
+137  Nabo, cru  2  Verduras, hortaliças e derivados  18  1.2  0.1  4.1
+138  Palmito, juçara, em conserva  2  Verduras, hortaliças e derivados  23  1.8  0.4  4.3
+139  Palmito, pupunha, em conserva  2  Verduras, hortaliças e derivados  29  2.5  0.5  5.5
+140  Pão, de queijo, assado  2  Verduras, hortaliças e derivados  363  5.1  24.6  34.2
+141  Pão, de queijo, cru  2  Verduras, hortaliças e derivados  295  3.6  14  38.5
+142  Pepino, cru  2  Verduras, hortaliças e derivados  10  0.9  0  2
+143  Pimentão, amarelo, cru  2  Verduras, hortaliças e derivados  28  1.2  0.4  6
+144  Pimentão, verde, cru  2  Verduras, hortaliças e derivados  21  1.1  0.2  4.9
+145  Pimentão, vermelho, cru  2  Verduras, hortaliças e derivados  23  1  0.1  5.5
+146  Polvilho, doce  2  Verduras, hortaliças e derivados  351  0.4  0  86.8
+147  Quiabo, cru  2  Verduras, hortaliças e derivados  30  1.9  0.3  6.4
+148  Rabanete, cru  2  Verduras, hortaliças e derivados  14  1.4  0.1  2.7
+149  Repolho, branco, cru  2  Verduras, hortaliças e derivados  17  0.9  0.1  3.9
+150  Repolho, roxo, cru  2  Verduras, hortaliças e derivados  31  1.9  0.1  7.2
+151  Repolho, roxo, refogado  2  Verduras, hortaliças e derivados  42  1.8  1.2  7.6
+152  Rúcula, crua  2  Verduras, hortaliças e derivados  13  1.8  0.1  2.2
+153  Salsa, crua  2  Verduras, hortaliças e derivados  33  3.3  0.6  5.7
+154  Seleta de legumes, enlatada  2  Verduras, hortaliças e derivados  57  3.4  0.4  12.7
+155  Serralha, crua  2  Verduras, hortaliças e derivados  30  2.7  0.7  4.9
+156  Taioba, crua  2  Verduras, hortaliças e derivados  34  2.9  0.9  5.4
+157  Tomate, com semente, cru  2  Verduras, hortaliças e derivados  15  1.1  0.2  3.1
+158  Tomate, extrato  2  Verduras, hortaliças e derivados  61  2.4  0.2  15
+159  Tomate, molho industrializado  2  Verduras, hortaliças e derivados  38  1.4  0.9  7.7
+160  Tomate, purê  2  Verduras, hortaliças e derivados  28  1.4  0  6.9
+161  Tomate, salada  2  Verduras, hortaliças e derivados  21  0.8  0  5.1
+162  Vagem, crua  2  Verduras, hortaliças e derivados  25  1.8  0.2  5.3
+163  Abacate, cru  3  Frutas e derivados  96  1.2  8.4  6
+164  Abacaxi, cru  3  Frutas e derivados  48  0.9  0.1  12.3
+165  Abacaxi, polpa, congelada  3  Frutas e derivados  31  0.5  0.1  7.8
+166  Abiu, cru  3  Frutas e derivados  62  0.8  0.7  14.9
+167  Açaí, polpa, com xarope de guaraná e glucose  3  Frutas e derivados  110  0.7  3.7  21.5
+168  Açaí, polpa, congelada  3  Frutas e derivados  58  0.8  3.9  6.2
+169  Acerola, crua  3  Frutas e derivados  33  0.9  0.2  8
+170  Acerola, polpa, congelada  3  Frutas e derivados  22  0.6  0  5.5
+171  Ameixa, calda, enlatada  3  Frutas e derivados  183  0.4  0  46.9
+172  Ameixa, crua  3  Frutas e derivados  53  0.8  0  13.9
+173  Ameixa, em calda, enlatada, drenada  3  Frutas e derivados  177  1  0.3  47.7
+174  Atemóia, crua  3  Frutas e derivados  97  1  0.3  25.3
+175  Banana, da terra, crua  3  Frutas e derivados  128  1.4  0.2  33.7
+176  Banana, doce em barra  3  Frutas e derivados  280  2.2  0.1  75.7
+177  Banana, figo, crua  3  Frutas e derivados  105  1.1  0.1  27.8
+178  Banana, maçã, crua  3  Frutas e derivados  87  1.8  0.1  22.3
+179  Banana, nanica, crua  3  Frutas e derivados  92  1.4  0.1  23.8
+180  Banana, ouro, crua  3  Frutas e derivados  112  1.5  0.2  29.3
+181  Banana, pacova, crua  3  Frutas e derivados  78  1.2  0.1  20.3
+182  Banana, prata, crua  3  Frutas e derivados  98  1.3  0.1  26
+183  Cacau, cru  3  Frutas e derivados  74  1  0.1  19.4
+184  Cajá-Manga, cru  3  Frutas e derivados  46  1.3  0  11.4
+185  Cajá, polpa, congelada  3  Frutas e derivados  26  0.6  0.2  6.4
+186  Caju, cru  3  Frutas e derivados  43  1  0.3  10.3
+187  Caju, polpa, congelada  3  Frutas e derivados  37  0.5  0.2  9.4
+188  Caju, suco concentrado, envasado  3  Frutas e derivados  45  0.4  0.2  10.7
+189  Caqui, chocolate, cru  3  Frutas e derivados  71  0.4  0.1  19.3
+190  Carambola, crua  3  Frutas e derivados  46  0.9  0.2  11.5
+191  Ciriguela, crua  3  Frutas e derivados  76  1.4  0.4  18.9
+192  Cupuaçu, cru  3  Frutas e derivados  49  1.2  1  10.4
+193  Cupuaçu, polpa, congelada  3  Frutas e derivados  49  0.8  0.6  11.4
+194  Figo, cru  3  Frutas e derivados  41  1  0.2  10.2
+195  Figo, enlatado, em calda  3  Frutas e derivados  184  0.6  0.2  50.3
+196  Fruta-pão, crua  3  Frutas e derivados  67  1.1  0.2  17.2
+197  Goiaba, branca, com casca, crua  3  Frutas e derivados  52  0.9  0.5  12.4
+198  Goiaba, doce em pasta  3  Frutas e derivados  269  0.6  0  74.1
+199  Goiaba, doce, cascão  3  Frutas e derivados  286  0.4  0.1  78.7
+200  Goiaba, vermelha, com casca, crua  3  Frutas e derivados  54  1.1  0.4  13
+201  Graviola, crua  3  Frutas e derivados  62  0.8  0.2  15.8
+202  Graviola, polpa, congelada  3  Frutas e derivados  38  0.6  0.1  9.8
+203  Jabuticaba, crua  3  Frutas e derivados  58  0.6  0.1  15.3
+204  Jaca, crua  3  Frutas e derivados  88  1.4  0.3  22.5
+205  Jambo, cru  3  Frutas e derivados  27  0.9  0.1  6.5
+206  Jamelão, cru  3  Frutas e derivados  41  0.5  0.1  10.6
+207  Kiwi, cru  3  Frutas e derivados  51  1.3  0.6  11.5
+208  Laranja, baía, crua  3  Frutas e derivados  45  1  0.1  11.5
+209  Laranja, baía, suco  3  Frutas e derivados  37  0.7  0  8.7
+210  Laranja, da terra, crua  3  Frutas e derivados  51  1.1  0.2  12.9
+211  Laranja, da terra, suco  3  Frutas e derivados  41  0.7  0.1  9.6
+212  Laranja, lima, crua  3  Frutas e derivados  46  1.1  0.1  11.5
+213  Laranja, lima, suco  3  Frutas e derivados  39  0.7  0.1  9.2
+214  Laranja, pêra, crua  3  Frutas e derivados  37  1  0.1  8.9
+215  Laranja, pêra, suco  3  Frutas e derivados  33  0.7  0.1  7.6
+216  Laranja, valência, crua  3  Frutas e derivados  46  0.8  0.2  11.7
+217  Laranja, valência, suco  3  Frutas e derivados  36  0.5  0.1  8.6
+218  Limão, cravo, suco  3  Frutas e derivados  14  0.3  0  5.2
+219  Limão, galego, suco  3  Frutas e derivados  22  0.6  0.1  7.3
+220  Limão, tahiti, cru  3  Frutas e derivados  32  0.9  0.1  11.1
+221  Maçã, Argentina, com casca, crua  3  Frutas e derivados  63  0.2  0.2  16.6
+222  Maçã, Fuji, com casca, crua  3  Frutas e derivados  56  0.3  0  15.2
+223  Macaúba, crua  3  Frutas e derivados  404  2.1  40.7  13.9
+224   Mamão, doce em calda, drenado  3  Frutas e derivados  196  0.2  0.1  54
+225  Mamão, Formosa, cru  3  Frutas e derivados  45  0.8  0.1  11.6
+226  Mamão, Papaia, cru  3  Frutas e derivados  40  0.5  0.1  10.4
+227   Mamão verde, doce em calda, drenado  3  Frutas e derivados  209  0.3  0.1  57.6
+228  Manga, Haden, crua  3  Frutas e derivados  64  0.4  0.3  16.7
+229  Manga, Palmer, crua  3  Frutas e derivados  72  0.4  0.2  19.4
+230  Manga, polpa, congelada  3  Frutas e derivados  48  0.4  0.2  12.5
+231  Manga, Tommy Atkins, crua  3  Frutas e derivados  51  0.9  0.2  12.8
+232  Maracujá, cru  3  Frutas e derivados  68  2  2.1  12.3
+233  Maracujá, polpa, congelada  3  Frutas e derivados  39  0.8  0.2  9.6
+234  Maracujá, suco concentrado, envasado  3  Frutas e derivados  42  0.8  0.2  9.6
+235  Melancia, crua  3  Frutas e derivados  33  0.9  0  8.1
+236  Melão, cru  3  Frutas e derivados  29  0.7  0  7.5
+237  Mexerica, Murcote, crua  3  Frutas e derivados  58  0.9  0.1  14.9
+238  Mexerica, Rio, crua  3  Frutas e derivados  37  0.7  0.1  9.3
+239  Morango, cru  3  Frutas e derivados  30  0.9  0.3  6.8
+240  Nêspera, crua  3  Frutas e derivados  43  0.3  0  11.5
+241  Pequi, cru  3  Frutas e derivados  205  2.3  18  13
+242  Pêra, Park, crua  3  Frutas e derivados  61  0.2  0.2  16.1
+243  Pêra, Williams, crua  3  Frutas e derivados  53  0.6  0.1  14
+244  Pêssego, Aurora, cru  3  Frutas e derivados  36  0.8  0  9.3
+245  Pêssego, enlatado, em calda  3  Frutas e derivados  63  0.7  0  16.9
+246  Pinha, crua  3  Frutas e derivados  88  1.5  0.3  22.4
+247  Pitanga, crua  3  Frutas e derivados  41  0.9  0.2  10.2
+248  Pitanga, polpa, congelada  3  Frutas e derivados  19  0.3  0.1  4.8
+249  Romã, crua  3  Frutas e derivados  56  0.4  0  15.1
+250  Tamarindo, cru  3  Frutas e derivados  276  3.2  0.5  72.5
+251  Tangerina, Poncã, crua  3  Frutas e derivados  38  0.8  0.1  9.6
+252  Tangerina, Poncã, suco  3  Frutas e derivados  36  0.5  0  8.8
+253  Tucumã, cru  3  Frutas e derivados  262  2.1  19.1  26.5
+254  Umbu, cru  3  Frutas e derivados  37  0.8  0  9.4
+255  Umbu, polpa, congelada  3  Frutas e derivados  34  0.5  0.1  8.8
+256  Uva, Itália, crua  3  Frutas e derivados  53  0.7  0.2  13.6
+257  Uva, Rubi, crua  3  Frutas e derivados  49  0.6  0.2  12.7
+258  Uva, suco concentrado, envasado  3  Frutas e derivados  58  0  0  14.7
+259  Azeite, de dendê  4  Gorduras e óleos  884    100  
+260  Azeite, de oliva, extra virgem  4  Gorduras e óleos  884    100  
+261  Manteiga, com sal  4  Gorduras e óleos  726  0.4  82.4  0.1
+262  Manteiga, sem sal  4  Gorduras e óleos  758  0.4  86  0
+263  Margarina, com óleo hidrogenado, com sal (65% de lipídeos)  4  Gorduras e óleos  596  0  67.4  0
+264  Margarina, com óleo hidrogenado, sem sal (80% de lipídeos)  4  Gorduras e óleos  723  0  81.7  0
+265  Margarina, com óleo interesterificado, com sal (65%de lipídeos)  4  Gorduras e óleos  594  0  67.2  0
+266  Margarina, com óleo interesterificado, sem sal (65% de lipídeos)  4  Gorduras e óleos  593  0  67.1  0
+267  Óleo, de babaçu  4  Gorduras e óleos  884    100  
+268  Óleo, de canola  4  Gorduras e óleos  884    100  
+269  Óleo, de girassol  4  Gorduras e óleos  884    100  
+270  Óleo, de milho  4  Gorduras e óleos  884    100  
+271  Óleo, de pequi  4  Gorduras e óleos  884    100  
+272  Óleo, de soja  4  Gorduras e óleos  884    100  
+273  Abadejo, filé, congelado, assado  5  Pescados e frutos do mar  112  23.5  1.2  0
+274  Abadejo, filé, congelado,cozido  5  Pescados e frutos do mar  91  19.3  0.9  0
+275  Abadejo, filé, congelado, cru  5  Pescados e frutos do mar  59  13.1  0.4  0
+276  Abadejo, filé, congelado, grelhado  5  Pescados e frutos do mar  130  27.6  1.3  0
+277  Atum, conserva em óleo  5  Pescados e frutos do mar  166  26.2  6  0
+278  Atum, fresco, cru  5  Pescados e frutos do mar  118  25.7  0.9  0
+279  Bacalhau, salgado, cru  5  Pescados e frutos do mar  136  29  1.3  0
+280  Bacalhau, salgado, refogado  5  Pescados e frutos do mar  140  24  3.6  1.2
+281  Cação, posta, com farinha de trigo, frita  5  Pescados e frutos do mar  208  25  10  3.1
+282  Cação, posta, cozida  5  Pescados e frutos do mar  116  25.6  0.7  0
+283  Cação, posta, crua  5  Pescados e frutos do mar  83  17.9  0.8  0
+284  Camarão, Rio Grande, grande, cozido  5  Pescados e frutos do mar  90  19  1  0
+285  Camarão, Rio Grande, grande, cru  5  Pescados e frutos do mar  47  10  0.5  0
+286  Camarão, Sete Barbas, sem cabeça, com casca, frito  5  Pescados e frutos do mar  231  18.4  15.6  2.9
+287  Caranguejo, cozido  5  Pescados e frutos do mar  83  18.5  0.4  0
+288  Corimba, cru  5  Pescados e frutos do mar  128  17.4  6  0
+289  Corimbatá, assado  5  Pescados e frutos do mar  261  19.9  19.6  0
+290  Corimbatá, cozido  5  Pescados e frutos do mar  239  20.1  16.9  0
+291  Corvina de água doce, crua  5  Pescados e frutos do mar  101  18.9  2.2  0
+292  Corvina do mar, crua  5  Pescados e frutos do mar  94  18.6  1.6  0
+293  Corvina grande, assada  5  Pescados e frutos do mar  147  26.8  3.6  0
+294  Corvina grande, cozida  5  Pescados e frutos do mar  100  23.4  2.6  0
+295  Dourada de água doce, fresca  5  Pescados e frutos do mar  131  18.8  5.6  0
+296  Lambari, congelado, cru  5  Pescados e frutos do mar  131  16.8  6.5  0
+297  Lambari, congelado, frito  5  Pescados e frutos do mar  327  28.4  22.8  0
+298  Lambari, fresco, cru  5  Pescados e frutos do mar  152  15.7  9.4  0
+299  Manjuba, com farinha de trigo, frita  5  Pescados e frutos do mar  344  23.5  22.6  10.2
+300  Manjuba, frita  5  Pescados e frutos do mar  349  30.1  24.5  0
+301  Merluza, filé, assado  5  Pescados e frutos do mar  122  26.6  0.9  0
+302  Merluza, filé, cru  5  Pescados e frutos do mar  89  16.6  2  0
+303  Merluza, filé, frito  5  Pescados e frutos do mar  192  26.9  8.5  0
+304  Pescada, branca, crua  5  Pescados e frutos do mar  111  16.3  4.6  0
+305  Pescada, branca, frita  5  Pescados e frutos do mar  223  27.4  11.8  0
+306  Pescada, filé, com farinha de trigo, frito  5  Pescados e frutos do mar  283  21.4  19.1  5
+307  Pescada, filé, cru  5  Pescados e frutos do mar  107  16.7  4  0
+308  Pescada, filé, frito  5  Pescados e frutos do mar  154  28.6  3.6  0
+309  Pescada, filé, molho escabeche  5  Pescados e frutos do mar  142  11.8  8  5
+310  Pescadinha, crua  5  Pescados e frutos do mar  76  15.5  1.1  0
+311  Pintado, assado  5  Pescados e frutos do mar  192  36.5  4  0
+312  Pintado, cru  5  Pescados e frutos do mar  91  18.6  1.3  0
+313  Pintado, grelhado  5  Pescados e frutos do mar  152  30.8  2.3  0
+314  Porquinho, cru  5  Pescados e frutos do mar  93  20.5  0.6  0
+315  "Salmão, filé, com pele, fresco,  grelhado"  5  Pescados e frutos do mar  229  23.9  14  0
+316  Salmão, sem pele, fresco, cru  5  Pescados e frutos do mar  170  19.3  9.7  0
+317  Salmão, sem pele, fresco, grelhado  5  Pescados e frutos do mar  243  26.1  14.5  0
+318  Sardinha, assada  5  Pescados e frutos do mar  164  32.2  3  0
+319  Sardinha, conserva em óleo  5  Pescados e frutos do mar  285  15.9  24  0
+320  Sardinha, frita  5  Pescados e frutos do mar  257  33.4  12.7  0
+321  Sardinha, inteira, crua  5  Pescados e frutos do mar  114  21.1  2.7  0
+322  Tucunaré, filé, congelado, cru  5  Pescados e frutos do mar  88  18  1.2  0
+323  Apresuntado  6  Carnes e derivados  129  13.5  6.7  2.9
+324  Caldo de carne, tablete  6  Carnes e derivados  241  7.8  16.6  15.1
+325  Caldo de galinha, tablete  6  Carnes e derivados  251  6.3  20.4  10.6
+326  Carne, bovina, acém, moído, cozido  6  Carnes e derivados  212  26.7  10.9  0
+327  Carne, bovina, acém, moído, cru  6  Carnes e derivados  137  19.4  5.9  0
+328  Carne, bovina, acém, sem gordura, cozido  6  Carnes e derivados  215  27.3  10.9  0
+329  Carne, bovina, acém, sem gordura, cru  6  Carnes e derivados  144  20.8  6.1  0
+330  Carne, bovina, almôndegas, cruas  6  Carnes e derivados  189  12.3  11.2  9.8
+331  Carne, bovina, almôndegas, fritas  6  Carnes e derivados  272  18.2  15.8  14.3
+332  Carne, bovina, bucho, cozido  6  Carnes e derivados  133  21.6  4.5  0
+333  Carne, bovina, bucho, cru  6  Carnes e derivados  137  20.5  5.5  0
+334  Carne, bovina, capa de contra-filé, com gordura, crua  6  Carnes e derivados  217  19.2  15  0
+335  Carne, bovina, capa de contra-filé, com gordura, grelhada  6  Carnes e derivados  312  30.7  20  0
+336  Carne, bovina, capa de contra-filé, sem gordura, crua  6  Carnes e derivados  131  21.5  4.3  0
+337  Carne, bovina, capa de contra-filé, sem gordura, grelhada  6  Carnes e derivados  239  35.1  10  0
+338  Carne, bovina, charque, cozido  6  Carnes e derivados  263  36.4  11.9  0
+339  Carne, bovina, charque, cru  6  Carnes e derivados  249  22.7  16.8  0
+340  Carne, bovina, contra-filé, à milanesa  6  Carnes e derivados  352  20.6  24  12.2
+341  Carne, bovina, contra-filé de costela, cru  6  Carnes e derivados  202  19.8  13.1  0
+342  Carne, bovina, contra-filé de costela, grelhado  6  Carnes e derivados  275  29.9  16.3  0
+343  Carne, bovina, contra-filé, com gordura, cru  6  Carnes e derivados  206  21.2  12.8  0
+344  Carne, bovina, contra-filé, com gordura, grelhado  6  Carnes e derivados  278  32.4  15.5  0
+345  Carne, bovina, contra-filé, sem gordura, cru  6  Carnes e derivados  157  24  6  0
+346  Carne, bovina, contra-filé, sem gordura, grelhado  6  Carnes e derivados  194  35.9  4.5  0
+347  Carne, bovina, costela, assada  6  Carnes e derivados  373  28.8  27.7  0
+348  Carne, bovina, costela, crua  6  Carnes e derivados  358  16.7  31.8  0
+349  Carne, bovina, coxão duro, sem gordura, cozido  6  Carnes e derivados  217  31.9  8.9  0
+350  Carne, bovina, coxão duro, sem gordura, cru  6  Carnes e derivados  148  21.5  6.2  0
+351  Carne, bovina, coxão mole, sem gordura, cozido  6  Carnes e derivados  219  32.4  8.9  0
+352  Carne, bovina, coxão mole, sem gordura, cru  6  Carnes e derivados  169  21.2  8.7  0
+353  Carne, bovina, cupim, assado  6  Carnes e derivados  330  28.6  23  0
+354  Carne, bovina, cupim, cru  6  Carnes e derivados  221  19.5  15.3  0
+355  Carne, bovina, fígado, cru  6  Carnes e derivados  141  20.7  5.4  1.1
+356  Carne, bovina, fígado, grelhado  6  Carnes e derivados  225  29.9  9  4.2
+357  Carne, bovina, filé mingnon, sem gordura, cru  6  Carnes e derivados  143  21.6  5.6  0
+358  Carne, bovina, filé mingnon, sem gordura, grelhado  6  Carnes e derivados  220  32.8  8.8  0
+359  Carne, bovina, flanco, sem gordura, cozido  6  Carnes e derivados  196  29.4  7.8  0
+360  Carne, bovina, flanco, sem gordura, cru  6  Carnes e derivados  141  20  6.2  0
+361  Carne, bovina, fraldinha, com gordura, cozida  6  Carnes e derivados  338  24.2  26  0
+362  Carne, bovina, fraldinha, com gordura, crua  6  Carnes e derivados  221  17.6  16.1  0
+363  Carne, bovina, lagarto, cozido  6  Carnes e derivados  222  32.9  9.1  0
+364  Carne, bovina, lagarto, cru  6  Carnes e derivados  135  20.5  5.2  0
+365  Carne, bovina, língua, cozida  6  Carnes e derivados  315  21.4  24.8  0
+366  Carne, bovina, língua, crua  6  Carnes e derivados  215  17.1  15.8  0
+367  Carne, bovina, maminha, crua  6  Carnes e derivados  153  20.9  7  0
+368  Carne, bovina, maminha, grelhada  6  Carnes e derivados  153  30.7  2.4  0
+369  Carne, bovina, miolo de alcatra, sem gordura, cru  6  Carnes e derivados  163  21.6  7.8  0
+370  Carne, bovina, miolo de alcatra, sem gordura, grelhado  6  Carnes e derivados  241  31.9  11.6  0
+371  Carne, bovina, músculo, sem gordura, cozido  6  Carnes e derivados  194  31.2  6.7  0
+372  Carne, bovina, músculo, sem gordura, cru  6  Carnes e derivados  142  21.6  5.5  0
+373  Carne, bovina, paleta, com gordura, crua  6  Carnes e derivados  159  21.4  7.5  0
+374  Carne, bovina, paleta, sem gordura, cozida  6  Carnes e derivados  194  29.7  7.4  0
+375  Carne, bovina, paleta, sem gordura, crua  6  Carnes e derivados  141  21  5.7  0
+376  Carne, bovina, patinho, sem gordura, cru  6  Carnes e derivados  133  21.7  4.5  0
+377  Carne, bovina, patinho, sem gordura, grelhado  6  Carnes e derivados  219  35.9  7.3  0
+378  Carne, bovina, peito, sem gordura, cozido  6  Carnes e derivados  338  22.2  27  0
+379  Carne, bovina, peito, sem gordura, cru  6  Carnes e derivados  259  17.6  20.4  0
+380  Carne, bovina, picanha, com gordura, crua  6  Carnes e derivados  213  18.8  14.7  0
+381  Carne, bovina, picanha, com gordura, grelhada  6  Carnes e derivados  289  26.4  19.5  0
+382  Carne, bovina, picanha, sem gordura, crua  6  Carnes e derivados  134  21.3  4.7  0
+383  Carne, bovina, picanha, sem gordura, grelhada  6  Carnes e derivados  238  31.9  11.3  0
+384  Carne, bovina, seca, cozida  6  Carnes e derivados  313  26.9  21.9  0
+385  Carne, bovina, seca, crua  6  Carnes e derivados  313  19.7  25.4  0
+386  Coxinha de frango, frita  6  Carnes e derivados  283  9.6  11.8  34.5
+387  Croquete, de carne, cru  6  Carnes e derivados  246  12  15.6  13.9
+388  Croquete, de carne, frito  6  Carnes e derivados  347  16.9  22.7  18.1
+389  Empada de frango, pré-cozida, assada  6  Carnes e derivados  358  6.9  15.6  47.5
+390  Empada, de frango, pré-cozida  6  Carnes e derivados  377  7.3  22.9  35.5
+391  Frango, asa, com pele, crua  6  Carnes e derivados  213  18.1  15.1  0
+392  Frango, caipira, inteiro, com pele, cozido  6  Carnes e derivados  243  23.9  15.6  0
+393  Frango, caipira, inteiro, sem pele, cozido  6  Carnes e derivados  196  29.6  7.7  0
+394  Frango, coração, cru  6  Carnes e derivados  222  12.6  18.6  0
+395  Frango, coração, grelhado  6  Carnes e derivados  207  22.4  12.1  0.6
+396  Frango, coxa, com pele, assada  6  Carnes e derivados  215  28.5  10.4  0.1
+397  Frango, coxa, com pele, crua  6  Carnes e derivados  161  17.1  9.8  0
+398  Frango, coxa, sem pele, cozida  6  Carnes e derivados  167  26.9  5.8  0
+399  Frango, coxa, sem pele, crua  6  Carnes e derivados  120  17.8  4.9  0
+400  Frango, fígado, cru  6  Carnes e derivados  106  17.6  3.5  0
+401  Frango, filé, à milanesa  6  Carnes e derivados  221  28.5  7.8  7.5
+402  Frango, inteiro, com pele, cru  6  Carnes e derivados  226  16.4  17.3  0
+403  Frango, inteiro, sem pele, assado  6  Carnes e derivados  187  28  7.5  0
+404  Frango, inteiro, sem pele, cozido  6  Carnes e derivados  170  25  7.1  0
+405  Frango, inteiro, sem pele, cru  6  Carnes e derivados  129  20.6  4.6  0
+406  Frango, peito, com pele, assado  6  Carnes e derivados  212  33.4  7.6  0
+407  Frango, peito, com pele, cru  6  Carnes e derivados  149  20.8  6.7  0
+408  Frango, peito, sem pele, cozido  6  Carnes e derivados  163  31.5  3.2  0
+409  Frango, peito, sem pele, cru  6  Carnes e derivados  119  21.5  3  0
+410  Frango, peito, sem pele, grelhado  6  Carnes e derivados  159  32  2.5  0
+411  Frango, sobrecoxa, com pele, assada  6  Carnes e derivados  260  28.7  15.2  0
+412  Frango, sobrecoxa, com pele, crua  6  Carnes e derivados  255  15.5  20.9  0
+413  Frango, sobrecoxa, sem pele, assada  6  Carnes e derivados  233  29.2  12  0
+414  Frango, sobrecoxa, sem pele, crua  6  Carnes e derivados  162  17.6  9.6  0
+415  Hambúrguer, bovino, cru  6  Carnes e derivados  215  13.2  16.2  4.2
+416  Hambúrguer, bovino, frito  6  Carnes e derivados  258  20  17  6.3
+417  Hambúrguer, bovino, grelhado  6  Carnes e derivados  210  13.2  12.4  11.3
+418  Lingüiça, frango, crua  6  Carnes e derivados  218  14.2  17.4  0
+419  Lingüiça, frango, frita  6  Carnes e derivados  245  18.3  18.5  0
+420  Lingüiça, frango, grelhada  6  Carnes e derivados  244  18.2  18.4  0
+421  Lingüiça, porco, crua  6  Carnes e derivados  227  16.1  17.6  0
+422  Lingüiça, porco, frita  6  Carnes e derivados  280  20.5  21.3  0
+423  Lingüiça, porco, grelhada  6  Carnes e derivados  296  23.2  21.9  0
+424  Mortadela  6  Carnes e derivados  269  12  21.6  5.8
+425  Peru, congelado, assado  6  Carnes e derivados  163  26.2  5.7  0
+426  Peru, congelado, cru  6  Carnes e derivados  94  18.1  1.8  0
+427  Porco, bisteca, crua  6  Carnes e derivados  164  21.5  8  0
+428  Porco, bisteca, frita  6  Carnes e derivados  311  33.7  18.5  0
+429  Porco, bisteca, grelhada  6  Carnes e derivados  280  28.9  17.4  0
+430  Porco, costela, assada  6  Carnes e derivados  402  30.2  30.3  0
+431  Porco, costela, crua  6  Carnes e derivados  256  18  19.8  0
+432  Porco, lombo, assado  6  Carnes e derivados  210  35.7  6.4  0
+433  Porco, lombo, cru  6  Carnes e derivados  176  22.6  8.8  0
+434  Porco, orelha, salgada, crua  6  Carnes e derivados  258  18.5  19.9  0
+435  Porco, pernil, assado  6  Carnes e derivados  262  32.1  13.9  0
+436  Porco, pernil, cru  6  Carnes e derivados  186  20.1  11.1  0
+437  Porco, rabo, salgado, cru  6  Carnes e derivados  377  15.6  34.5  0
+438  Presunto, com capa de gordura  6  Carnes e derivados  128  14.4  6.8  1.4
+439  Presunto, sem capa de gordura  6  Carnes e derivados  94  14.3  2.7  2.1
+440  Quibe, assado  6  Carnes e derivados  136  14.6  2.7  12.9
+441  Quibe, cru  6  Carnes e derivados  109  12.4  1.7  10.8
+442  Quibe, frito  6  Carnes e derivados  254  14.9  15.8  12.3
+443  Salame  6  Carnes e derivados  398  25.8  30.6  2.9
+444  Toucinho, cru  6  Carnes e derivados  593  11.5  60.3  0
+445  Toucinho, frito  6  Carnes e derivados  697  27.3  64.3  0
+446  Bebida láctea, pêssego  7  Leite e derivados  55  2.1  1.9  7.6
+447  Creme de Leite  7  Leite e derivados  221  1.5  22.5  4.5
+448  Iogurte, natural  7  Leite e derivados  51  4.1  3  1.9
+449  Iogurte, natural, desnatado  7  Leite e derivados  41  3.8  0.3  5.8
+450  Iogurte, sabor abacaxi  7  Leite e derivados        
+451  Iogurte, sabor morango  7  Leite e derivados  70  2.7  2.3  9.7
+452  Iogurte, sabor pêssego  7  Leite e derivados  68  2.5  2.3  9.4
+453  Leite, condensado  7  Leite e derivados  313  7.7  6.7  57
+454  Leite, de cabra  7  Leite e derivados  66  3.1  3.8  5.2
+455  Leite, de vaca, achocolatado  7  Leite e derivados  83  2.1  2.2  14.2
+456  Leite, de vaca, desnatado, pó  7  Leite e derivados  362  34.7  0.9  53
+457  Leite, de vaca, desnatado, UHT  7  Leite e derivados        
+458  Leite, de vaca, integral  7  Leite e derivados        
+459  Leite, de vaca, integral, pó  7  Leite e derivados  497  25.4  26.9  39.2
+460  Leite, fermentado  7  Leite e derivados  70  1.9  0.1  15.7
+461  Queijo, minas, frescal  7  Leite e derivados  264  17.4  20.2  3.2
+462  Queijo, minas, meia cura  7  Leite e derivados  321  21.2  24.6  3.6
+463  Queijo, mozarela  7  Leite e derivados  330  22.6  25.2  3
+464  Queijo, parmesão  7  Leite e derivados  453  35.6  33.5  1.7
+465  Queijo, pasteurizado  7  Leite e derivados  303  9.4  27.4  5.7
+466  Queijo, petit suisse, morango  7  Leite e derivados  121  5.8  2.8  18.5
+467  Queijo, prato  7  Leite e derivados  360  22.7  29.1  1.9
+468  Queijo, requeijão, cremoso  7  Leite e derivados  257  9.6  23.4  2.4
+469  Queijo, ricota  7  Leite e derivados  140  12.6  8.1  3.8
+470  Bebida isotônica, sabores variados  8  Bebidas (alcoólicas e não alcoólicas)  26  0  0  6.4
+471  Café, infusão 10%  8  Bebidas (alcoólicas e não alcoólicas)  9  0.7  0.1  1.5
+472  Cana, aguardente 1  8  Bebidas (alcoólicas e não alcoólicas)  216      
+473  Cana, caldo de  8  Bebidas (alcoólicas e não alcoólicas)  65  0  0  18.2
+474  Cerveja, pilsen 2  8  Bebidas (alcoólicas e não alcoólicas)  41  0.6  0  3.3
+475  Chá, erva-doce, infusão 5%  8  Bebidas (alcoólicas e não alcoólicas)  1  0  0  0.4
+476  Chá, mate, infusão 5%  8  Bebidas (alcoólicas e não alcoólicas)  3  0  0.1  0.6
+477  Chá, preto, infusão 5%  8  Bebidas (alcoólicas e não alcoólicas)  2  0  0  0.6
+478  Coco, água de  8  Bebidas (alcoólicas e não alcoólicas)  22  0  0  5.3
+479  Refrigerante, tipo água tônica  8  Bebidas (alcoólicas e não alcoólicas)  31  0  0  8
+480  Refrigerante, tipo cola  8  Bebidas (alcoólicas e não alcoólicas)  34  0  0  8.7
+481  Refrigerante, tipo guaraná  8  Bebidas (alcoólicas e não alcoólicas)  39  0  0  10
+482  Refrigerante, tipo laranja  8  Bebidas (alcoólicas e não alcoólicas)  46  0  0  11.8
+483  Refrigerante, tipo limão  8  Bebidas (alcoólicas e não alcoólicas)  40  0  0  10.3
+484  Omelete, de queijo  9  Ovos e derivados  268  15.6  22  0.4
+485  Ovo, de codorna, inteiro, cru  9  Ovos e derivados  177  13.7  12.7  0.8
+486  Ovo, de galinha, clara, cozida/10minutos  9  Ovos e derivados  59  13.4  0.1  0
+487  Ovo, de galinha, gema, cozida/10minutos  9  Ovos e derivados  353  15.9  30.8  1.6
+488  Ovo, de galinha, inteiro, cozido/10minutos  9  Ovos e derivados  146  13.3  9.5  0.6
+489  Ovo, de galinha, inteiro, cru  9  Ovos e derivados  143  13  8.9  1.6
+490  Ovo, de galinha, inteiro, frito  9  Ovos e derivados  240  15.6  18.6  1.2
+491  Achocolatado, pó  10  Produtos açucarados  401  4.2  2.2  91.2
+492  Açúcar, cristal  10  Produtos açucarados  387  0.3  0  99.6
+493  Açúcar, mascavo  10  Produtos açucarados  369  0.8  0.1  94.5
+494  Açúcar, refinado  10  Produtos açucarados  387  0.3  0  99.5
+495  Chocolate, ao leite  10  Produtos açucarados  540  7.2  30.3  59.6
+496  Chocolate, ao leite, com castanha do Pará  10  Produtos açucarados  559  7.4  34.2  55.4
+497  Chocolate, ao leite, dietético  10  Produtos açucarados  557  6.9  33.8  56.3
+498  Chocolate, meio amargo  10  Produtos açucarados  475  4.9  29.9  62.4
+499  Cocada branca  10  Produtos açucarados  449  1.1  13.6  81.4
+500  Doce, de abóbora, cremoso  10  Produtos açucarados  199  0.9  0.2  54.6
+501  Doce, de leite, cremoso  10  Produtos açucarados  306  5.5  6  59.5
+502  Geléia, mocotó, natural  10  Produtos açucarados  106  2.1  0.1  24.2
+503  Glicose de milho  10  Produtos açucarados  292  0  0  79.4
+504  Maria mole  10  Produtos açucarados  301  3.8  0.2  73.6
+505  Maria mole, coco queimado  10  Produtos açucarados  307  3.9  0.1  75.1
+506  Marmelada  10  Produtos açucarados  257  0.4  0.1  70.8
+507  Mel, de abelha  10  Produtos açucarados  309  0  0  84
+508  Melado  10  Produtos açucarados  297  0  0  76.6
+509  Quindim  10  Produtos açucarados  411  4.7  24.4  46.3
+510  Rapadura  10  Produtos açucarados  352  1  0.1  90.8
+511  Café, pó, torrado  11  Miscelâneas  419  14.7  11.9  65.8
+512  Capuccino, pó  11  Miscelâneas  417  11.3  8.6  73.6
+513  Fermento em pó, químico  11  Miscelâneas  90  0.5  0.1  43.9
+514  Fermento, biológico, levedura, tablete  11  Miscelâneas  90  17  1.5  7.7
+515  Gelatina, sabores variados, pó  11  Miscelâneas  380  8.9  0  89.2
+516  Sal, dietético  11  Miscelâneas        
+517  Sal, grosso  11  Miscelâneas        
+518  Shoyu  11  Miscelâneas  61  3.3  0.3  11.6
+519  Tempero a base de sal  11  Miscelâneas  21  2.7  0.3  2.1
+520  Azeitona, preta, conserva  12  Outros alimentos industrializados  194  1.2  20.3  5.5
+521  Azeitona, verde, conserva  12  Outros alimentos industrializados  137  0.9  14.2  4.1
+522  Chantilly, spray, com gordura vegetal  12  Outros alimentos industrializados  315  0.5  27.3  16.9
+523  Leite, de coco  12  Outros alimentos industrializados  166  1  18.4  2.2
+524  Maionese, tradicional com ovos  12  Outros alimentos industrializados  302  0.6  30.5  7.9
+525  Acarajé  13  Alimentos preparados  289  8.3  19.9  19.1
+526  Arroz carreteiro  13  Alimentos preparados  154  10.8  7.1  11.6
+527  Baião de dois, arroz e feijão-de-corda  13  Alimentos preparados  136  6.2  3.2  20.4
+528  Barreado  13  Alimentos preparados  165  18.3  9.5  0.2
+529  Bife à cavalo, com contra filé  13  Alimentos preparados  291  23.7  21.1  0
+530  Bolinho de arroz  13  Alimentos preparados  274  8  8.3  41.7
+531  Camarão à baiana  13  Alimentos preparados  101  7.9  6  3.2
+532  Charuto, de repolho  13  Alimentos preparados  78  6.8  1.1  10.1
+533  Cuscuz, de milho, cozido com sal  13  Alimentos preparados  113  2.2  0.7  25.3
+534  Cuscuz, paulista  13  Alimentos preparados  142  2.6  4.6  22.5
+535  Cuxá, molho  13  Alimentos preparados  80  5.6  3.6  5.7
+536  Dobradinha  13  Alimentos preparados  125  19.8  4.4  0
+537  Estrogonofe de carne  13  Alimentos preparados  173  15  10.8  3
+538  Estrogonofe de frango  13  Alimentos preparados  157  17.6  8  2.6
+539  Feijão tropeiro mineiro  13  Alimentos preparados  152  10.2  6.8  19.6
+540  Feijoada  13  Alimentos preparados  117  8.7  6.5  11.6
+541  Frango, com açafrão  13  Alimentos preparados  113  9.7  6.2  4.1
+542  Macarrão, molho bolognesa  13  Alimentos preparados  120  4.9  0.9  22.5
+543  Maniçoba  13  Alimentos preparados  134  10  8.7  3.4
+544  Quibebe  13  Alimentos preparados  86  8.6  2.7  6.6
+545  Salada, de legumes, com maionese  13  Alimentos preparados  96  1.1  7  8.9
+546  Salada, de legumes, cozida no vapor  13  Alimentos preparados  35  2  0.3  7.1
+547  Salpicão, de frango  13  Alimentos preparados  148  13.9  7.8  4.6
+548  Sarapatel  13  Alimentos preparados  123  18.5  4.4  1.1
+549  Tabule  13  Alimentos preparados  57  2  1.2  10.6
+550  Tacacá  13  Alimentos preparados  47  7  0.4  3.4
+551  Tapioca, com manteiga  13  Alimentos preparados  348  0.1  10.9  63.6
+552  Tucupi, com pimenta-de-cheiro  13  Alimentos preparados  27  2.1  0.3  4.7
+553  Vaca atolada  13  Alimentos preparados  145  5.1  9.3  10.1
+554  Vatapá  13  Alimentos preparados  255  6  23.2  9.7
+555  Virado à paulista  13  Alimentos preparados  307  10.2  25.6  14.1
+556  Yakisoba  13  Alimentos preparados  113  7.5  2.6  18.3
+557  Amendoim, grão, cru  14  Leguminosas e derivados  544  27.2  43.9  20.3
+558  Amendoim, torrado, salgado  14  Leguminosas e derivados  606  22.5  54  18.7
+559  Ervilha, em vagem  14  Leguminosas e derivados  88  7.5  0.5  14.2
+560  Ervilha, enlatada, drenada  14  Leguminosas e derivados  74  4.6  0.4  13.4
+561  Feijão, carioca, cozido  14  Leguminosas e derivados  76  4.8  0.5  13.6
+562  Feijão, carioca, cru  14  Leguminosas e derivados  329  20  1.3  61.2
+563  Feijão, fradinho, cozido  14  Leguminosas e derivados  78  5.1  0.6  13.5
+564  Feijão, fradinho, cru  14  Leguminosas e derivados  339  20.2  2.4  61.2
+565  Feijão, jalo, cozido  14  Leguminosas e derivados  93  6.1  0.5  16.5
+566  Feijão, jalo, cru  14  Leguminosas e derivados  328  20.1  0.9  61.5
+567  Feijão, preto, cozido  14  Leguminosas e derivados  77  4.5  0.5  14
+568  Feijão, preto, cru  14  Leguminosas e derivados  324  21.3  1.2  58.8
+569  Feijão, rajado, cozido  14  Leguminosas e derivados  85  5.5  0.4  15.3
+570  Feijão, rajado, cru  14  Leguminosas e derivados  326  17.3  1.2  62.9
+571  Feijão, rosinha, cozido  14  Leguminosas e derivados  68  4.5  0.5  11.8
+572  Feijão, rosinha, cru  14  Leguminosas e derivados  337  20.9  1.3  62.2
+573  Feijão, roxo, cozido  14  Leguminosas e derivados  77  5.7  0.5  12.9
+574  Feijão, roxo, cru  14  Leguminosas e derivados  331  22.2  1.2  60
+575  Grão-de-bico, cru  14  Leguminosas e derivados  355  21.2  5.4  57.9
+576  Guandu, cru  14  Leguminosas e derivados  344  19  2.1  64
+577  Lentilha, cozida  14  Leguminosas e derivados  93  6.3  0.5  16.3
+578  Lentilha, crua  14  Leguminosas e derivados  339  23.2  0.8  62
+579  Paçoca, amendoim  14  Leguminosas e derivados  487  16  26.1  52.4
+580  Pé-de-moleque, amendoim  14  Leguminosas e derivados  503  13.2  28  54.7
+581  Soja, farinha  14  Leguminosas e derivados  404  36  14.6  38.4
+582  Soja, extrato solúvel, natural, fluido  14  Leguminosas e derivados  39  2.4  1.6  4.3
+583  Soja, extrato solúvel, pó  14  Leguminosas e derivados  459  35.7  26.2  28.5
+584  Soja, queijo (tofu)  14  Leguminosas e derivados  64  6.6  4  2.1
+585  Tremoço, cru  14  Leguminosas e derivados  381  33.6  10.3  43.8
+586  Tremoço, em conserva  14  Leguminosas e derivados  121  11.1  3.8  12.4
+587  Amêndoa, torrada, salgada  15  Nozes e sementes  581  18.6  47.3  29.5
+588  Castanha-de-caju, torrada, salgada  15  Nozes e sementes  570  18.5  46.3  29.1
+589  Castanha-do-Brasil, crua  15  Nozes e sementes  643  14.5  63.5  15.1
+590  Coco, cru  15  Nozes e sementes  406  3.7  42  10.4
+591  "Coco,  verde, cru"  15  Nozes e sementes        
+592  Farinha, de mesocarpo de babaçu, crua  15  Nozes e sementes  329  1.4  0.2  79.2
+593  Gergelim, semente  15  Nozes e sementes  584  21.2  50.4  21.6
+594  Linhaça, semente  15  Nozes e sementes  495  14.1  32.3  43.3
+595  Pinhão, cozido  15  Nozes e sementes  174  3  0.7  43.9
+596  Pupunha, cozida  15  Nozes e sementes  219  2.5  12.8  29.6
+597  Noz, crua  15  Nozes e sementes  620  14  59.4  18.4
