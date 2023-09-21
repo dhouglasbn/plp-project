@@ -3,6 +3,8 @@ module Models.ExerciciosAnaerobicos where
 
 import System.IO (IOMode(WriteMode), openFile, hPutStr, withFile, hGetContents, hClose, IOMode(ReadMode))
 import Data.List (find)
+import Data.Binary
+import Control.Monad
 
 -- Estrutura de dados para exercícios anaeróbicos
 data ExercicioAnaerobico = ExercicioAnaerobico
@@ -13,6 +15,15 @@ data ExercicioAnaerobico = ExercicioAnaerobico
     pesoAnaerobico :: Float    
   }
   deriving (Show)
+
+instance Binary ExercicioAnaerobico where
+  put (ExercicioAnaerobico nome areaMuscular seriesAnaerobico repeticoesAnaerobico pesoAnaerobico) = do
+    put nome
+    put areaMuscular
+    put seriesAnaerobico
+    put repeticoesAnaerobico
+    put pesoAnaerobico
+  get = liftM5 ExercicioAnaerobico get get get get get
 
 calcularPerdaCaloricaAnaerobico :: Float -> Float -> Float
 calcularPerdaCaloricaAnaerobico pesoUsuario duracaoExercicio =

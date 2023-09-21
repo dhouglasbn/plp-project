@@ -7,12 +7,18 @@ import Models.ExerciciosAnaerobicos
 
 import Data.Time.Clock (UTCTime)
 
+import Data.Binary
+import Control.Monad
 
 import Data.Time (UTCTime, getCurrentTime, utctDay)
 import Data.List
 import System.IO
-
+import qualified Data.ByteString.Lazy as B
 import Data.List.Split
+import System.Directory
+import GHC.IO
+import Control.Applicative
+import Data.Maybe
 
 data Usuario = Usuario {
     senha :: String,
@@ -75,11 +81,98 @@ parseUsuario linha =
       lanche = lanche,
       janta = janta
     }
-    
+
+usuarioParaLinhaTexto :: Usuario -> String
+usuarioParaLinhaTexto usuario =
+  let senhaUsuario = senha usuario
+      nomeUsuario = nome_pessoa usuario
+      generoUsuario = genero usuario
+      idadeUsuario = show (idade usuario)
+      pesoUsuario = show (peso usuario)
+      alturaUsuario = show (altura usuario)
+      metaPesoUsuario = show (meta_peso usuario)
+      metaKcalUsuario = show (metaKcal usuario)
+      kcalAtualUsuario = show (kcalAtual usuario)
+      exerciciosAerobicosStr = exerciciosAerobicosRealizadosParaString (exerciciosAerobicos usuario)
+      exerciciosAnaerobicosStr = exerciciosAnaerobicosRealizadosParaString (exerciciosAnaerobicos usuario)
+      cafeStr = alimentosParaString (cafe usuario)
+      almocoStr = alimentosParaString (almoco usuario)
+      lancheStr = alimentosParaString (lanche usuario)
+      jantaStr = alimentosParaString (janta usuario)
+  in senhaUsuario ++ " | " ++ nomeUsuario ++ " | " ++ generoUsuario ++ " | " ++ idadeUsuario ++ " | " ++ pesoUsuario ++ " | " ++ alturaUsuario ++ " | " ++ metaPesoUsuario ++ " | " ++ metaKcalUsuario ++ " | " ++ kcalAtualUsuario ++ " | " ++ exerciciosAerobicosStr ++ " | " ++ exerciciosAnaerobicosStr ++ " | " ++ cafeStr ++ " | " ++ almocoStr ++ " | " ++ lancheStr ++ " | " ++ jantaStr
+
+-- Função para criar um Alimento a partir de uma String
+createAlimento :: String -> Alimento
+createAlimento str =
+  let [nome, kcalStr, proteinasStr, gordurasStr, carboidratosStr] = splitOn " | " str
+      kcalFloat = read kcalStr :: Float
+      proteinasFloat = read proteinasStr :: Float
+      gordurasFloat = read gordurasStr :: Float
+      carboidratosFloat = read carboidratosStr :: Float
+  in Alimento { nome_alimento = nome, kcal = kcalFloat, proteinas = proteinasFloat, gorduras = gordurasFloat, carboidratos = carboidratosFloat }
+
+-- Função para criar uma lista de Alimentos a partir de uma String
+parseAlimentos :: String -> [Alimento]
+parseAlimentos str = map createAlimento (splitOn ", " str)
+
+-- Função para converter uma lista de alimentos em uma string
+alimentosParaString :: [Alimento] -> String
+alimentosParaString alimentos =
+  intercalate " - " (map alimentoToString alimentos)
+
+-- Função para converter um alimento em uma string
+alimentoToString :: Alimento -> String
+alimentoToString alimento =
+  let nome = nome_alimento alimento
+      kcalStr = show (kcal alimento)
+      proteinasStr = show (proteinas alimento)
+      gordurasStr = show (gorduras alimento)
+      carboidratosStr = show (carboidratos alimento)
+  in nome ++ " - " ++ kcalStr ++ " - " ++ proteinasStr ++ " - " ++ gordurasStr ++ " - " ++ carboidratosStr
+
+-- Função para converter uma lista de exercícios aeróbicos realizados em uma string
+exerciciosAerobicosRealizadosParaString :: [ExercicioRegistrado] -> String
+exerciciosAerobicosRealizadosParaString exercicios =
+  intercalate " - " (map exercicioAerobicoToString exercicios)
+
+-- Função para converter uma lista de exercícios anaeróbicos realizados em uma string
+exerciciosAnaerobicosRealizadosParaString :: [ExercicioRegistrado] -> String
+exerciciosAnaerobicosRealizadosParaString exercicios =
+  intercalate " - " (map exercicioAnaerobicoToString exercicios)
+
+-- Função para converter um exercício aeróbico realizado em uma string
+exercicioAerobicoToString :: ExercicioRegistrado -> String
+exercicioAerobicoToString exercicio =
+  case exercicioRealizado exercicio of
+    Left exercicioAnaerobico -> ""
+    Right exercicioAerobico ->
+      let nome = nomeExercicioAerobico exercicioAerobico
+          tempo = show (tempoGastoExercicio exercicio)
+          dataHora = show (dataHoraExercicio exercicio)
+          kcal = show (kcalGasto exercicio)
+      in nome ++ " - " ++ tempo ++ " - " ++ dataHora ++ " - " ++ kcal
+
+-- Função para converter um exercício anaeróbico realizado em uma string
+exercicioAnaerobicoToString :: ExercicioRegistrado -> String
+exercicioAnaerobicoToString exercicio =
+  case exercicioRealizado exercicio of
+    Left exercicioAnaerobico ->
+      let nome = nomeExercicioAnaerobico exercicioAnaerobico
+          area = areaMuscular exercicioAnaerobico
+          series = show (seriesAnaerobico exercicioAnaerobico)
+          repeticoes = show (repeticoesAnaerobico exercicioAnaerobico)
+          peso = show (pesoAnaerobico exercicioAnaerobico)
+          tempo = show (tempoGastoExercicio exercicio)
+          dataHora = show (dataHoraExercicio exercicio)
+          kcal = show (kcalGasto exercicio)
+      in nome ++ " - " ++ area ++ " - " ++ series ++ " - " ++ repeticoes ++ " - " ++ peso ++ " - " ++ tempo ++ " - " ++ dataHora ++ " - " ++ kcal
+    Right exercicioAerobico -> ""
+
+
 -- Função para criar um ExercicioAnaerobico a partir de uma String
 createExercicioAnaerobico :: String -> ExercicioAnaerobico
 createExercicioAnaerobico str =
-  let [nome, area, seriesStr, repeticoesStr, pesoStr] = words str
+  let [nome, area, seriesStr, repeticoesStr, pesoStr] = splitOn " - " str
       seriesInt = read seriesStr :: Int
       repeticoesInt = read repeticoesStr :: Int
       pesoFloat = read pesoStr :: Float
@@ -88,110 +181,76 @@ createExercicioAnaerobico str =
 -- Função para criar um ExercicioAerobico a partir de uma String
 createExercicioAerobico :: String -> ExercicioAerobico
 createExercicioAerobico str =
-  let [nome, metStr] = words str
+  let [nome, metStr] = splitOn " - " str
       metFloat = read metStr :: Float
   in ExercicioAerobico { nomeExercicioAerobico = nome, met = metFloat }
 
 buscarUsuarioPorSenha :: FilePath -> String -> IO (Maybe Usuario)
 buscarUsuarioPorSenha arquivo senhaVerificacao = do
-  conteudo <- readFile arquivo
-  let linhas = lines conteudo
-  let usuarioEncontrado = find (\linha -> (head (splitOn " | " linha)) == senhaVerificacao) linhas
-  case usuarioEncontrado of
-    Just linha -> return (Just (parseUsuario linha))
-    Nothing -> return Nothing
+  resultado <- withFile arquivo ReadMode $ \handle -> do
+    conteudo <- hGetContents handle
+    let linhas = lines conteudo
+    let usuarioEncontrado = find (\linha -> (head (splitOn " | " linha)) == senhaVerificacao) linhas
+    case usuarioEncontrado of
+      Just linha -> return (Just (parseUsuario linha))
+      Nothing -> return Nothing
+  return resultado
 
--- Função para converter um usuário em uma string no formato desejado
-showUsuario :: Usuario -> String
-showUsuario usuario =
-  senha usuario ++ " | " ++
-  nome_pessoa usuario ++ " | " ++
-  genero usuario ++ " | " ++
-  show (idade usuario) ++ " | " ++
-  show (peso usuario) ++ " | " ++
-  show (altura usuario) ++ " | " ++
-  show (meta_peso usuario) ++ " | " ++
-  show (metaKcal usuario) ++ " | " ++
-  show (kcalAtual usuario) ++ " | " ++
-  showExercicios (exerciciosAerobicos usuario) ++ " | " ++
-  showExercicios (exerciciosAnaerobicos usuario) ++ " | " ++
-  showAlimentos (cafe usuario) ++ " | " ++
-  showAlimentos (almoco usuario) ++ " | " ++
-  showAlimentos (lanche usuario) ++ " | " ++
-  showAlimentos (janta usuario)
 
--- Função para converter uma lista de exercícios em uma string no formato desejado
-showExercicios :: [ExercicioRegistrado] -> String
-showExercicios exercicios =
-  unwords (map showExercicio exercicios)
 
--- Função para converter uma lista de alimentos em uma string no formato desejado
-showAlimentos :: [Alimento] -> String
-showAlimentos alimentos =
-  unwords (map nome_alimento alimentos)
 
-showAlimento :: Alimento -> String
-showAlimento alimento =
-  nome_alimento alimento ++ " | " ++ show (kcal alimento) ++
-  " | " ++ show (proteinas alimento) ++
-  " | " ++ show (gorduras alimento) ++
-  " | " ++ show (carboidratos alimento)
 
-showExercicio :: ExercicioRegistrado -> String
-showExercicio exercicio =
-  case exercicio of
-    ExercicioRegistrado (Left (ExercicioAnaerobico nome areaMuscular series repeticoes peso)) tempo dataHora kcal ->
-      showAnaerobico nome areaMuscular series repeticoes peso tempo dataHora kcal
-    ExercicioRegistrado (Right (ExercicioAerobico nome met)) tempo dataHora kcal ->
-      showAerobico nome met tempo dataHora kcal
-  where
-    showAerobico nome met tempo dataHora kcal = nome ++ " | " ++ show met ++ " | " ++ show tempo ++ " | " ++ show dataHora ++ " | " ++ show kcal
-    showAnaerobico nome areaMuscular series repeticoes peso tempo dataHora kcal = nome ++ " | " ++ areaMuscular ++ " | " ++ show series ++ " | " ++ show repeticoes ++ " | " ++ show peso ++ " | " ++ show tempo ++ " | " ++ show dataHora ++ " | " ++ show kcal
 
--- Função para salvar o usuário no arquivo
-salvarUsuario :: Usuario -> IO ()
-salvarUsuario usuario = do
-  putStrLn "Digite sua senha para confirmar a alteração:"
-  senhaConfirmacao <- getLine
-  if senhaConfirmacao == senha usuario
-    then do
-      atualizarEAdicionarUsuario "Usuarios.txt" (senha usuario) usuario
-    else do
-      putStrLn "Senha incorreta. As alterações não serão salvas."
 
-lerUsuarios :: FilePath -> IO [Usuario]
-lerUsuarios arquivo = do
-  conteudo <- readFile arquivo
-  let linhas = lines conteudo
-  let usuarios = map (parseUsuario . unwords . words) linhas
-  return usuarios
 
-atualizarEAdicionarUsuario :: FilePath -> String -> Usuario -> IO ()
-atualizarEAdicionarUsuario arquivo senhaAtualizado novoUsuario = do
-  conteudo <- readFile arquivo
-  let linhas = lines conteudo
-      usuarios = map parseUsuario linhas
-  let usuariosAtualizados = atualizarEAdicionarUsuarioNaLista senhaAtualizado novoUsuario usuarios
-  let linhasAtualizadas = map showUsuario usuariosAtualizados
-  writeFile arquivo (unlines linhasAtualizadas)
 
-atualizarEAdicionarUsuarioNaLista :: String -> Usuario -> [Usuario] -> [Usuario]
-atualizarEAdicionarUsuarioNaLista _ _ [] = []
-atualizarEAdicionarUsuarioNaLista senhaAtualizado novoUsuario (u:us)
-  | senha u == senhaAtualizado = novoUsuario : us
-  | otherwise = u : atualizarEAdicionarUsuarioNaLista senhaAtualizado novoUsuario us
 
--- Função para substituir um usuário no arquivo
-substituirUsuario :: FilePath -> Usuario -> IO ()
-substituirUsuario arquivo novoUsuario = do
-  -- Lê todos os usuários do arquivo
-  usuarios <- lerUsuarios arquivo
-  -- Remove o usuário antigo (se existir)
-  let usuariosAtualizados = filter (\u -> senha u /= senha novoUsuario) usuarios
-  -- Adiciona o novo usuário à lista
-  let usuariosNovos = novoUsuario : usuariosAtualizados
-  -- Escreve a lista de usuários atualizada no arquivo
-  writeFile arquivo (unlines (map show usuariosNovos))
+writeUsuarioToFile :: FilePath -> [Usuario] -> IO ()
+writeUsuarioToFile arquivo usuarios = do
+  withFile arquivo WriteMode $ \handle -> do
+    mapM_ (hPutStrLn handle . usuarioParaLinhaTexto) usuarios
+
+editUsuario :: FilePath -> Usuario -> String -> IO ()
+editUsuario arquivo usuario senha = do
+  usuarioList <- lerUsuario arquivo
+  let newUsuarioList = removeUsuarioBySenha senha usuarioList ++ [usuario]
+  let tempFile = "temp.txt" 
+  let modifyContents contents = unlines (map usuarioParaLinhaTexto newUsuarioList)
+  readModifyWrite tempFile modifyContents
+  removeFile arquivo
+  renameFile tempFile arquivo
+
+
+readModifyWrite :: FilePath -> (String -> String) -> IO ()
+readModifyWrite fileName modify = do
+  contents <- readFile fileName
+  evaluate (length contents)
+  handle <- openFile fileName WriteMode
+  hPutStr handle (modify contents)
+  hClose handle
+
+-- Modified lerUsuario function
+lerUsuario :: FilePath -> IO [Usuario]
+lerUsuario arquivo = do
+  let modifyContents contents = unlines (map usuarioParaLinhaTexto (map parseUsuario (lines contents)))
+  readModifyWrite arquivo modifyContents
+  contents <- readFile arquivo
+  return (map parseUsuario (lines contents))
+
+removeUsuarioBySenha :: String -> [Usuario] -> [Usuario]
+removeUsuarioBySenha _ [] = []
+removeUsuarioBySenha senha2 (x:xs)
+ | (senha x) == senha2 = xs
+ | otherwise = [x] ++ (removeUsuarioBySenha senha2 xs)
+
+
+
+
+
+
+
+
+
 
 -- Função para atualizar o peso do usuário
 atualizarPeso :: Usuario -> IO Usuario

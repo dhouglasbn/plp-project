@@ -70,7 +70,7 @@ criarConta arquivo = do
         meta = read metaStr :: Float
         usuario = Usuario senha nome genero idade peso altura meta 0.0 0.0 [] [] [] [] [] [] 
     in do
-      appendFile arquivo (showUsuario usuario ++ "\n")
+      appendFile arquivo (usuarioParaLinhaTexto usuario ++ "\n")
       putStrLn "Conta criada com sucesso!\n"
       main
 
@@ -127,9 +127,11 @@ menu usuario = do
     
     "6" -> do
       putStrLn "Salvando usuário..."
-      salvarUsuario usuario
+      putStrLn "Digite a senha: "
+      senhaStr <- getLine
+      editUsuario "Usuarios.txt" usuario senhaStr
       putStrLn "Usuário salvo. Até logo!"
-      exitSuccess
+      main
 
     _ -> do
       putStrLn "Opção inválida!"

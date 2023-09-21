@@ -2,6 +2,8 @@ module Models.Alimentos where
 
 import System.IO (IOMode(WriteMode), openFile, hPutStr, withFile, hGetContents, hClose, IOMode(ReadMode))
 import Data.List (find)
+import Data.Binary
+import Control.Monad
 
 data Alimento = Alimento {
   nome_alimento :: String,
@@ -10,6 +12,16 @@ data Alimento = Alimento {
   gorduras :: Float,
   carboidratos :: Float
 } deriving (Show)
+
+instance Binary Alimento where
+  put (Alimento nome kcal proteinas gorduras carboidratos) = do
+    put nome
+    put kcal
+    put proteinas
+    put gorduras
+    put carboidratos
+  get = liftM5 Alimento get get get get get
+
 
 -- Função para adicionar um alimento manualmente
 adicionarAlimentoManualmente :: [Alimento] -> IO [Alimento]
