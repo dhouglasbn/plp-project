@@ -1,0 +1,3 @@
+Caso você logue, ao sair pede senha (para confirmar as alterações no perfil), se você errar, o programa lança exceção e encerra -> 
+Necessary: Trate a exceção e retorne ao menu.
+Optional: Altere a estrutura para que ele só peça a confirmação da senha para alteração se o usuario tiver entrado numa das opções de alteração. (1 e 2)
