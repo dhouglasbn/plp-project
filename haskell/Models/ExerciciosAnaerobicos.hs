@@ -3,7 +3,6 @@ module Models.ExerciciosAnaerobicos where
 
 import System.IO (IOMode(WriteMode), openFile, hPutStr, withFile, hGetContents, hClose, IOMode(ReadMode))
 import Data.List (find)
-import Text.XHtml (area)
 
 -- Estrutura de dados para exercícios anaeróbicos
 data ExercicioAnaerobico = ExercicioAnaerobico

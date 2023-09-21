@@ -12,7 +12,7 @@ import Data.List (find)
 import System.Exit (exitSuccess)
 import Control.Monad (join)
 import Data.Time (UTCTime, getCurrentTime, utctDay)
-import Data.List
+import Data.List.Split (splitOn)
 
 main :: IO ()
 main = do
@@ -122,10 +122,11 @@ menu usuario = do
       menu novoUsuario
     
     "6" -> do
-      let contasAtualizadas = atualizarUsuarioNoArquivo "Usuarios.txt" usuario
-      salvarUsuario "Usuarios.txt" contasAtualizadas
+      putStrLn "Salvando usuário..."
+      salvarUsuario usuario
+      putStrLn "Usuário salvo. Até logo!"
       exitSuccess
-    
+
     _ -> do
       putStrLn "Opção inválida!"
       menu usuario

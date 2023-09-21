@@ -12,6 +12,10 @@ import Data.Time (UTCTime, getCurrentTime, utctDay)
 import Data.List
 import System.IO
 
+import Data.List.Split
+
+
+
 
 data Usuario = Usuario {
     senha :: String,
@@ -85,13 +89,6 @@ buscarUsuarioPorSenha arquivo senhaVerificacao = do
     Just linha -> return (Just (parseUsuario linha))
     Nothing -> return Nothing
 
--- Função para atualizar um usuário no arquivo
-atualizarUsuarioNoArquivo :: FilePath -> Usuario -> IO ()
-atualizarUsuarioNoArquivo arquivo novoUsuario = do
-  usuarios <- lerUsuario arquivo
-  let usuariosAtualizados = map (\u -> if senha u == senha novoUsuario then novoUsuario else u) usuarios
-  writeFile arquivo (unlines (map formatUsuario usuariosAtualizados))
-
 -- Função para converter um usuário em uma string no formato desejado
 showUsuario :: Usuario -> String
 showUsuario usuario =
@@ -139,17 +136,54 @@ showExercicio exercicio =
     showAerobico nome met tempo dataHora kcal = nome ++ " | " ++ show met ++ " | " ++ show tempo ++ " | " ++ show dataHora ++ " | " ++ show kcal
     showAnaerobico nome areaMuscular series repeticoes peso tempo dataHora kcal = nome ++ " | " ++ areaMuscular ++ " | " ++ show series ++ " | " ++ show repeticoes ++ " | " ++ show peso ++ " | " ++ show tempo ++ " | " ++ show dataHora ++ " | " ++ show kcal
 
--- salvarUsuario :: FilePath -> [Usuario] -> IO ()
--- salvarUsuario arquivo contas = do
---   withFile arquivo WriteMode $ \handle -> do
---     hPutStr handle (unlines (map show contas))
+-- Função para salvar o usuário no arquivo
+salvarUsuario :: Usuario -> IO ()
+salvarUsuario usuario = do
+  putStrLn "Digite sua senha para confirmar a alteração:"
+  senhaConfirmacao <- getLine
+  if senhaConfirmacao == senha usuario
+    then do
+      atualizarEAdicionarUsuario "Usuarios.txt" (senha usuario) usuario
+    else do
+      putStrLn "Senha incorreta. As alterações não serão salvas."
 
--- Função para salvar um usuário em um arquivo de texto
-salvarUsuario :: Usuario -> FilePath -> IO ()
-salvarUsuario usuario filePath = do
-  withFile filePath WriteMode $ \handle -> do
-    let usuarioString = showUsuario usuario
-    hPutStrLn handle usuarioString
+lerUsuarios :: FilePath -> IO [Usuario]
+lerUsuarios arquivo = do
+  conteudo <- readFile arquivo
+  let linhas = lines conteudo
+  let usuarios = map (parseUsuario . unwords . words) linhas
+  return usuarios
+
+atualizarEAdicionarUsuario :: FilePath -> String -> Usuario -> IO ()
+atualizarEAdicionarUsuario arquivo senhaAtualizado novoUsuario = do
+  conteudo <- readFile arquivo
+  let linhas = lines conteudo
+      usuarios = map parseUsuario linhas
+  let usuariosAtualizados = atualizarEAdicionarUsuarioNaLista senhaAtualizado novoUsuario usuarios
+  let linhasAtualizadas = map showUsuario usuariosAtualizados
+  writeFile arquivo (unlines linhasAtualizadas)
+
+atualizarEAdicionarUsuarioNaLista :: String -> Usuario -> [Usuario] -> [Usuario]
+atualizarEAdicionarUsuarioNaLista _ _ [] = []
+atualizarEAdicionarUsuarioNaLista senhaAtualizado novoUsuario (u:us)
+  | senha u == senhaAtualizado = novoUsuario : us
+  | otherwise = u : atualizarEAdicionarUsuarioNaLista senhaAtualizado novoUsuario us
+
+-- Função para substituir um usuário no arquivo
+substituirUsuario :: FilePath -> Usuario -> IO ()
+substituirUsuario arquivo novoUsuario = do
+  -- Lê todos os usuários do arquivo
+  usuarios <- lerUsuarios arquivo
+  -- Remove o usuário antigo (se existir)
+  let usuariosAtualizados = filter (\u -> senha u /= senha novoUsuario) usuarios
+  -- Adiciona o novo usuário à lista
+  let usuariosNovos = novoUsuario : usuariosAtualizados
+  -- Escreve a lista de usuários atualizada no arquivo
+  writeFile arquivo (unlines (map show usuariosNovos))
+
+
+
+
 
 -- Função para atualizar o peso do usuário
 atualizarPeso :: Usuario -> IO Usuario
