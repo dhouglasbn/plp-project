@@ -12,7 +12,7 @@ import Data.List (find)
 import System.Exit (exitSuccess)
 import Control.Monad (join)
 import Data.Time (UTCTime, getCurrentTime, utctDay)
-import Data.List.Split (splitOn)
+import Data.List.Split
 
 main :: IO ()
 main = do
