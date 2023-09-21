@@ -207,6 +207,7 @@ salvarUsuario usuario = do
   if senhaConfirmacao == senha usuario
     then do
       atualizarEAdicionarUsuario "Usuarios.txt" (senha usuario) usuario
+      putStrLn "Usuário salvo. Até logo!"
     else do
       putStrLn "Senha incorreta. As alterações não serão salvas."
 

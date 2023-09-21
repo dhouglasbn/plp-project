@@ -141,7 +141,6 @@ menu usuario = do
     "6" -> do
       putStrLn "Salvando usuário..."
       salvarUsuario usuario
-      putStrLn "Usuário salvo. Até logo!"
       exitSuccess
 
     _ -> do
@@ -325,5 +324,5 @@ submenuExerciciosAerobicos usuario = do
 -- Função para limpar a tela
 clearScreen :: IO ()
 clearScreen = do
-  _ <- system "clear" -- Substitua "clear" por "cls" se estiver no Windows
+  _ <- system "cls" -- Substitua "clear" por "cls" se estiver no Windows
   return ()
