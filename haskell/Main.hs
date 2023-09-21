@@ -14,6 +14,8 @@ import Control.Monad (join)
 import Data.Time (UTCTime, getCurrentTime, utctDay)
 import Data.List.Split
 import Text.Printf
+import Models.AlimentoRegistrado (AlimentoRegistrado(AlimentoRegistrado), valorDasRefeicoes, valorTotal)
+
 
 main :: IO ()
 main = do
@@ -55,8 +57,8 @@ criarConta arquivo = do
     Just usuario -> do
       putStrLn "Conta já criada.\n"
       main
-      
   putStrLn "\nEscolha seu genero: (M ou F) "
+
   genero <- getLine
   putStrLn "\nDigite a idade: "
   idadeStr <- getLine
@@ -67,18 +69,19 @@ criarConta arquivo = do
   putStrLn "\nDigite seu objetivo de peso "
   metaStr <- getLine  
 
+
   let generoValido = genero `elem` ["M", "F"]
   let idadeValida = idadeStr /= "" && read idadeStr > 0 && read idadeStr < 100
   let pesoValido = pesoStr /= "" && read pesoStr > 0
   let alturaValida = alturaStr /= "" && read alturaStr > 0.0
   let metaValida = metaStr /= "" && read metaStr > 0.0
-  
+
   if generoValido && idadeValida && pesoValido && alturaValida && metaValida then
     let idade = read idadeStr :: Int
         peso = read pesoStr :: Float
         altura = read alturaStr :: Float
         meta = read metaStr :: Float
-        usuario = Usuario senha nome genero idade peso altura meta 0.0 0.0 [] [] [] [] [] [] 
+        usuario = Usuario senha nome genero idade peso altura meta 0.0 0.0 [] [] [] [] [] []
     in do
       appendFile arquivo (usuarioParaLinhaTexto usuario ++ "\n")
       putStrLn "Conta criada com sucesso!\n"
@@ -113,13 +116,11 @@ menu usuario = do
     "3" -> do
       let pesoAtual = peso usuario
           meta = meta_peso usuario
-          (totalKcal, totalProteins, totalLipids, totalCarbohydrates) = totalAtributosRefeicoes (cafe usuario) (almoco usuario) (lanche usuario) (janta usuario)
-          metaKcal =
-            if pesoAtual > meta
-              then caloriasDiariasGanharPeso usuario meta
-              else if pesoAtual == meta
-                then caloriasManterPeso usuario
-                else caloriasDiariasPerderPeso usuario meta
+          (totalKcal, totalProteins, totalLipids, totalCarbohydrates) = valorDasRefeicoes (cafe usuario) (almoco usuario) (lanche usuario) (janta usuario)
+          metaKcal
+            | pesoAtual > meta = caloriasDiariasGanharPeso usuario meta
+            | pesoAtual == meta = caloriasManterPeso usuario
+            | otherwise = caloriasDiariasPerderPeso usuario meta
           metaProteins = (metaKcal * 0.25) / 4.0
           metaLipids = (metaKcal * 0.25) / 9.0
           metaCarbohydrates = (metaKcal * 0.5) / 4.0
@@ -136,7 +137,7 @@ menu usuario = do
     "5" -> do
       novoUsuario <- submenuExercicios usuario
       menu novoUsuario
-    
+
     "6" -> do
       putStrLn "Salvando usuário..."
       salvarUsuario usuario
@@ -207,7 +208,11 @@ miniMenuRefeicoes usuario = do
           let alimentoEncontrado = obterAlimentoPeloNome alimentos nomeAlimento
           case alimentoEncontrado of
             Just alimento -> do
-              let novaListaRefeicao = alimento : listaRefeicao
+              putStrLn "Digite quantos gramas de alimento: "
+              quantiaAlimento <- getLine
+              let gramas = read quantiaAlimento :: Float
+              let novoAlimento = AlimentoRegistrado alimento gramas
+              let novaListaRefeicao = novoAlimento : listaRefeicao
               let novoUsuario = case nome of
                     "Café" -> usuario { cafe = novaListaRefeicao }
                     "Almoço" -> usuario { almoco = novaListaRefeicao }
@@ -221,8 +226,8 @@ miniMenuRefeicoes usuario = do
 
         "2" -> do
           let (totalKcal, totalProteinas, totalGorduras, totalCarboidratos) =
-                calcularValorNutricionalTotal listaRefeicao
-          putStrLn ("Valor calórico total: " ++ show totalKcal ++ " kcal\n")
+                valorTotal listaRefeicao
+          putStrLn ("\nValor calórico total: " ++ show totalKcal ++ " kcal\n")
           putStrLn ("Proteínas totais: " ++ show totalProteinas ++ " g\n")
           putStrLn ("Gorduras totais: " ++ show totalGorduras ++ " g\n")
           putStrLn ("Carboidratos totais: " ++ show totalCarboidratos ++ " g\n")
@@ -247,7 +252,6 @@ submenuExercicios usuario = do
   putStrLn "1 - Exercícios Anaeróbicos"
   putStrLn "2 - Exercícios Aeróbicos"
   putStrLn "3 - Voltar ao Menu Principal\n"
-  
   opcao <- getLine
   case opcao of
     "1" -> do
@@ -255,9 +259,8 @@ submenuExercicios usuario = do
 
     "2" -> do
       submenuExerciciosAerobicos usuario
-
     "3" -> return usuario
-    
+
     _ -> do
       putStrLn "Opção inválida.\n"
       submenuExercicios usuario
@@ -270,7 +273,6 @@ submenuExerciciosAnaerobicos usuario = do
   putStrLn "2 - Ver todos os exercicios ja feitos"
   putStrLn "3 - Adicionar exercicio realizado"
   putStrLn "4 - Voltar\n"
-  
   opcao <- getLine
   case opcao of
     "1" -> do
@@ -278,7 +280,7 @@ submenuExerciciosAnaerobicos usuario = do
       submenuExerciciosAnaerobicos usuario
 
     "2" -> do
-      putStrLn (show (exerciciosAnaerobicosTodos usuario))
+      print (exerciciosAnaerobicosTodos usuario)
       submenuExerciciosAnaerobicos usuario
 
     "3" -> do
@@ -299,7 +301,7 @@ submenuExerciciosAerobicos usuario = do
   putStrLn "2 - Ver todos os exercicios ja feitos"
   putStrLn "3 - Adicionar exercicio realizado"
   putStrLn "4 - Voltar\n"
-  
+
   opcao <- getLine
   case opcao of
     "1" -> do
@@ -307,7 +309,7 @@ submenuExerciciosAerobicos usuario = do
       submenuExerciciosAerobicos usuario
 
     "2" -> do
-      putStrLn (show (exerciciosAerobicosTodos usuario))
+      print (exerciciosAerobicosTodos usuario)
       submenuExerciciosAerobicos usuario
 
     "3" -> do
