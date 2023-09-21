@@ -45,11 +45,9 @@ login _ = do
 
 criarConta :: FilePath -> IO ()
 criarConta arquivo = do
-  putStrLn "Digite a senha: "
-  senha <- getLine
-  putStrLn "\nDigite seu nome: "
+  putStrLn "Digite seu nome: "
   nome <- getLine
-  putStrLn "\nDigite a senha: "
+  putStrLn "Digite a senha: "
   senha <- getLine
 
   user <- buscarUsuarioPorSenha "Usuarios.txt" senha
@@ -57,18 +55,18 @@ criarConta arquivo = do
     Just usuario -> do
       putStrLn "Conta já criada.\n"
       main
-  putStrLn "\nEscolha seu genero: (M ou F) "
+    Nothing -> do
+        putStrLn "Escolha seu genero: (M ou F) "
 
   genero <- getLine
-  putStrLn "\nDigite a idade: "
+  putStrLn "Digite a idade: "
   idadeStr <- getLine
-  putStrLn "\nDigite o peso: "
+  putStrLn "Digite o peso: "
   pesoStr <- getLine
-  putStrLn "\nDigite a altura: "
+  putStrLn "Digite a altura: "
   alturaStr <- getLine
-  putStrLn "\nDigite seu objetivo de peso "
-  metaStr <- getLine  
-
+  putStrLn "Digite seu objetivo de peso "
+  metaStr <- getLine   
 
   let generoValido = genero `elem` ["M", "F"]
   let idadeValida = idadeStr /= "" && read idadeStr > 0 && read idadeStr < 100
@@ -94,8 +92,7 @@ criarConta arquivo = do
 menu :: Usuario -> IO ()
 menu usuario = do
   let nome = nome_pessoa usuario
-  putStr "\nBem-vindo, "
-  putStrLn nome
+  putStrLn $ "\nBem-vindo, " ++ nome ++ "."
   putStrLn "Escolha uma opção:\n"
   putStrLn "1 - Alterar peso"
   putStrLn "2 - Alterar meta"
@@ -118,7 +115,7 @@ menu usuario = do
           meta = meta_peso usuario
           (totalKcal, totalProteins, totalLipids, totalCarbohydrates) = valorDasRefeicoes (cafe usuario) (almoco usuario) (lanche usuario) (janta usuario)
           metaKcal
-            | pesoAtual > meta = caloriasDiariasGanharPeso usuario meta
+            | pesoAtual < meta = caloriasDiariasGanharPeso usuario meta
             | pesoAtual == meta = caloriasManterPeso usuario
             | otherwise = caloriasDiariasPerderPeso usuario meta
           metaProteins = (metaKcal * 0.25) / 4.0

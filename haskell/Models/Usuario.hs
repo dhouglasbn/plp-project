@@ -309,22 +309,19 @@ findUsuario senh (u:us) = if senh == senha u
                             then Just u
                             else findUsuario senh us
 
--- Função para calcular as calorias diárias necessárias para manter o peso
 caloriasManterPeso :: Usuario -> Float
 caloriasManterPeso usuario
-  | genero usuario == "M" = 88.362 + (13.397 * peso usuario) + (4.799 * altura usuario) - (5.677 * fromIntegral (idade usuario))
-  | genero usuario == "F" = 447.593 + (9.247 * peso usuario) + (3.098 * altura usuario) - (4.330 * fromIntegral (idade usuario))
+  | genero usuario == "M" = 888.362 + (13.397 * peso usuario) + (4.799 * altura usuario)
+  | genero usuario == "F" = 447.593 + (9.247 * peso usuario) + (3.098 * altura usuario)
   | otherwise = 0.0
 
 -- Função para calcular o valor total das calorias diárias para perder peso
 caloriasDiariasPerderPeso :: Usuario -> Float -> Float
-caloriasDiariasPerderPeso usuario metaPeso = caloriasManterPeso usuario - (500 * abs (peso usuario - metaPeso))
+caloriasDiariasPerderPeso usuario metaPeso = caloriasManterPeso usuario + (50 * abs (metaPeso - peso usuario)) - 200
 
 -- Função para calcular o valor total das calorias diárias para ganhar peso
 caloriasDiariasGanharPeso :: Usuario -> Float -> Float
-caloriasDiariasGanharPeso usuario metaPeso = caloriasManterPeso usuario + (500 * abs (metaPeso - peso usuario))
-
-
+caloriasDiariasGanharPeso usuario metaPeso = caloriasManterPeso usuario + (50 * abs (metaPeso - peso usuario))
 
 -- Função para obter exercícios aeróbicos do dia
 exerciciosAerobicosDoDia :: Usuario -> IO [ExercicioRegistrado]
