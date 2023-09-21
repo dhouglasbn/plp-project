@@ -6,7 +6,6 @@ import Models.ExerciciosAnaerobicos
 import Data.Time.Clock
 
 import Data.Time.Format
-import Data.Binary
 import Control.Monad
 import Data.Time
 import Data.Time.Clock.POSIX
@@ -19,21 +18,6 @@ data ExercicioRegistrado = ExercicioRegistrado
     kcalGasto :: Float
   }
   deriving (Show)
-
--- Define a binary serialization instance for UTCTime
-instance Binary UTCTime where
-  put time = put (floor (utcTimeToPOSIXSeconds time) :: Int64)
-  get = do
-    posixTime <- get :: Get Int64
-    return (posixSecondsToUTCTime (fromIntegral posixTime))
-
-instance Binary ExercicioRegistrado where
-  put (ExercicioRegistrado exercicio tempo dataHora kcalGasto) = do
-    put exercicio
-    put tempo
-    put dataHora
-    put kcalGasto
-  get = liftM4 ExercicioRegistrado get get get get
 
 
 -- Função auxiliar para verificar se duas datas estão no mesmo dia

@@ -6,8 +6,6 @@ import Models.ExerciciosAerobicos
 import Models.ExerciciosAnaerobicos
 
 import Data.Time.Clock (UTCTime)
-
-import Data.Binary
 import Control.Monad
 
 import Data.Time (UTCTime, getCurrentTime, utctDay)
@@ -118,7 +116,7 @@ parseAlimentos str = map createAlimento (splitOn ", " str)
 -- Função para converter uma lista de alimentos em uma string
 alimentosParaString :: [Alimento] -> String
 alimentosParaString alimentos =
-  intercalate " - " (map alimentoToString alimentos)
+  intercalate "," (map alimentoToString alimentos)
 
 -- Função para converter um alimento em uma string
 alimentoToString :: Alimento -> String
@@ -196,59 +194,50 @@ buscarUsuarioPorSenha arquivo senhaVerificacao = do
       Nothing -> return Nothing
   return resultado
 
+-- Função para salvar o usuário no arquivo
+salvarUsuario :: Usuario -> IO ()
+salvarUsuario usuario = do
+  putStrLn "Digite sua senha para confirmar a alteração:"
+  senhaConfirmacao <- getLine
+  if senhaConfirmacao == senha usuario
+    then do
+      atualizarEAdicionarUsuario "Usuarios.txt" (senha usuario) usuario
+    else do
+      putStrLn "Senha incorreta. As alterações não serão salvas."
 
+lerUsuarios :: FilePath -> IO [Usuario]
+lerUsuarios arquivo = do
+  conteudo <- readFile arquivo
+  let linhas = lines conteudo
+  let usuarios = map (parseUsuario . unwords . words) linhas
+  return usuarios
 
+atualizarEAdicionarUsuario :: FilePath -> String -> Usuario -> IO ()
+atualizarEAdicionarUsuario arquivo senhaAtualizado novoUsuario = do
+  conteudo <- readFile arquivo
+  let linhas = lines conteudo
+      usuarios = map parseUsuario linhas
+  let usuariosAtualizados = atualizarEAdicionarUsuarioNaLista senhaAtualizado novoUsuario usuarios
+  let linhasAtualizadas = map usuarioParaLinhaTexto usuariosAtualizados
+  writeFile arquivo (unlines linhasAtualizadas)
 
+atualizarEAdicionarUsuarioNaLista :: String -> Usuario -> [Usuario] -> [Usuario]
+atualizarEAdicionarUsuarioNaLista _ _ [] = []
+atualizarEAdicionarUsuarioNaLista senhaAtualizado novoUsuario (u:us)
+  | senha u == senhaAtualizado = novoUsuario : us
+  | otherwise = u : atualizarEAdicionarUsuarioNaLista senhaAtualizado novoUsuario us
 
-
-
-
-
-
-writeUsuarioToFile :: FilePath -> [Usuario] -> IO ()
-writeUsuarioToFile arquivo usuarios = do
-  withFile arquivo WriteMode $ \handle -> do
-    mapM_ (hPutStrLn handle . usuarioParaLinhaTexto) usuarios
-
-editUsuario :: FilePath -> Usuario -> String -> IO ()
-editUsuario arquivo usuario senha = do
-  usuarioList <- lerUsuario arquivo
-  let newUsuarioList = removeUsuarioBySenha senha usuarioList ++ [usuario]
-  let tempFile = "temp.txt" 
-  let modifyContents contents = unlines (map usuarioParaLinhaTexto newUsuarioList)
-  readModifyWrite tempFile modifyContents
-  removeFile arquivo
-  renameFile tempFile arquivo
-
-
-readModifyWrite :: FilePath -> (String -> String) -> IO ()
-readModifyWrite fileName modify = do
-  contents <- readFile fileName
-  evaluate (length contents)
-  handle <- openFile fileName WriteMode
-  hPutStr handle (modify contents)
-  hClose handle
-
--- Modified lerUsuario function
-lerUsuario :: FilePath -> IO [Usuario]
-lerUsuario arquivo = do
-  let modifyContents contents = unlines (map usuarioParaLinhaTexto (map parseUsuario (lines contents)))
-  readModifyWrite arquivo modifyContents
-  contents <- readFile arquivo
-  return (map parseUsuario (lines contents))
-
-removeUsuarioBySenha :: String -> [Usuario] -> [Usuario]
-removeUsuarioBySenha _ [] = []
-removeUsuarioBySenha senha2 (x:xs)
- | (senha x) == senha2 = xs
- | otherwise = [x] ++ (removeUsuarioBySenha senha2 xs)
-
-
-
-
-
-
-
+-- Função para substituir um usuário no arquivo
+substituirUsuario :: FilePath -> Usuario -> IO ()
+substituirUsuario arquivo novoUsuario = do
+  -- Lê todos os usuários do arquivo
+  usuarios <- lerUsuarios arquivo
+  -- Remove o usuário antigo (se existir)
+  let usuariosAtualizados = filter (\u -> senha u /= senha novoUsuario) usuarios
+  -- Adiciona o novo usuário à lista
+  let usuariosNovos = novoUsuario : usuariosAtualizados
+  -- Escreve a lista de usuários atualizada no arquivo
+  writeFile arquivo (unlines (map show usuariosNovos))
 
 
 
@@ -325,11 +314,11 @@ caloriasManterPeso usuario
 
 -- Função para calcular o valor total das calorias diárias para perder peso
 caloriasDiariasPerderPeso :: Usuario -> Float -> Float
-caloriasDiariasPerderPeso usuario metaPeso = caloriasManterPeso usuario - (500 * (peso usuario - metaPeso))
+caloriasDiariasPerderPeso usuario metaPeso = caloriasManterPeso usuario - (500 * abs (peso usuario - metaPeso))
 
 -- Função para calcular o valor total das calorias diárias para ganhar peso
 caloriasDiariasGanharPeso :: Usuario -> Float -> Float
-caloriasDiariasGanharPeso usuario metaPeso = caloriasManterPeso usuario + (500 * (metaPeso - peso usuario))
+caloriasDiariasGanharPeso usuario metaPeso = caloriasManterPeso usuario + (500 * abs (metaPeso - peso usuario))
 
 -- Função para obter exercícios aeróbicos do dia
 exerciciosAerobicosDoDia :: Usuario -> IO [ExercicioRegistrado]

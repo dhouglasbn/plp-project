@@ -13,6 +13,7 @@ import System.Exit (exitSuccess)
 import Control.Monad (join)
 import Data.Time (UTCTime, getCurrentTime, utctDay)
 import Data.List.Split
+import Text.Printf
 
 main :: IO ()
 main = do
@@ -111,10 +112,10 @@ menu usuario = do
           metaProteins = (metaKcal * 0.25) / 4.0
           metaLipids = (metaKcal * 0.25) / 9.0
           metaCarbohydrates = (metaKcal * 0.5) / 4.0
-      putStrLn $ "Total de kcal do dia/meta: " ++ show totalKcal ++ "/" ++ show metaKcal
-      putStrLn $ "Total de proteins do dia/meta: " ++ show totalProteins ++ "/" ++ show metaProteins
-      putStrLn $ "Total de lipids do dia/meta: " ++ show totalLipids ++ "/" ++ show metaLipids
-      putStrLn $ "Total de carbohydrates do dia/meta: " ++ show totalCarbohydrates ++ "/" ++ show metaCarbohydrates
+      printf "Total de kcal do dia/meta: %.1f/%.1f\n" totalKcal metaKcal
+      printf "Total de proteins do dia/meta: %.1f/%.1f\n" totalProteins metaProteins
+      printf "Total de lipids do dia/meta: %.1f/%.1f\n" totalLipids metaLipids
+      printf "Total de carbohydrates do dia/meta: %.1f/%.1f\n" totalCarbohydrates metaCarbohydrates
       menu usuario
 
     "4" -> do
@@ -126,12 +127,16 @@ menu usuario = do
       menu novoUsuario
     
     "6" -> do
+      -- putStrLn "Salvando usuário..."
+      -- putStrLn "Digite a senha: "
+      -- senhaStr <- getLine
+      -- editUsuario "Usuarios.txt" usuario senhaStr
+      -- putStrLn "Usuário salvo. Até logo!"
+      -- main
       putStrLn "Salvando usuário..."
-      putStrLn "Digite a senha: "
-      senhaStr <- getLine
-      editUsuario "Usuarios.txt" usuario senhaStr
+      salvarUsuario usuario
       putStrLn "Usuário salvo. Até logo!"
-      main
+      exitSuccess
 
     _ -> do
       putStrLn "Opção inválida!"
