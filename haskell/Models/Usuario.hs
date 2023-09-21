@@ -5,48 +5,139 @@ import Models.ExercicioRegistrado
 import Models.ExerciciosAerobicos
 import Models.ExerciciosAnaerobicos
 
-import System.IO (IOMode(WriteMode), openFile, hPutStr, withFile, hGetContents, hClose, IOMode(ReadMode))
+import Data.Time.Clock (UTCTime)
+
+import System.IO (IOMode(WriteMode), openFile, hPutStr, withFile, hGetContents, hClose, IOMode(ReadMode), hFlush)
 import Data.Time (UTCTime, getCurrentTime, utctDay)
-import System.IO.Unsafe (unsafePerformIO)
+import Data.List
+
 
 data Usuario = Usuario {
-  senha :: String,
-  nome_pessoa :: String,
-  genero :: String,
-  idade :: Int,
-  peso :: Float,
-  altura :: Float,
-  meta_peso :: Float,
-  metaKcal :: Float,
-  kcalAtual :: Float,
-  exerciciosAerobicos :: [ExercicioRegistrado],
-  exerciciosAnaerobicos :: [ExercicioRegistrado],
-  cafe :: [Alimento],
-  almoco :: [Alimento],
-  lanche :: [Alimento],
-  janta :: [Alimento]
-} deriving (Show)
+    senha :: String,
+    nome_pessoa :: String,
+    genero :: String,
+    idade :: Int,
+    peso :: Float,
+    altura :: Float,
+    meta_peso :: Float,
+    metaKcal :: Float,
+    kcalAtual :: Float,
+    exerciciosAerobicos :: [ExercicioRegistrado],
+    exerciciosAnaerobicos :: [ExercicioRegistrado],
+    cafe :: [Alimento],
+    almoco :: [Alimento],
+    lanche :: [Alimento],
+    janta :: [Alimento]
+  } deriving (Show)
 
-lerUsuario :: FilePath -> IO [Usuario]
-lerUsuario arquivo = do
-  withFile arquivo ReadMode $ \handle -> do
-    conteudo <- hGetContents handle
-    let linhas = lines conteudo
-    let usuarios = map parseUsuario linhas
-    return usuarios
 
-atualizarUsuarioNoArquivo :: FilePath -> Usuario -> [Usuario]
-atualizarUsuarioNoArquivo arquivo novoUsuario = do
-  contas <- lerUsuario arquivo
-  let contasAtualizadas = map (\u -> if senha u == senha novoUsuario then novoUsuario else u) contas
-  contasAtualizadas
-
--- Função de parser para extrair a senha de uma linha do arquivo
+-- Função para analisar uma linha do arquivo e criar um valor do tipo Usuario
 parseUsuario :: String -> Usuario
-parseUsuario linha = case words linha of
-    [senha, nome] -> Usuario senha nome
-    _ -> Usuario "" ""
-  
+parseUsuario linha =
+  let campos = splitOn " | " linha
+      senhaUsuario = campos !! 0
+      nomeUsuario = campos !! 1
+      generoUsuario = campos !! 2
+      idadeUsuario = read (campos !! 3) :: Int
+      pesoUsuario = read (campos !! 4) :: Float
+      alturaUsuario = read (campos !! 5) :: Float
+      metaPesoUsuario = read (campos !! 6) :: Float
+      metaKcalUsuario = read (campos !! 7) :: Float
+      kcalAtualUsuario = read (campos !! 8) :: Float
+      exerciciosAerobicosStr = splitOn "," (campos !! 9)
+      exerciciosAnaerobicosStr = splitOn "," (campos !! 10)
+      cafeStr = splitOn "," (campos !! 11)
+      almocoStr = splitOn "," (campos !! 12)
+      lancheStr = splitOn "," (campos !! 13)
+      jantaStr = splitOn "," (campos !! 14)
+
+      exerciciosAerobicos = map (\s -> ExercicioRegistrado (Left s) 0 undefined 0) exerciciosAerobicosStr
+      exerciciosAnaerobicos = map (\s -> ExercicioRegistrado (Right s) 0 undefined 0) exerciciosAnaerobicosStr
+      cafe = map (\s -> Alimento s 0 0 0 0) cafeStr
+      almoco = map (\s -> Alimento s 0 0 0 0) almocoStr
+      lanche = map (\s -> Alimento s 0 0 0 0) lancheStr
+      janta = map (\s -> Alimento s 0 0 0 0) jantaStr
+  in Usuario
+    { senha = senhaUsuario,
+      nome_pessoa = nomeUsuario,
+      genero = generoUsuario,
+      idade = idadeUsuario,
+      peso = pesoUsuario,
+      altura = alturaUsuario,
+      meta_peso = metaPesoUsuario,
+      metaKcal = metaKcalUsuario,
+      kcalAtual = kcalAtualUsuario,
+      exerciciosAerobicos = exerciciosAerobicos,
+      exerciciosAnaerobicos = exerciciosAnaerobicos,
+      cafe = cafe,
+      almoco = almoco,
+      lanche = lanche,
+      janta = janta
+    }
+
+buscarUsuarioPorSenha :: FilePath -> String -> IO (Maybe Usuario)
+buscarUsuarioPorSenha arquivo senhaVerificacao = do
+  conteudo <- readFile arquivo
+  let linhas = lines conteudo
+  let usuarioEncontrado = find (\linha -> (head (splitOn " | " linha)) == senhaVerificacao) linhas
+  case usuarioEncontrado of
+    Just linha -> return (Just (parseUsuario linha))
+    Nothing -> return Nothing
+
+-- Função para atualizar um usuário no arquivo
+atualizarUsuarioNoArquivo :: FilePath -> Usuario -> IO ()
+atualizarUsuarioNoArquivo arquivo novoUsuario = do
+  usuarios <- lerUsuario arquivo
+  let usuariosAtualizados = map (\u -> if senha u == senha novoUsuario then novoUsuario else u) usuarios
+  writeFile arquivo (unlines (map formatUsuario usuariosAtualizados))
+
+-- Função para converter um usuário em uma string no formato desejado
+showUsuario :: Usuario -> String
+showUsuario usuario =
+  senha usuario ++ " | " ++
+  nome_pessoa usuario ++ " | " ++
+  genero usuario ++ " | " ++
+  show (idade usuario) ++ " | " ++
+  show (peso usuario) ++ " | " ++
+  show (altura usuario) ++ " | " ++
+  show (meta_peso usuario) ++ " | " ++
+  show (metaKcal usuario) ++ " | " ++
+  show (kcalAtual usuario) ++ " | " ++
+  showExercicios (exerciciosAerobicos usuario) ++ " | " ++
+  showExercicios (exerciciosAnaerobicos usuario) ++ " | " ++
+  showAlimentos (cafe usuario) ++ " | " ++
+  showAlimentos (almoco usuario) ++ " | " ++
+  showAlimentos (lanche usuario) ++ " | " ++
+  showAlimentos (janta usuario)
+
+-- Função para converter uma lista de exercícios em uma string no formato desejado
+showExercicios :: [ExercicioRegistrado] -> String
+showExercicios exercicios =
+  unwords (map showExercicio exercicios)
+
+-- Função para converter uma lista de alimentos em uma string no formato desejado
+showAlimentos :: [Alimento] -> String
+showAlimentos alimentos =
+  unwords (map nome_alimento alimentos)
+
+showAlimento :: Alimento -> String
+showAlimento alimento =
+  nome_alimento alimento ++ " | " ++ show (kcal alimento) ++
+  " | " ++ show (proteinas alimento) ++
+  " | " ++ show (gorduras alimento) ++
+  " | " ++ show (carboidratos alimento)
+
+showExercicio :: ExercicioRegistrado -> String
+showExercicio exercicio =
+  case exercicio of
+    Left (ExercicioAnaerobico nome areaMuscular series repeticoes peso) ->
+      showAnaerobico nome areaMuscular series repeticoes peso (tempoGastoExercicio exercicio) (dataHoraExercicio exercicio) (kcalGasto exercicio)
+    Right (ExercicioAerobico nome met) ->
+      showAerobico nome met (tempoGastoExercicio exercicio) (dataHoraExercicio exercicio) (kcalGasto exercicio)
+  where
+    showAerobico nome met tempo dataHora kcal = nome ++ " | MET: " ++ show met ++ " | Tempo: " ++ show tempo ++ " | Data e Hora: " ++ show dataHora ++ " | Kcal Gasto: " ++ show kcal
+    showAnaerobico nome areaMuscular series repeticoes peso tempo dataHora kcal = nome ++ " | Área Muscular: " ++ areaMuscular ++ " | Séries: " ++ show series ++ " | Repetições: " ++ show repeticoes ++ " | Peso: " ++ show peso ++ " | Tempo: " ++ show tempo ++ " | Data e Hora: " ++ show dataHora ++ " | Kcal Gasto: " ++ show kcal
+
 salvarUsuario :: FilePath -> [Usuario] -> IO ()
 salvarUsuario arquivo contas = do
   withFile arquivo WriteMode $ \handle -> do
@@ -131,29 +222,17 @@ caloriasDiariasPerderPeso usuario metaPeso = caloriasManterPeso usuario - (500 *
 caloriasDiariasGanharPeso :: Usuario -> Float -> Float
 caloriasDiariasGanharPeso usuario metaPeso = caloriasManterPeso usuario + (500 * (metaPeso - peso usuario))
 
-
-
 -- Função para obter exercícios aeróbicos do dia
-exerciciosAerobicosDoDia :: Usuario -> [ExercicioRegistrado]
-exerciciosAerobicosDoDia usuario = 
-  let getCurrentTime >>= filter (|exercicio -> sameDay (dataHoraExercicio exercicio) dataAtual)  exerciciosAerobicos usuario
+exerciciosAerobicosDoDia :: Usuario -> IO [ExercicioRegistrado]
+exerciciosAerobicosDoDia usuario = do
+  exerciciosRegistrados <- return $ exerciciosAerobicos usuario
+  dataAtual <- getCurrentTime
+  return $ filter (\exercicio -> sameDay (dataHoraExercicio exercicio) dataAtual) exerciciosRegistrados
 
-
--- Função para transformar um IO UTCTime em UTCTime
-transformarIOEmUTCTime :: IO UTCTime -> UTCTime
-transformarIOEmUTCTime ioAction = unsafePerformIO ioAction
-
--- Uso da função
-main :: IO ()
-main = do
-  let utcTime = getCurrentTime -- Suponha que esta função retorna IO UTCTime
-  let resultado = transformarIOEmUTCTime utcTime
-  putStrLn $ "Valor UTCTime: " ++ show resultado
-
-
--- Função para obter todos os exercícios aeróbicos feitos
+-- Função para obter todos os exercícios anaeróbicos feitos
 exerciciosAerobicosTodos :: Usuario -> [ExercicioRegistrado]
 exerciciosAerobicosTodos usuario = exerciciosAerobicos usuario
+
 
 adicionarExercicioAerobico :: Usuario -> IO Usuario
 adicionarExercicioAerobico usuario = do
@@ -164,11 +243,11 @@ adicionarExercicioAerobico usuario = do
   
   let duracao = read duracaoStr :: Float
   
-  let exercicioAerobicoEncontrado = buscarExercicioAerobicoPorNome "exerciciosAerobicos.txt" nomeExercicio
+  exercicioAerobicoEncontrado <- buscarExercicioAerobicoPorNome "exerciciosAerobicos.txt" nomeExercicio
 
   case exercicioAerobicoEncontrado of
     Just exercicioAerobico -> do
-      let metExercicio = met exercicioAerobicoEncontrado
+      let metExercicio = met exercicioAerobico
       let pesoUsuario = peso usuario
 
       -- Calcula o gasto calórico com base no MET, peso do usuário e duração do exercício
@@ -196,14 +275,11 @@ adicionarExercicioAerobico usuario = do
       return usuario
 
 
-
-
--- Função para obter exercícios anaeróbicos do dia
-exerciciosAnaerobicosDoDia :: Usuario -> [ExercicioRegistrado]
-exerciciosAnaerobicosDoDia usuario =
-  let exerciciosRegistrados = exerciciosAnaerobicos usuario
-      dataAtual = getCurrentTime
-  in filter (\exercicio -> sameDay (dataHoraExercicio exercicio) dataAtual) exerciciosRegistrados
+exerciciosAnaerobicosDoDia :: Usuario -> IO [ExercicioRegistrado]
+exerciciosAnaerobicosDoDia usuario = do
+  exerciciosRegistrados <- return $ exerciciosAnaerobicos usuario
+  dataAtual <- getCurrentTime
+  return $ filter (\exercicio -> sameDay (dataHoraExercicio exercicio) dataAtual) exerciciosRegistrados
 
 -- Função para obter todos os exercícios anaeróbicos feitos
 exerciciosAnaerobicosTodos :: Usuario -> [ExercicioRegistrado]
@@ -215,27 +291,25 @@ adicionarExercicioAnaerobico usuario = do
   nomeExercicio <- getLine
   putStrLn "Digite a duração do exercício (em horas):"
   duracaoStr <- getLine
-  putStrLn "Digite quantas series foram feitas"
+  putStrLn "Digite quantas séries foram feitas:"
   seriesStr <- getLine
-  putStrLn "Digite quantas repetiçoes por serie"
+  putStrLn "Digite quantas repetições por série:"
   repeticoesStr <- getLine
   
   let duracao = read duracaoStr :: Float
   let series = read seriesStr :: Int
   let repeticoes = read repeticoesStr :: Int
   
-  let exercicioAerobicoEncontrado = buscarExercicioAnaerobicoPorNome nomeExercicio "exerciciosAnaerobicos.txt"
+  exercicioAnaerobicoEncontrado <- buscarExercicioAnaerobicoPorNome "exerciciosAnaerobicos.txt" nomeExercicio
 
-  case exercicioAerobicoEncontrado of
+  case exercicioAnaerobicoEncontrado of
     Just exercicioAnaerobico -> do
-      let metExercicio = met exercicioAerobicoEncontrado
       let pesoUsuario = peso usuario
 
       let gastoCalorico = calcularPerdaCaloricaAnaerobico pesoUsuario duracao
 
       horaAtual <- getCurrentTime
 
-      -- Cria o exercício registrado
       let exercicioRegistrado = ExercicioRegistrado
             { exercicioRealizado = Left exercicioAnaerobico
             , tempoGastoExercicio = duracao

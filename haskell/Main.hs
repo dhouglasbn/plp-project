@@ -12,6 +12,7 @@ import Data.List (find)
 import System.Exit (exitSuccess)
 import Control.Monad (join)
 import Data.Time (UTCTime, getCurrentTime, utctDay)
+import Data.List
 
 main :: IO ()
 main = do
@@ -28,7 +29,7 @@ login "1" = criarConta "Usuarios.txt"
 login "2" = do
   putStrLn "Digite a senha: "
   senha <- getLine
-  user <- entrarConta "Usuarios.txt" senha
+  user <- buscarUsuarioPorSenha "Usuarios.txt" senha
   case user of
     Just usuario -> menu usuario
     Nothing -> do
@@ -67,6 +68,7 @@ criarConta arquivo = do
         usuario = Usuario senha nome genero (read idadeStr) (read pesoStr) (read alturaStr) meta 0.0 0.0 [] [] [] [] [] [] 
     in do
       contas <- lerUsuario arquivo
+
       let contasAtualizadas = atualizarUsuarioNoArquivo arquivo usuario
       salvarUsuario arquivo contasAtualizadas
       putStrLn "Conta criada com sucesso!"
@@ -74,12 +76,6 @@ criarConta arquivo = do
   else do
     putStrLn "Dados inválidos. Certifique-se de que todos os campos estão preenchidos corretamente."
     main
-
-entrarConta :: FilePath -> String -> IO (Maybe Usuario)
-entrarConta arquivo senhaLogin = do
-  usuarios <- lerUsuario arquivo
-  let usuarioEncontrado = find (\usuario -> senhaLogin == senha usuario) usuarios
-  return usuarioEncontrado
 
 menu :: Usuario -> IO ()
 menu usuario = do
@@ -264,7 +260,7 @@ submenuExerciciosAnaerobicos usuario = do
   opcao <- getLine
   case opcao of
     "1" -> do
-      putStrLn (show (exerciciosAnaerobicosDoDia usuario))
+      print =<< exerciciosAnaerobicosDoDia usuario
       submenuExerciciosAnaerobicos usuario
 
     "2" -> do
@@ -293,7 +289,7 @@ submenuExerciciosAerobicos usuario = do
   opcao <- getLine
   case opcao of
     "1" -> do
-      putStrLn (show (exerciciosAerobicosDoDia usuario))
+      print =<< exerciciosAerobicosDoDia usuario
       submenuExerciciosAerobicos usuario
 
     "2" -> do

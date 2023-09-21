@@ -1,3 +1,12 @@
+data Alimento = Alimento {
+  nome_alimento :: String,
+  kcal :: Float,
+  proteinas :: Float,
+  gorduras :: Float,
+  carboidratos :: Float
+} deriving (Show)
+
+
 id  name  category/id  category/name  nutrients/kcal  nutrients/protein  nutrients/lipids  nutrients/carbohydrates
 1  Arroz, integral, cozido  1  Cereais e derivados  124  2.6  1  25.8
 2  Arroz, integral, cru  1  Cereais e derivados  360  7.3  1.9  77.5
