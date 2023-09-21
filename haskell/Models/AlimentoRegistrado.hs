@@ -4,7 +4,7 @@ import Models.Alimentos
 data AlimentoRegistrado = AlimentoRegistrado {
     alimento::Alimento,
     quantia::Float
-}
+} deriving (Show)
 
 calculaProteinas :: AlimentoRegistrado -> Float
 calculaProteinas comida = proteinas (alimento comida) * (quantia comida / 100)
