@@ -14,9 +14,6 @@ import System.IO
 
 import Data.List.Split
 
-
-
-
 data Usuario = Usuario {
     senha :: String,
     nome_pessoa :: String,
@@ -34,7 +31,6 @@ data Usuario = Usuario {
     lanche :: [Alimento],
     janta :: [Alimento]
   } deriving (Show)
-
 
 -- Função para analisar uma linha do arquivo e criar um valor do tipo Usuario
 parseUsuario :: String -> Usuario
@@ -196,9 +192,6 @@ substituirUsuario arquivo novoUsuario = do
   let usuariosNovos = novoUsuario : usuariosAtualizados
   -- Escreve a lista de usuários atualizada no arquivo
   writeFile arquivo (unlines (map show usuariosNovos))
-
-
-
 
 -- Função para atualizar o peso do usuário
 atualizarPeso :: Usuario -> IO Usuario
