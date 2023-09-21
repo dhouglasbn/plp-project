@@ -12,7 +12,7 @@ import Data.List (find)
 import System.Exit (exitSuccess)
 import Control.Monad (join)
 import Data.Time (UTCTime, getCurrentTime, utctDay)
-import Data.List.Split (splitOn)
+import Data.List.Split
 
 main :: IO ()
 main = do
@@ -42,10 +42,17 @@ login _ = do
 
 criarConta :: FilePath -> IO ()
 criarConta arquivo = do
-  putStrLn "Digite a senha: "
-  senha <- getLine
   putStrLn "Digite seu nome: "
   nome <- getLine
+  putStrLn "Digite a senha: "
+  senha <- getLine
+
+  user <- buscarUsuarioPorSenha "Usuarios.txt" senha
+  case user of
+    Just usuario -> do
+      putStrLn "Conta já criada.\n"
+      main
+      
   putStrLn "Escolha seu genero: (M ou F) "
   genero <- getLine
   putStrLn "Digite a idade: "
@@ -55,7 +62,7 @@ criarConta arquivo = do
   putStrLn "Digite a altura: "
   alturaStr <- getLine
   putStrLn "Digite seu objetivo de peso "
-  metaStr <- getLine
+  metaStr <- getLine  
 
   let generoValido = genero `elem` ["M", "F"]
   let idadeValida = idadeStr /= "" && read idadeStr > 0 && read idadeStr < 100
@@ -80,7 +87,9 @@ criarConta arquivo = do
 
 menu :: Usuario -> IO ()
 menu usuario = do
-  putStrLn "Bem-vindo usuário!"
+  let nome = nome_pessoa usuario
+  putStr "\nBem-vindo, "
+  putStrLn nome
   putStrLn "Escolha uma opção:"
   putStrLn "1 - Alterar peso"
   putStrLn "2 - Alterar meta"
