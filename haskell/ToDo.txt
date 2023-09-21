@@ -1,0 +1,13 @@
+Caso você logue, ao sair pede senha (para confirmar as alterações no perfil),
+se você errar, o programa lança exceção e encerra
+se acertar, o programa também lança exceção e encerra
+Necessary: O usuario deve retornar ao menu ao errar a senha e deve salvar as alterações ao acertar e retornar ao menu
+
+Ao entrar nas opções Entrar em conta -> Ver progresso calorico diario, mostra que o cálculo das metas calóricas e nutricionais está bem errado.
+Necessary: Consertar os cálculos das metas do usuario.
+
+Nenhuma função de comida funciona
+Necessary: Autoexplicativo
+
+Nenhuma função de exercicios funciona
+Necessary: Autoexplicativo
