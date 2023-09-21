@@ -67,12 +67,9 @@ criarConta arquivo = do
     let meta = read metaStr :: Float
         usuario = Usuario senha nome genero (read idadeStr) (read pesoStr) (read alturaStr) meta 0.0 0.0 [] [] [] [] [] [] 
     in do
-      contas <- lerUsuario arquivo
-
-      let contasAtualizadas = atualizarUsuarioNoArquivo arquivo usuario
-      salvarUsuario arquivo contasAtualizadas
+      appendFile arquivo (showUsuario usuario ++ "\n")
       putStrLn "Conta criada com sucesso!"
-      main
+
   else do
     putStrLn "Dados inválidos. Certifique-se de que todos os campos estão preenchidos corretamente."
     main

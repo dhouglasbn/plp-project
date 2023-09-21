@@ -7,9 +7,10 @@ import Models.ExerciciosAnaerobicos
 
 import Data.Time.Clock (UTCTime)
 
-import System.IO (IOMode(WriteMode), openFile, hPutStr, withFile, hGetContents, hClose, IOMode(ReadMode), hFlush)
+
 import Data.Time (UTCTime, getCurrentTime, utctDay)
 import Data.List
+import System.IO
 
 
 data Usuario = Usuario {
@@ -130,18 +131,25 @@ showAlimento alimento =
 showExercicio :: ExercicioRegistrado -> String
 showExercicio exercicio =
   case exercicio of
-    Left (ExercicioAnaerobico nome areaMuscular series repeticoes peso) ->
-      showAnaerobico nome areaMuscular series repeticoes peso (tempoGastoExercicio exercicio) (dataHoraExercicio exercicio) (kcalGasto exercicio)
-    Right (ExercicioAerobico nome met) ->
-      showAerobico nome met (tempoGastoExercicio exercicio) (dataHoraExercicio exercicio) (kcalGasto exercicio)
+    ExercicioRegistrado (Left (ExercicioAnaerobico nome areaMuscular series repeticoes peso)) tempo dataHora kcal ->
+      showAnaerobico nome areaMuscular series repeticoes peso tempo dataHora kcal
+    ExercicioRegistrado (Right (ExercicioAerobico nome met)) tempo dataHora kcal ->
+      showAerobico nome met tempo dataHora kcal
   where
-    showAerobico nome met tempo dataHora kcal = nome ++ " | MET: " ++ show met ++ " | Tempo: " ++ show tempo ++ " | Data e Hora: " ++ show dataHora ++ " | Kcal Gasto: " ++ show kcal
-    showAnaerobico nome areaMuscular series repeticoes peso tempo dataHora kcal = nome ++ " | Área Muscular: " ++ areaMuscular ++ " | Séries: " ++ show series ++ " | Repetições: " ++ show repeticoes ++ " | Peso: " ++ show peso ++ " | Tempo: " ++ show tempo ++ " | Data e Hora: " ++ show dataHora ++ " | Kcal Gasto: " ++ show kcal
+    showAerobico nome met tempo dataHora kcal = nome ++ " | " ++ show met ++ " | " ++ show tempo ++ " | " ++ show dataHora ++ " | " ++ show kcal
+    showAnaerobico nome areaMuscular series repeticoes peso tempo dataHora kcal = nome ++ " | " ++ areaMuscular ++ " | " ++ show series ++ " | " ++ show repeticoes ++ " | " ++ show peso ++ " | " ++ show tempo ++ " | " ++ show dataHora ++ " | " ++ show kcal
 
-salvarUsuario :: FilePath -> [Usuario] -> IO ()
-salvarUsuario arquivo contas = do
-  withFile arquivo WriteMode $ \handle -> do
-    hPutStr handle (unlines (map show contas))
+-- salvarUsuario :: FilePath -> [Usuario] -> IO ()
+-- salvarUsuario arquivo contas = do
+--   withFile arquivo WriteMode $ \handle -> do
+--     hPutStr handle (unlines (map show contas))
+
+-- Função para salvar um usuário em um arquivo de texto
+salvarUsuario :: Usuario -> FilePath -> IO ()
+salvarUsuario usuario filePath = do
+  withFile filePath WriteMode $ \handle -> do
+    let usuarioString = showUsuario usuario
+    hPutStrLn handle usuarioString
 
 -- Função para atualizar o peso do usuário
 atualizarPeso :: Usuario -> IO Usuario

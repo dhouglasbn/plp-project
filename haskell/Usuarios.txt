@@ -32,5 +32,4 @@ data ExercicioRegistrado = ExercicioRegistrado
   }
 
 
-123456 | caio | M | 22 | 75 | 1.83 | 80 | 3485 | 2548 | [Corrida_leve | 6,Futebol_recreativo | 7]
- | [Tríceps Coice | TrícepsAgachamento, Frontal | Pernas e Glúteos] | [] | [] | [] | []
+123456 | caio | M | 22 | 75 | 1.83 | 80 | 3485 | 2548 | [Corrida_leve | 6,Futebol_recreativo | 7] | [Tríceps Coice | TrícepsAgachamento, Frontal | Pernas e Glúteos] | [] | [] | [] | []
