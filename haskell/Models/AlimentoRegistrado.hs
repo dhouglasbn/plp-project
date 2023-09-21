@@ -7,16 +7,16 @@ data AlimentoRegistrado = AlimentoRegistrado {
 }
 
 calculaProteinas :: AlimentoRegistrado -> Float
-calculaProteinas comida = proteinas (alimento comida) * quantia comida
+calculaProteinas comida = proteinas (alimento comida) * (quantia comida / 100)
 
 calculaCalorias :: AlimentoRegistrado -> Float
-calculaCalorias comida = kcal (alimento comida) * quantia comida
+calculaCalorias comida = kcal (alimento comida) * (quantia comida / 100)
 
 calculaCarbos :: AlimentoRegistrado -> Float
-calculaCarbos comida = carboidratos (alimento comida) * quantia comida
+calculaCarbos comida = carboidratos (alimento comida) * (quantia comida / 100)
 
 calculaGorduras :: AlimentoRegistrado -> Float
-calculaGorduras comida = gorduras (alimento comida) * quantia comida
+calculaGorduras comida = gorduras (alimento comida) * (quantia comida / 100)
 
 --        totalProteinas  = sum [proteinas (alimento registrado) * quantia registrado | registrado <- registrados]
 
