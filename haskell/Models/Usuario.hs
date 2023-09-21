@@ -17,6 +17,7 @@ import System.Directory
 import GHC.IO
 import Control.Applicative
 import Data.Maybe
+import Models.AlimentoRegistrado (AlimentoRegistrado (AlimentoRegistrado, alimento))
 
 data Usuario = Usuario {
     senha :: String,
@@ -30,10 +31,10 @@ data Usuario = Usuario {
     kcalAtual :: Float,
     exerciciosAerobicos :: [ExercicioRegistrado],
     exerciciosAnaerobicos :: [ExercicioRegistrado],
-    cafe :: [Alimento],
-    almoco :: [Alimento],
-    lanche :: [Alimento],
-    janta :: [Alimento]
+    cafe :: [AlimentoRegistrado],
+    almoco :: [AlimentoRegistrado],
+    lanche :: [AlimentoRegistrado],
+    janta :: [AlimentoRegistrado]
   } deriving (Show)
 
 -- Função para analisar uma linha do arquivo e criar um valor do tipo Usuario
@@ -55,13 +56,13 @@ parseUsuario linha =
       almocoStr = splitOn "," (campos !! 12)
       lancheStr = splitOn "," (campos !! 13)
       jantaStr = splitOn "," (campos !! 14)
-      
+
       exerciciosAnaerobicos = map (\s -> ExercicioRegistrado (Left (createExercicioAnaerobico s)) 0 undefined 0) exerciciosAnaerobicosStr
       exerciciosAerobicos = map (\s -> ExercicioRegistrado (Right (createExercicioAerobico s)) 0 undefined 0) exerciciosAerobicosStr
-      cafe = map (\s -> Alimento s 0 0 0 0) cafeStr
-      almoco = map (\s -> Alimento s 0 0 0 0) almocoStr
-      lanche = map (\s -> Alimento s 0 0 0 0) lancheStr
-      janta = map (\s -> Alimento s 0 0 0 0) jantaStr
+      cafe = map (\s -> AlimentoRegistrado (Alimento s 0 0 0 0) 0) cafeStr
+      almoco = map (\s -> AlimentoRegistrado (Alimento s 0 0 0 0) 0) almocoStr
+      lanche = map (\s -> AlimentoRegistrado (Alimento s 0 0 0 0) 0) lancheStr
+      janta = map (\s -> AlimentoRegistrado (Alimento s 0 0 0 0) 0) jantaStr
   in Usuario
     { senha = senhaUsuario,
       nome_pessoa = nomeUsuario,
@@ -93,10 +94,10 @@ usuarioParaLinhaTexto usuario =
       kcalAtualUsuario = show (kcalAtual usuario)
       exerciciosAerobicosStr = exerciciosAerobicosRealizadosParaString (exerciciosAerobicos usuario)
       exerciciosAnaerobicosStr = exerciciosAnaerobicosRealizadosParaString (exerciciosAnaerobicos usuario)
-      cafeStr = alimentosParaString (cafe usuario)
-      almocoStr = alimentosParaString (almoco usuario)
-      lancheStr = alimentosParaString (lanche usuario)
-      jantaStr = alimentosParaString (janta usuario)
+      cafeStr = alimentosParaString ([alimento comida|comida <- cafe usuario])
+      almocoStr = alimentosParaString ([alimento comida|comida <- almoco usuario])
+      lancheStr = alimentosParaString ([alimento comida|comida <- lanche usuario])
+      jantaStr = alimentosParaString ([alimento comida|comida <- janta usuario])
   in senhaUsuario ++ " | " ++ nomeUsuario ++ " | " ++ generoUsuario ++ " | " ++ idadeUsuario ++ " | " ++ pesoUsuario ++ " | " ++ alturaUsuario ++ " | " ++ metaPesoUsuario ++ " | " ++ metaKcalUsuario ++ " | " ++ kcalAtualUsuario ++ " | " ++ exerciciosAerobicosStr ++ " | " ++ exerciciosAnaerobicosStr ++ " | " ++ cafeStr ++ " | " ++ almocoStr ++ " | " ++ lancheStr ++ " | " ++ jantaStr
 
 -- Função para criar um Alimento a partir de uma String
@@ -113,6 +114,9 @@ createAlimento str =
 parseAlimentos :: String -> [Alimento]
 parseAlimentos str = map createAlimento (splitOn ", " str)
 
+alimentoRegistradoToString :: [AlimentoRegistrado] -> String
+alimentoRegistradoToString alimentos =
+  intercalate "," (map alimentoToString ([alimento comida| comida <- alimentos]))
 -- Função para converter uma lista de alimentos em uma string
 alimentosParaString :: [Alimento] -> String
 alimentosParaString alimentos =
@@ -194,6 +198,7 @@ buscarUsuarioPorSenha arquivo senhaVerificacao = do
       Nothing -> return Nothing
   return resultado
 
+
 -- Função para salvar o usuário no arquivo
 salvarUsuario :: Usuario -> IO ()
 salvarUsuario usuario = do
@@ -256,7 +261,6 @@ atualizarPeso usuario = do
     else do
       putStrLn "Peso inválido. Digite um valor positivo."
       return usuario
-
 -- Função para atualizar a meta do usuário
 atualizarMeta :: Usuario -> IO Usuario
 atualizarMeta usuario = do
@@ -302,7 +306,7 @@ atualizarSenha usuario = do
 findUsuario :: String -> [Usuario] -> Maybe Usuario
 findUsuario _ [] = Nothing
 findUsuario senh (u:us) = if senh == senha u
-                            then Just u 
+                            then Just u
                             else findUsuario senh us
 
 -- Função para calcular as calorias diárias necessárias para manter o peso
@@ -340,9 +344,9 @@ adicionarExercicioAerobico usuario = do
   nomeExercicio <- getLine
   putStrLn "Digite a duração do exercício (em horas):"
   duracaoStr <- getLine
-  
+
   let duracao = read duracaoStr :: Float
-  
+
   exercicioAerobicoEncontrado <- buscarExercicioAerobicoPorNome "exerciciosAerobicos.txt" nomeExercicio
 
   case exercicioAerobicoEncontrado of
@@ -395,11 +399,11 @@ adicionarExercicioAnaerobico usuario = do
   seriesStr <- getLine
   putStrLn "Digite quantas repetições por série:"
   repeticoesStr <- getLine
-  
+
   let duracao = read duracaoStr :: Float
   let series = read seriesStr :: Int
   let repeticoes = read repeticoesStr :: Int
-  
+
   exercicioAnaerobicoEncontrado <- buscarExercicioAnaerobicoPorNome "exerciciosAnaerobicos.txt" nomeExercicio
 
   case exercicioAnaerobicoEncontrado of
