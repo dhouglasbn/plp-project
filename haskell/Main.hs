@@ -5,7 +5,7 @@ import Models.ExerciciosAerobicos
 import Models.ExerciciosAnaerobicos
 import Models.ExercicioRegistrado
 import Models.Usuario
-
+import System.Process
 
 import System.IO (IOMode(WriteMode), openFile, hPutStr, withFile, hGetContents, hClose, IOMode(ReadMode))
 import Data.List (find)
@@ -318,3 +318,9 @@ submenuExerciciosAerobicos usuario = do
     _ -> do
       putStrLn "Opção inválida."
       submenuExerciciosAerobicos usuario
+
+-- Função para limpar a tela
+clearScreen :: IO ()
+clearScreen = do
+  _ <- system "clear" -- Substitua "clear" por "cls" se estiver no Windows
+  return ()
