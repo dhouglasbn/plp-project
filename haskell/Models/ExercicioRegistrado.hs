@@ -3,9 +3,13 @@ module Models.ExercicioRegistrado where
 import Models.ExerciciosAerobicos
 import Models.ExerciciosAnaerobicos
 
+import Data.Time.Clock
 
-import Data.Time (UTCTime, getCurrentTime, utctDay)
-
+import Data.Time.Format
+import Control.Monad
+import Data.Time
+import Data.Time.Clock.POSIX
+import Data.Int
 
 data ExercicioRegistrado = ExercicioRegistrado
   { exercicioRealizado :: Either ExercicioAnaerobico ExercicioAerobico,
@@ -14,6 +18,7 @@ data ExercicioRegistrado = ExercicioRegistrado
     kcalGasto :: Float
   }
   deriving (Show)
+
 
 -- Função auxiliar para verificar se duas datas estão no mesmo dia
 sameDay :: UTCTime -> UTCTime -> Bool

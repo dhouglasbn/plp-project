@@ -13,10 +13,11 @@ import System.Exit (exitSuccess)
 import Control.Monad (join)
 import Data.Time (UTCTime, getCurrentTime, utctDay)
 import Data.List.Split
+import Text.Printf
 
 main :: IO ()
 main = do
-  putStrLn "Boas vindas!"
+  putStrLn "\nBoas vindas!"
   putStrLn "Selecione uma das opções abaixo:\n"
   putStrLn "1 - Criar Conta"
   putStrLn "2 - Entrar em Conta"
@@ -27,24 +28,26 @@ main = do
 login :: String -> IO ()
 login "1" = criarConta "Usuarios.txt"
 login "2" = do
-  putStrLn "Digite a senha: "
+  putStrLn "\nDigite a senha:"
   senha <- getLine
   user <- buscarUsuarioPorSenha "Usuarios.txt" senha
   case user of
     Just usuario -> menu usuario
     Nothing -> do
-      putStrLn "Senha incorreta ou conta não encontrada."
+      putStrLn "\nSenha incorreta ou conta não encontrada.\n"
       main
 login "3" = exitSuccess
 login _ = do
-  putStrLn "Opção inválida!"
+  putStrLn "\nOpção inválida!\n"
   main
 
 criarConta :: FilePath -> IO ()
 criarConta arquivo = do
-  putStrLn "Digite seu nome: "
-  nome <- getLine
   putStrLn "Digite a senha: "
+  senha <- getLine
+  putStrLn "\nDigite seu nome: "
+  nome <- getLine
+  putStrLn "\nDigite a senha: "
   senha <- getLine
 
   user <- buscarUsuarioPorSenha "Usuarios.txt" senha
@@ -53,15 +56,15 @@ criarConta arquivo = do
       putStrLn "Conta já criada.\n"
       main
       
-  putStrLn "Escolha seu genero: (M ou F) "
+  putStrLn "\nEscolha seu genero: (M ou F) "
   genero <- getLine
-  putStrLn "Digite a idade: "
+  putStrLn "\nDigite a idade: "
   idadeStr <- getLine
-  putStrLn "Digite o peso: "
+  putStrLn "\nDigite o peso: "
   pesoStr <- getLine
-  putStrLn "Digite a altura: "
+  putStrLn "\nDigite a altura: "
   alturaStr <- getLine
-  putStrLn "Digite seu objetivo de peso "
+  putStrLn "\nDigite seu objetivo de peso "
   metaStr <- getLine  
 
   let generoValido = genero `elem` ["M", "F"]
@@ -77,12 +80,12 @@ criarConta arquivo = do
         meta = read metaStr :: Float
         usuario = Usuario senha nome genero idade peso altura meta 0.0 0.0 [] [] [] [] [] [] 
     in do
-      appendFile arquivo (showUsuario usuario ++ "\n")
+      appendFile arquivo (usuarioParaLinhaTexto usuario ++ "\n")
       putStrLn "Conta criada com sucesso!\n"
       main
 
   else do
-    putStrLn "Dados inválidos. Certifique-se de que todos os campos estão preenchidos corretamente."
+    putStrLn "Dados inválidos. Certifique-se de que todos os campos estão preenchidos corretamente.\n"
     main
 
 menu :: Usuario -> IO ()
@@ -90,13 +93,13 @@ menu usuario = do
   let nome = nome_pessoa usuario
   putStr "\nBem-vindo, "
   putStrLn nome
-  putStrLn "Escolha uma opção:"
+  putStrLn "Escolha uma opção:\n"
   putStrLn "1 - Alterar peso"
   putStrLn "2 - Alterar meta"
   putStrLn "3 - Ver progresso calorico diario"
   putStrLn "4 - Refeiçoes"
   putStrLn "5 - Exercicios"
-  putStrLn "6 - Sair e salvar"
+  putStrLn "6 - Sair e salvar\n"
   
   opcao <- getLine
   case opcao of
@@ -120,10 +123,10 @@ menu usuario = do
           metaProteins = (metaKcal * 0.25) / 4.0
           metaLipids = (metaKcal * 0.25) / 9.0
           metaCarbohydrates = (metaKcal * 0.5) / 4.0
-      putStrLn $ "Total de kcal do dia/meta: " ++ show totalKcal ++ "/" ++ show metaKcal
-      putStrLn $ "Total de proteins do dia/meta: " ++ show totalProteins ++ "/" ++ show metaProteins
-      putStrLn $ "Total de lipids do dia/meta: " ++ show totalLipids ++ "/" ++ show metaLipids
-      putStrLn $ "Total de carbohydrates do dia/meta: " ++ show totalCarbohydrates ++ "/" ++ show metaCarbohydrates
+      printf "Total de kcal do dia/meta: %.1f/%.1f\n" totalKcal metaKcal
+      printf "Total de proteins do dia/meta: %.1f/%.1f\n" totalProteins metaProteins
+      printf "Total de lipids do dia/meta: %.1f/%.1f\n" totalLipids metaLipids
+      printf "Total de carbohydrates do dia/meta: %.1f/%.1f\n" totalCarbohydrates metaCarbohydrates
       menu usuario
 
     "4" -> do
@@ -141,18 +144,18 @@ menu usuario = do
       exitSuccess
 
     _ -> do
-      putStrLn "Opção inválida!"
+      putStrLn "Opção inválida!\n"
       menu usuario
 
 -- Função principal do mini-menu
 miniMenuRefeicoes :: Usuario -> IO Usuario
 miniMenuRefeicoes usuario = do
-  putStrLn "Escolha que tipo de refeição com que você quer interagir"
+  putStrLn "\nEscolha que tipo de refeição com que você quer interagir"
   putStrLn "1 - Café"
   putStrLn "2 - Almoço"
   putStrLn "3 - Lanche"
   putStrLn "4 - Janta"
-  putStrLn "5 - Voltar"
+  putStrLn "5 - Voltar\n"
 
   opcao <- getLine
 
@@ -176,7 +179,7 @@ miniMenuRefeicoes usuario = do
     "5" -> return usuario
 
     _ -> do
-      putStrLn "Opção inválida."
+      putStrLn "Opção inválida.\n"
       miniMenuRefeicoes usuario
 
   where
@@ -189,16 +192,16 @@ miniMenuRefeicoes usuario = do
             "Lanche" -> lanche usuario
             "Janta" -> janta usuario
 
-      putStrLn "Escolha uma opção:"
+      putStrLn "\nEscolha uma opção:"
       putStrLn "1 - Adicionar alimento"
       putStrLn "2 - Ver valor nutricional total"
       putStrLn "3 - Ver alimentos registrados"
-      putStrLn "4 - Voltar"
+      putStrLn "4 - Voltar\n"
 
       opcao <- getLine
       case opcao of
         "1" -> do
-          putStrLn "Digite o nome do alimento que deseja adicionar:"
+          putStrLn "Digite o nome do alimento que deseja adicionar:\n"
           nomeAlimento <- getLine
           alimentos <- lerAlimentos "alimentos.txt"
           let alimentoEncontrado = obterAlimentoPeloNome alimentos nomeAlimento
@@ -210,19 +213,19 @@ miniMenuRefeicoes usuario = do
                     "Almoço" -> usuario { almoco = novaListaRefeicao }
                     "Lanche" -> usuario { lanche = novaListaRefeicao }
                     "Janta" -> usuario { janta = novaListaRefeicao }
-              putStrLn "Alimento adicionado à refeição."
+              putStrLn "Alimento adicionado à refeição.\n"
               editarRefeicao nome novoUsuario
             Nothing -> do
-              putStrLn "Alimento não encontrado no arquivo."
+              putStrLn "Alimento não encontrado no arquivo.\n"
               editarRefeicao nome usuario
 
         "2" -> do
           let (totalKcal, totalProteinas, totalGorduras, totalCarboidratos) =
                 calcularValorNutricionalTotal listaRefeicao
-          putStrLn ("Valor calórico total: " ++ show totalKcal ++ " kcal")
-          putStrLn ("Proteínas totais: " ++ show totalProteinas ++ " g")
-          putStrLn ("Gorduras totais: " ++ show totalGorduras ++ " g")
-          putStrLn ("Carboidratos totais: " ++ show totalCarboidratos ++ " g")
+          putStrLn ("Valor calórico total: " ++ show totalKcal ++ " kcal\n")
+          putStrLn ("Proteínas totais: " ++ show totalProteinas ++ " g\n")
+          putStrLn ("Gorduras totais: " ++ show totalGorduras ++ " g\n")
+          putStrLn ("Carboidratos totais: " ++ show totalCarboidratos ++ " g\n")
           editarRefeicao nome usuario
 
         "3" -> do
@@ -234,16 +237,16 @@ miniMenuRefeicoes usuario = do
         "4" -> miniMenuRefeicoes usuario
 
         _ -> do
-          putStrLn "Opção inválida."
+          putStrLn "Opção inválida.\n"
           editarRefeicao nome usuario
 
 -- Função para exibir o submenu de exercícios
 submenuExercicios :: Usuario -> IO Usuario
 submenuExercicios usuario = do
-  putStrLn "Escolha uma opção:"
+  putStrLn "\nEscolha uma opção:"
   putStrLn "1 - Exercícios Anaeróbicos"
   putStrLn "2 - Exercícios Aeróbicos"
-  putStrLn "3 - Voltar ao Menu Principal"
+  putStrLn "3 - Voltar ao Menu Principal\n"
   
   opcao <- getLine
   case opcao of
@@ -256,17 +259,17 @@ submenuExercicios usuario = do
     "3" -> return usuario
     
     _ -> do
-      putStrLn "Opção inválida."
+      putStrLn "Opção inválida.\n"
       submenuExercicios usuario
 
 -- Submenu para Exercícios Anaeróbicos
 submenuExerciciosAnaerobicos :: Usuario -> IO Usuario
 submenuExerciciosAnaerobicos usuario = do
-  putStrLn "Exercícios Anaeróbicos:"
+  putStrLn "\nExercícios Anaeróbicos:"
   putStrLn "1 - Ver exercicios do dia"
   putStrLn "2 - Ver todos os exercicios ja feitos"
   putStrLn "3 - Adicionar exercicio realizado"
-  putStrLn "4 - Voltar"
+  putStrLn "4 - Voltar\n"
   
   opcao <- getLine
   case opcao of
@@ -285,17 +288,17 @@ submenuExerciciosAnaerobicos usuario = do
     "4" -> submenuExercicios usuario
 
     _ -> do
-      putStrLn "Opção inválida."
+      putStrLn "Opção inválida.\n"
       submenuExerciciosAnaerobicos usuario
 
 -- Submenu para Exercícios Aeróbicos
 submenuExerciciosAerobicos :: Usuario -> IO Usuario
 submenuExerciciosAerobicos usuario = do
-  putStrLn "Exercícios Aeróbicos:"
+  putStrLn "\nExercícios Aeróbicos:"
   putStrLn "1 - Ver exercicios do dia"
   putStrLn "2 - Ver todos os exercicios ja feitos"
   putStrLn "3 - Adicionar exercicio realizado"
-  putStrLn "4 - Voltar"
+  putStrLn "4 - Voltar\n"
   
   opcao <- getLine
   case opcao of

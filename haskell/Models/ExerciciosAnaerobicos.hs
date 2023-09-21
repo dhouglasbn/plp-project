@@ -58,5 +58,3 @@ obterExercicioAnaerobicoPeloNome exercicios nomeExercicio =
 filtrarExerciciosPorAreaMuscular :: [ExercicioAnaerobico] -> String -> [ExercicioAnaerobico]
 filtrarExerciciosPorAreaMuscular exercicios area =
   filter (\exercicio -> areaMuscular exercicio == area) exercicios
-
-

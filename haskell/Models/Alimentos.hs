@@ -2,6 +2,7 @@ module Models.Alimentos where
 
 import System.IO (IOMode(WriteMode), openFile, hPutStr, withFile, hGetContents, hClose, IOMode(ReadMode))
 import Data.List (find)
+import Control.Monad
 
 data Alimento = Alimento {
   nome_alimento :: String,
@@ -29,25 +30,27 @@ adicionarAlimentoManualmente listaAlimentos = do
   let proteinas = read proteinasStr :: Float
   let gorduras = read gordurasStr :: Float
   let carboidratos = read carboidratosStr :: Float
-
+      
   let novoAlimento = criarAlimento nome kcal proteinas gorduras carboidratos
   return (novoAlimento : listaAlimentos)
 
 -- Função para criar um novo alimento
 criarAlimento :: String -> Float -> Float -> Float -> Float -> Alimento
-criarAlimento = Alimento
+criarAlimento nome kcal proteinas gorduras carboidratos = Alimento nome kcal proteinas gorduras carboidratos
 
 -- Função para salvar uma lista de alimentos em um arquivo
 salvarAlimentos :: FilePath -> [Alimento] -> IO ()
-salvarAlimentos arquivo alimentos = withFile arquivo WriteMode $ \handle -> do
-  hPutStr handle (unlines (map show alimentos))
+salvarAlimentos arquivo alimentos = do
+  withFile arquivo WriteMode $ \handle -> do
+    hPutStr handle (unlines (map show alimentos))
 
 lerAlimentos :: FilePath -> IO [Alimento]
-lerAlimentos arquivo = withFile arquivo ReadMode $ \handle -> do
-  conteudo <- hGetContents handle
-  let linhas = lines conteudo
-  let alimentos = map parseAlimento linhas
-  return alimentos
+lerAlimentos arquivo = do
+  withFile arquivo ReadMode $ \handle -> do
+    conteudo <- hGetContents handle
+    let linhas = lines conteudo
+    let alimentos = map parseAlimento linhas
+    return alimentos
 
 parseAlimento :: String -> Alimento
 parseAlimento linha = case words linha of
@@ -57,8 +60,10 @@ parseAlimento linha = case words linha of
 
 -- Função para ler todo o conteúdo do arquivo de alimentos e retorná-lo como uma string
 lerAlimentosComoString :: FilePath -> IO String
-lerAlimentosComoString arquivo = withFile arquivo ReadMode $ \handle -> do
-  hGetContents handle
+lerAlimentosComoString arquivo = do
+  withFile arquivo ReadMode $ \handle -> do
+    conteudo <- hGetContents handle
+    return conteudo
 
 -- Função para obter um alimento específico pelo nome
 obterAlimentoPeloNome :: [Alimento] -> String -> Maybe Alimento
@@ -76,11 +81,10 @@ totalAtributo alimentos atributo = sum (map atributo alimentos)
 -- Função para calcular o valor total dos quatro atributos para todas as refeições juntas.
 totalAtributosRefeicoes :: [Alimento] -> [Alimento] -> [Alimento] -> [Alimento] -> (Float, Float, Float, Float)
 totalAtributosRefeicoes cafe almoco lanche janta =
-  let alimentosDia = cafe ++ almoco ++ lanche ++ janta
-      totalKcal = totalAtributo alimentosDia kcal
-      totalProteins = totalAtributo alimentosDia proteinas
-      totalLipids = totalAtributo alimentosDia gorduras
-      totalCarbohydrates = totalAtributo alimentosDia carboidratos
+  let totalKcal = totalAtributo cafe kcal + totalAtributo almoco kcal + totalAtributo lanche kcal + totalAtributo janta kcal
+      totalProteins = totalAtributo cafe proteinas + totalAtributo almoco proteinas + totalAtributo lanche proteinas + totalAtributo janta proteinas
+      totalLipids = totalAtributo cafe gorduras + totalAtributo almoco gorduras + totalAtributo lanche gorduras + totalAtributo janta gorduras
+      totalCarbohydrates = totalAtributo cafe carboidratos + totalAtributo almoco carboidratos + totalAtributo lanche carboidratos + totalAtributo janta carboidratos
   in (totalKcal, totalProteins, totalLipids, totalCarbohydrates)
 
 -- Função para calcular o valor nutricional total de uma refeição
