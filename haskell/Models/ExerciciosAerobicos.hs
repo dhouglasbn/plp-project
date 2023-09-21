@@ -15,8 +15,6 @@ calcularPerdaCaloricaAerobico :: Float -> Float -> Float -> Float
 calcularPerdaCaloricaAerobico metExercicio pesoUsuario duracaoExercicio =
   metExercicio * pesoUsuario * duracaoExercicio
 
-
-
 -- Função para buscar um exercício aeróbico por nome em um arquivo
 buscarExercicioAerobicoPorNome :: FilePath -> String -> IO (Maybe ExercicioAerobico)
 buscarExercicioAerobicoPorNome arquivo nomeExercicio = do

@@ -60,15 +60,19 @@ criarConta arquivo = do
   let generoValido = genero `elem` ["M", "F"]
   let idadeValida = idadeStr /= "" && read idadeStr > 0 && read idadeStr < 100
   let pesoValido = pesoStr /= "" && read pesoStr > 0
-  let alturaValida = alturaStr /= "" && read alturaStr > 0
+  let alturaValida = alturaStr /= "" && read alturaStr > 0.0
   let metaValida = metaStr /= "" && read metaStr > 0.0
   
   if generoValido && idadeValida && pesoValido && alturaValida && metaValida then
-    let meta = read metaStr :: Float
-        usuario = Usuario senha nome genero (read idadeStr) (read pesoStr) (read alturaStr) meta 0.0 0.0 [] [] [] [] [] [] 
+    let idade = read idadeStr :: Int
+        peso = read pesoStr :: Float
+        altura = read alturaStr :: Float
+        meta = read metaStr :: Float
+        usuario = Usuario senha nome genero idade peso altura meta 0.0 0.0 [] [] [] [] [] [] 
     in do
       appendFile arquivo (showUsuario usuario ++ "\n")
-      putStrLn "Conta criada com sucesso!"
+      putStrLn "Conta criada com sucesso!\n"
+      main
 
   else do
     putStrLn "Dados inválidos. Certifique-se de que todos os campos estão preenchidos corretamente."

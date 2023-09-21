@@ -55,9 +55,9 @@ parseUsuario linha =
       almocoStr = splitOn "," (campos !! 12)
       lancheStr = splitOn "," (campos !! 13)
       jantaStr = splitOn "," (campos !! 14)
-
-      exerciciosAerobicos = map (\s -> ExercicioRegistrado (Left s) 0 undefined 0) exerciciosAerobicosStr
-      exerciciosAnaerobicos = map (\s -> ExercicioRegistrado (Right s) 0 undefined 0) exerciciosAnaerobicosStr
+      
+      exerciciosAnaerobicos = map (\s -> ExercicioRegistrado (Left (createExercicioAnaerobico s)) 0 undefined 0) exerciciosAnaerobicosStr
+      exerciciosAerobicos = map (\s -> ExercicioRegistrado (Right (createExercicioAerobico s)) 0 undefined 0) exerciciosAerobicosStr
       cafe = map (\s -> Alimento s 0 0 0 0) cafeStr
       almoco = map (\s -> Alimento s 0 0 0 0) almocoStr
       lanche = map (\s -> Alimento s 0 0 0 0) lancheStr
@@ -79,6 +79,22 @@ parseUsuario linha =
       lanche = lanche,
       janta = janta
     }
+    
+-- Função para criar um ExercicioAnaerobico a partir de uma String
+createExercicioAnaerobico :: String -> ExercicioAnaerobico
+createExercicioAnaerobico str =
+  let [nome, area, seriesStr, repeticoesStr, pesoStr] = words str
+      seriesInt = read seriesStr :: Int
+      repeticoesInt = read repeticoesStr :: Int
+      pesoFloat = read pesoStr :: Float
+  in ExercicioAnaerobico { nomeExercicioAnaerobico = nome, areaMuscular = area, seriesAnaerobico = seriesInt, repeticoesAnaerobico = repeticoesInt, pesoAnaerobico = pesoFloat }
+
+-- Função para criar um ExercicioAerobico a partir de uma String
+createExercicioAerobico :: String -> ExercicioAerobico
+createExercicioAerobico str =
+  let [nome, metStr] = words str
+      metFloat = read metStr :: Float
+  in ExercicioAerobico { nomeExercicioAerobico = nome, met = metFloat }
 
 buscarUsuarioPorSenha :: FilePath -> String -> IO (Maybe Usuario)
 buscarUsuarioPorSenha arquivo senhaVerificacao = do
@@ -180,7 +196,6 @@ substituirUsuario arquivo novoUsuario = do
   let usuariosNovos = novoUsuario : usuariosAtualizados
   -- Escreve a lista de usuários atualizada no arquivo
   writeFile arquivo (unlines (map show usuariosNovos))
-
 
 
 
