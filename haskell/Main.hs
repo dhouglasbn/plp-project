@@ -19,12 +19,14 @@ import Models.AlimentoRegistrado (AlimentoRegistrado(AlimentoRegistrado), valorD
 
 main :: IO ()
 main = do
-  putStrLn "\nBoas vindas!"
+  clearScreen
+  putStrLn "Boas vindas ao +Saude!\n"
   putStrLn "Selecione uma das opções abaixo:\n"
   putStrLn "1 - Criar Conta"
   putStrLn "2 - Entrar em Conta"
   putStrLn "3 - Sair\n"
   opcao <- getLine
+  clearScreen
   login opcao
 
 login :: String -> IO ()
@@ -102,6 +104,7 @@ menu usuario = do
   putStrLn "6 - Sair e salvar\n"
   
   opcao <- getLine
+  clearScreen
   case opcao of
     "1" -> do
       novoUsuario <- atualizarPeso usuario
