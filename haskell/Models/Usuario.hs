@@ -318,11 +318,11 @@ caloriasManterPeso usuario
 
 -- Função para calcular o valor total das calorias diárias para perder peso
 caloriasDiariasPerderPeso :: Usuario -> Float -> Float
-caloriasDiariasPerderPeso usuario metaPeso = caloriasManterPeso usuario - (500 * abs (peso usuario - metaPeso))
+caloriasDiariasPerderPeso usuario metaPeso = caloriasManterPeso usuario - (50 * abs (peso usuario - metaPeso))
 
 -- Função para calcular o valor total das calorias diárias para ganhar peso
 caloriasDiariasGanharPeso :: Usuario -> Float -> Float
-caloriasDiariasGanharPeso usuario metaPeso = caloriasManterPeso usuario + (500 * abs (metaPeso - peso usuario))
+caloriasDiariasGanharPeso usuario metaPeso = caloriasManterPeso usuario + (50 * abs (metaPeso - peso usuario))
 
 
 
