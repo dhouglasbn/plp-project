@@ -1,13 +1,9 @@
+:- use_module(servicos/lista_usuarios).
+:- use_module(servicos/pega_usuario_por_id).
+:- use_module(servicos/deleta_usuario_por_id).
+:- use_module(servicos/cadastra_usuario).
+:- use_module(models/usuario).
+
 main():-
-    open('usuarios.txt', read, Fluxo),
-    ler_usuarios(Fluxo, Linhas),
-    close(Fluxo),
-    write(Linhas), nl.
-
-
-ler_usuarios(F, []):-
-    at_end_of_stream(F).
-ler_usuarios(F, [X|L]):-
-    \+ at_end_of_stream(F),
-    read(F, X),
-    ler_usuarios(F, L).
+    deleta_usuario_por_id(321),
+    halt.
