@@ -22,6 +22,8 @@ O sistema também oferece sugestões de refeições com base nas preferências a
 ### Persistência dos dados: 
 Caso o usuário feche o sistema, os dados não serão perdidos.
 
+# Como executar a aplicação em Haskell
+
 ## Instalação
 
 |Bibliotecas necessárias|Requerido para|
@@ -31,3 +33,5 @@ Caso o usuário feche o sistema, os dados não serão perdidos.
 Instale a biblioteca `list`
 
     cabal install --lib list
+
+# Como executar a aplicação em prolog
