@@ -7,6 +7,7 @@
 :- use_module(models/usuario).
 
 main():-
-    lista_usuarios(Lista),
-    write(Lista),
+    usuario(442,"user teste3","t",15,120.0,1.6,100.0, Usuario),
+    cadastra_usuario(Usuario),
+    write(Usuario),
     halt.

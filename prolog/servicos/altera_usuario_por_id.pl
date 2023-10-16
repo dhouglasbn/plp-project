@@ -5,7 +5,7 @@
 altera_usuario_por_id(Id, NovoUsuario):-
     lista_usuarios(Lista),
     altera_usuario(Id, NovoUsuario, Lista, NovaLista),
-    open("usuarios.txt", write, Fluxo),
+    open("dados/usuarios.txt", write, Fluxo),
     sobrescrever(Fluxo, NovaLista),
     close(Fluxo).
 

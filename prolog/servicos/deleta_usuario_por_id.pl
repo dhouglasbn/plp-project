@@ -5,7 +5,7 @@
 deleta_usuario_por_id(Id):-
     lista_usuarios(Lista),
     remover_usuario(Id, Lista, NovaLista),
-    open("usuarios.txt", write, Fluxo),
+    open("dados/usuarios.txt", write, Fluxo),
     sobrescrever(Fluxo, NovaLista),
     close(Fluxo).
 
