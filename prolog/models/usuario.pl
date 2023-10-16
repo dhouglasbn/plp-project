@@ -16,19 +16,19 @@
 usuario(Senha, Nome, Genero, Idade, Peso, Altura, MetaPeso, Usuario):-
     string_lower(Nome, NomeMinusculo),
     quebrar_e_substituir(NomeMinusculo, NomeFormatado),
-    Usuario = (Senha|NomeFormatado|Genero|Idade|Peso|Altura|MetaPeso|0.0|0.0|[]|[]|[]|[]|[]|[]).
+    Usuario = (Senha|NomeFormatado|Genero|Idade|Peso|Altura|MetaPeso|0.0|0.0|[]|[]).
 
 usuario(Senha, Nome, Genero, Idade, Peso, Altura, MetaPeso, MetaKcal, KcalAtual, Usuario):-
     string_lower(Nome, NomeMinusculo),
     quebrar_e_substituir(NomeMinusculo, NomeFormatado),
-    Usuario = (Senha|NomeFormatado|Genero|Idade|Peso|Altura|MetaPeso|MetaKcal|KcalAtual|[]|[]|[]|[]|[]|[]).
+    Usuario = (Senha|NomeFormatado|Genero|Idade|Peso|Altura|MetaPeso|MetaKcal|KcalAtual|[]|[]).
 
 usuario(Senha, Nome, Genero, Idade, Peso, Altura, MetaPeso, MetaKcal, 
-KcalAtual, ExerciciosAerobicos, ExerciciosAnaerobicos, Cafe, Almoco, Lanche, Janta, Usuario):-
+KcalAtual, ExerciciosAerobicos, ExerciciosAnaerobicos, Usuario):-
     string_lower(Nome, NomeMinusculo),
     quebrar_e_substituir(NomeMinusculo, NomeFormatado),
     Usuario = (Senha|NomeFormatado|Genero|Idade|Peso|Altura|MetaPeso|MetaKcal|
-    KcalAtual|ExerciciosAerobicos|ExerciciosAnaerobicos|Cafe|Almoco|Lanche|Janta).
+    KcalAtual|ExerciciosAerobicos|ExerciciosAnaerobicos).
 
 usuario_get_senha(Usuario, Senha):-
     (Senha|_) = Usuario.
