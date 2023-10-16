@@ -7,7 +7,5 @@
 :- use_module(models/usuario).
 
 main():-
-    usuario(442,"user teste3","t",15,120.0,1.6,100.0, Usuario),
-    cadastra_usuario(Usuario),
-    write(Usuario),
+    deleta_usuario_por_id(442),
     halt.
