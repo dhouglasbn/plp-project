@@ -47,13 +47,24 @@ criar_conta(?????) :-
     ;   writeln("Escolha seu gênero (M ou F): "),
         read(Genero),
         writeln("Digite a idade: "),
-        read(Idade),
+        read(IdadeStr),
         writeln("Digite o peso: "),
-        read(Peso),
+        read(PesoStr),
         writeln("Digite a altura: "),
-        read(Altura),
+        read(AlturaStr),
         writeln("Digite seu objetivo de peso: "),
-        read(Meta),
+        read(MetaStr),
+
+        genero_valido(Genero),
+        idade_valida(IdadeStr),
+        peso_valido(PesoStr),
+        altura_valida(AlturaStr),
+        meta_valida(MetaStr),
+
+        read_integer(IdadeStr, Idade),
+        read_float(PesoStr, Peso),
+        read_float(AlturaStr, Altura),
+        read_float(MetaStr, Meta),
 
         Usuario = usuario(Senha, Nome, Genero, Idade, Peso, Altura, Meta, 0.0, 0.0, [], [], [], [], [], []),
 
@@ -65,7 +76,46 @@ criar_conta(?????) :-
         main
     ).
 
+genero_valido("M") :- !.
+genero_valido("F") :- !.
+genero_valido(_Genero) :-
+    writeln("Gênero inválido. Use 'M' para masculino ou 'F' para feminino."),
+    fail.
 
+idade_valida(IdadeStr) :-
+    read_integer(IdadeStr, Idade),
+    Idade > 0,
+    Idade < 100, !.
+idade_valida(_) :-
+    writeln("Idade inválida. Deve ser um número entre 1 e 99."),
+    fail.
+
+peso_valido(PesoStr) :-
+    read_float(PesoStr, Peso),
+    Peso > 0, !.
+peso_valido(_) :-
+    writeln("Peso inválido. Deve ser um número positivo."),
+    fail.
+
+altura_valida(AlturaStr) :-
+    read_float(AlturaStr, Altura),
+    Altura > 0.0, !.
+altura_valida(_) :-
+    writeln("Altura inválida. Deve ser um número positivo."),
+    fail.
+
+meta_valida(MetaStr) :-
+    read_float(MetaStr, Meta),
+    Meta > 0.0, !.
+meta_valida(_) :-
+    writeln("Meta inválida. Deve ser um número positivo."),
+    fail.
+
+read_integer(Str, Int) :-
+    catch(atom_number(Str, Int), _Error, fail).
+
+read_float(Str, Float) :-
+    catch(atom_number(Str, Float), _Error, fail).
 
 
 
