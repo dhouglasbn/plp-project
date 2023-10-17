@@ -7,6 +7,6 @@
 :- use_module(models/usuario).
 
 main():-
-    lista_usuarios(Lista),
-    write(Lista),
+    usuario(443,"user teste5","t",15,120.0,1.6,100.0, Usuario),
+    altera_usuario_por_id(443, Usuario),
     halt.

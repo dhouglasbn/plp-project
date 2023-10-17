@@ -1,7 +1,7 @@
 :- module(lista_usuarios, [lista_usuarios/1]).
 
 lista_usuarios(Lista):- 
-    open('usuarios.txt', read, Fluxo),
+    open('dados/usuarios.txt', read, Fluxo),
     ler_usuarios(Fluxo, Leitura),
     close(Fluxo),
     remover_ultimo(Leitura, Lista).

@@ -5,7 +5,7 @@
 patch_usuario(SenhaAntiga, NovaSenha):-
     lista_usuarios(Lista),
     patch_usuario(SenhaAntiga, NovaSenha, Lista, NovaLista),
-    open("usuarios.txt", write, Fluxo),
+    open("dados/usuarios.txt", write, Fluxo),
     sobrescrever(Fluxo, NovaLista),
     close(Fluxo).
 

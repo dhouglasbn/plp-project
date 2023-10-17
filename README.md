@@ -23,6 +23,7 @@ O sistema também oferece sugestões de refeições com base nas preferências a
 Caso o usuário feche o sistema, os dados não serão perdidos.
 
 # Como executar a aplicação em Haskell
+Para rodar as aplicações é necessário também os interpretadores `ghci` e `swipl`.
 
 ## Instalação
 
@@ -30,8 +31,34 @@ Caso o usuário feche o sistema, os dados não serão perdidos.
 |-----------------------|--------------|
 | List                  | Fazer Split nos arquivos do nosso banco de dados
 
-Instale a biblioteca `list`
+Instale a biblioteca `list`:
 
-    cabal install --lib list
+```
+cabal install --lib list
+```
+
+acesse o diretório haskell:
+
+```
+plp-project\haskell
+```
+
+execute o comando:
+
+```
+ghci main.hs
+```
 
 # Como executar a aplicação em prolog
+
+acesse o diretório prolog:
+
+```
+plp-project\prolog
+```
+
+execute o comando:
+
+```
+swipl main.hs
+```
