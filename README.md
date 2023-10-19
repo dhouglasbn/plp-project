@@ -23,7 +23,7 @@ O sistema também oferece sugestões de refeições com base nas preferências a
 Caso o usuário feche o sistema, os dados não serão perdidos.
 
 # Como executar a aplicação em Haskell
-Para rodar as aplicações é necessário também os interpretadores `ghci` e `swipl`.
+Para rodar as aplicações é necessário instalar os interpretadores `ghci` e `swipl`.
 
 ## Instalação
 
