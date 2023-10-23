@@ -1,7 +1,7 @@
 :- module(usuario, [
     usuario/8,
     usuario/10,
-    usuario/16,
+    usuario/12,
     usuario_get_senha/2,
     usuario_get_nome/2,
     usuario_get_genero/2,

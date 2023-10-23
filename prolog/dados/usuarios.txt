@@ -1,4 +1,4 @@
-senha|nome|genero|idade|peso|altura|meta_peso|meta_kcal|kcal|atual
+senha|nome|genero|idade|peso|altura|meta_peso|meta_kcal|kcal|atual.
 123|heroi|m|20|80.0|1.8|70.0|0.0|0.0|[]|[].
 456|alooo|m|30|60.0|1.8|70.0|0.0|0.0|[]|[].
 1234|arthur|m|99|10.0|2.0|90.0|0.0|0.0|[]|[].
@@ -8,3 +8,5 @@ senha|nome|genero|idade|peso|altura|meta_peso|meta_kcal|kcal|atual
 1500|joao_victor|m|21|60.0|1.7|60.0|0.0|0.0|[]|[].
 444|user_teste1|t|15|120.0|1.6|100.0|0.0|0.0|[]|[].
 443|user_teste5|t|15|120.0|1.6|100.0|0.0|0.0|[]|[].
+45|caio|k|5|4|5|6|0.0|0.0|[]|[].
+564564|asdfasd|f|5|8|6|8|0.0|0.0|[]|[].
