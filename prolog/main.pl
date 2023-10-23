@@ -1,9 +1,9 @@
-:- use_module(servicos/lista_usuarios).
-:- use_module(servicos/pega_usuario_por_id).
-:- use_module(servicos/deleta_usuario_por_id).
-:- use_module(servicos/altera_usuario_por_id).
-:- use_module(servicos/patch_usuario).
-:- use_module(servicos/cadastra_usuario).
+:- use_module(servicos/usuarios/lista_usuarios).
+:- use_module(servicos/usuarios/pega_usuario_por_id).
+:- use_module(servicos/usuarios/deleta_usuario_por_id).
+:- use_module(servicos/usuarios/altera_usuario_por_id).
+:- use_module(servicos/usuarios/patch_usuario).
+:- use_module(servicos/usuarios/cadastra_usuario).
 :- use_module(models/usuario).
 
 main() :- 

@@ -10,24 +10,36 @@
     usuario_get_altura/2,
     usuario_get_meta_peso/2,
     usuario_get_meta_kcal/2,
-    usuario_get_kcal_atual/2
+    usuario_get_kcal_atual/2,
+    usuario_set_senha/3,
+    usuario_set_nome/3,
+    usuario_set_genero/3,
+    usuario_set_idade/3,
+    usuario_set_peso/3,
+    usuario_set_altura/3,
+    usuario_set_meta_peso/3,
+    usuario_set_meta_kcal/3,
+    usuario_set_kcal_atual/3
     ]).
 
 usuario(Senha, Nome, Genero, Idade, Peso, Altura, MetaPeso, Usuario):-
     string_lower(Nome, NomeMinusculo),
+    string_lower(Genero, GeneroMinusculo),
     quebrar_e_substituir(NomeMinusculo, NomeFormatado),
-    Usuario = (Senha|NomeFormatado|Genero|Idade|Peso|Altura|MetaPeso|0.0|0.0|[]|[]).
+    Usuario = (Senha|NomeFormatado|GeneroMinusculo|Idade|Peso|Altura|MetaPeso|0.0|0.0|[]|[]).
 
 usuario(Senha, Nome, Genero, Idade, Peso, Altura, MetaPeso, MetaKcal, KcalAtual, Usuario):-
     string_lower(Nome, NomeMinusculo),
+    string_lower(Genero, GeneroMinusculo),
     quebrar_e_substituir(NomeMinusculo, NomeFormatado),
-    Usuario = (Senha|NomeFormatado|Genero|Idade|Peso|Altura|MetaPeso|MetaKcal|KcalAtual|[]|[]).
+    Usuario = (Senha|NomeFormatado|GeneroMinusculo|Idade|Peso|Altura|MetaPeso|MetaKcal|KcalAtual|[]|[]).
 
 usuario(Senha, Nome, Genero, Idade, Peso, Altura, MetaPeso, MetaKcal, 
 KcalAtual, ExerciciosAerobicos, ExerciciosAnaerobicos, Usuario):-
     string_lower(Nome, NomeMinusculo),
+    string_lower(Genero, GeneroMinusculo),
     quebrar_e_substituir(NomeMinusculo, NomeFormatado),
-    Usuario = (Senha|NomeFormatado|Genero|Idade|Peso|Altura|MetaPeso|MetaKcal|
+    Usuario = (Senha|NomeFormatado|GeneroMinusculo|Idade|Peso|Altura|MetaPeso|MetaKcal|
     KcalAtual|ExerciciosAerobicos|ExerciciosAnaerobicos).
 
 usuario_get_senha(Usuario, Senha):-
@@ -56,6 +68,45 @@ usuario_get_meta_kcal(Usuario, MetaKcal):-
 
 usuario_get_kcal_atual(Usuario, KcalAtual):-
     (_|_|_|_|_|_|_|_|KcalAtual|_) = Usuario.
+
+usuario_set_senha(Usuario, Senha, NovoUsuario):-
+    (_|Dados) = Usuario,
+    NovoUsuario = (Senha|Dados).
+
+usuario_set_nome(Usuario, Nome, NovoUsuario):-
+    string_lower(Nome, NomeMinusculo),
+    quebrar_e_substituir(NomeMinusculo, NomeFormatado),
+    (A|_|Dados) = Usuario,
+    NovoUsuario = (A|NomeFormatado|Dados).
+
+usuario_set_genero(Usuario, Genero, NovoUsuario):-
+    string_lower(Genero, GeneroMinusculo),
+    (A|B|_|Dados) = Usuario,
+    NovoUsuario = (A|B|GeneroMinusculo|Dados).
+
+usuario_set_idade(Usuario, Idade, NovoUsuario):-
+    (A|B|C|_|Dados) = Usuario,
+    NovoUsuario = (A|B|C|Idade|Dados).
+
+usuario_set_peso(Usuario, Peso, NovoUsuario):-
+    (A|B|C|D|_|Dados) = Usuario,
+    NovoUsuario = (A|B|C|D|Peso|Dados).
+
+usuario_set_altura(Usuario, Altura, NovoUsuario):-
+    (A|B|C|D|E|_|Dados) = Usuario,
+    NovoUsuario = (A|B|C|D|E|Altura|Dados).
+
+usuario_set_meta_peso(Usuario, MetaPeso, NovoUsuario):-
+    (A|B|C|D|E|F|_|Dados) = Usuario,
+    NovoUsuario = (A|B|C|D|E|F|MetaPeso|Dados).
+
+usuario_set_meta_kcal(Usuario, MetaKcal, NovoUsuario):-
+    (A|B|C|D|E|F|G|_|Dados) = Usuario,
+    NovoUsuario = (A|B|C|D|E|F|G|MetaKcal|Dados).
+
+usuario_set_kcal_atual(Usuario, KcalAtual, NovoUsuario):-
+    (A|B|C|D|E|F|G|H|_|Dados) = Usuario,
+    NovoUsuario = (A|B|C|D|E|F|G|H|KcalAtual|Dados).
 
 quebrar_e_substituir(String, Resultado) :-
     atomic_list_concat(Palavras, ' ', String),
