@@ -7,74 +7,50 @@ main :-
     read(Opcao),
     login(Opcao).
 
-login("1") :- criar_conta(?????).
+login("1") :- criar_conta().
 login("2") :- 
     writeln("\nDigite a senha:"),
     read(Senha),
+    pega_usuario_por_id(Id, Usuario),
+    menu(Usuario).
 
-    ------------------------------------------------------------------------------------------------------
-    buscar_usuario_por_senha("Usuarios.txt", Senha, Usuario),
-    ------------------------------------------------------------------------------------------------------
-    (
-        Usuario = "Conta não encontrada" ->
-        writeln("\nSenha incorreta ou conta não encontrada.\n"),
-        main
-    ;   menu(Usuario)
-    ).
 login("3") :- halt.
 login(_) :- 
     writeln("\nOpção inválida!\n"),
     main.
 
-------------------------------------------------------------------------------------------------
-buscar_usuario_por_senha(Arquivo, Senha, Usuario) :- 
-------------------------------------------------------------------------------------------------
-
-criar_conta(?????) :-
+criar_conta() :-
     writeln("Digite seu nome: "),
     read(Nome),
     writeln("Digite a senha: "),
     read(Senha),
+    writeln("Escolha seu gênero (M ou F): "),
+    read(Genero),
+    writeln("Digite a idade: "),
+    read(IdadeStr),
+    writeln("Digite o peso: "),
+    read(PesoStr),
+    writeln("Digite a altura: "),
+    read(AlturaStr),
+    writeln("Digite seu objetivo de peso: "),
+    read(MetaStr),
 
------------------------------------------------------------------------------------------------
-    buscar_usuario_por_senha("Usuarios.txt", Senha, UsuarioEncontrado),
------------------------------------------------------------------------------------------------
+    genero_valido(Genero),
+    idade_valida(IdadeStr),
+    peso_valido(PesoStr),
+    altura_valida(AlturaStr),
+    meta_valida(MetaStr),
 
-    (
-        UsuarioEncontrado \= "Conta não encontrada" ->
-        writeln("Conta já criada.\n"),
-        main
-    ;   writeln("Escolha seu gênero (M ou F): "),
-        read(Genero),
-        writeln("Digite a idade: "),
-        read(IdadeStr),
-        writeln("Digite o peso: "),
-        read(PesoStr),
-        writeln("Digite a altura: "),
-        read(AlturaStr),
-        writeln("Digite seu objetivo de peso: "),
-        read(MetaStr),
+    read_integer(IdadeStr, Idade),
+    read_float(PesoStr, Peso),
+    read_float(AlturaStr, Altura),
+    read_float(MetaStr, Meta),
 
-        genero_valido(Genero),
-        idade_valida(IdadeStr),
-        peso_valido(PesoStr),
-        altura_valida(AlturaStr),
-        meta_valida(MetaStr),
+    Usuario = usuario(Senha, Nome, Genero, Idade, Peso, Altura, Meta, 0.0, 0.0, [], [], [], [], [], []),
 
-        read_integer(IdadeStr, Idade),
-        read_float(PesoStr, Peso),
-        read_float(AlturaStr, Altura),
-        read_float(MetaStr, Meta),
-
-        Usuario = usuario(Senha, Nome, Genero, Idade, Peso, Altura, Meta, 0.0, 0.0, [], [], [], [], [], []),
-
-        cadastra_usuario(Usuario),
-
-        writeln("Conta criada com sucesso!\n"),
-        main
-    ;   writeln("Dados inválidos. Certifique-se de que todos os campos estão preenchidos corretamente.\n"),
-        main
-    ).
+    cadastra_usuario(Usuario),   
+    main
+    .
 
 genero_valido("M") :- !.
 genero_valido("F") :- !.
@@ -131,7 +107,7 @@ read_float(Str, Float) :-
 
 
 
-menu(Usuario, NovoUsuario) :-
+menu(Usuario) :-
     writeln("Bem-vindo."),
     writeln("Escolha uma opção:\n"),
     writeln("1 - Configurar dados do usuario"),
@@ -142,32 +118,23 @@ menu(Usuario, NovoUsuario) :-
     read(Opcao),
 
     (Opcao = "1" ->
-        mini_menu_configuracao(Usuario, NovoUsuario1),
-        menu(NovoUsuario1, NovoUsuario)
+        mini_menu_configuracao(Usuario)
     ; Opcao = "2" ->
-        calcular_progresso_calorico(Usuario),
-        menu(Usuario, NovoUsuario)
+        calcular_progresso_calorico(Usuario)
     ; Opcao = "3" ->
-        mini_menu_refeicoes(Usuario, NovoUsuario1),
-        menu(NovoUsuario1, NovoUsuario)
+        mini_menu_refeicoes(Usuario)
     ; Opcao = "4" ->
-        submenu_exercicios(Usuario, NovoUsuario1),
-        menu(NovoUsuario1, NovoUsuario)
+        submenu_exercicios(Usuario)
     ; Opcao = "5" ->
-        NovoUsuario = Usuario, 
-        altera_usuario_por_id(Id, NovoUsuario),
         -----
         halt ou !?
         -----
     ; 
         writeln("Opção inválida!\n"),
-        menu(Usuario, NovoUsuario)
+        menu(Usuario)
     ).
 
 
----------------------------------------------------
-calcular_progresso_calorico(Usuario) :-
----------------------------------------------------
 
 
 
@@ -191,9 +158,7 @@ calcular_progresso_calorico(Usuario) :-
 
 
 
-
-
-mini_menu_configuracao(Usuario, NovoUsuario1):-
+mini_menu_configuracao(Usuario):-
     writeln("Escolha que tipo de dado voce deseja modificar:\n"),
     writeln("1 - Meta"),
     writeln("2 - Peso"),
@@ -202,19 +167,16 @@ mini_menu_configuracao(Usuario, NovoUsuario1):-
     read(Opcao),
 
     (Opcao = "1" ->
-        atualizar_meta(Usuario, NovoUsuario1),
-        mini_menu_configuracao(NovoUsuario1, NovoUsuario)
+        atualizar_meta(Usuario)
     ; Opcao = "2" ->
-        atualizar_peso(Usuario, NovoUsuario1),
-        mini_menu_configuracao(NovoUsuario1, NovoUsuario)
+        atualizar_peso(Usuario)
     ; Opcao = "3" ->
-        atualizar_idade(Usuario, NovoUsuario1),
-        mini_menu_configuracao(NovoUsuario1, NovoUsuario)
+        atualizar_idade(Usuario)
     ; Opcao = "4" ->
-        menu(Usuario, NovoUsuario1)
+        menu(Usuario)
     ; 
         writeln("Opção inválida!\n"),
-        mini_menu_configuracao(Usuario, NovoUsuario1)
+        mini_menu_configuracao(Usuario)
     ).
 
 
@@ -254,7 +216,7 @@ atualizar_idade(Usuario, NovoUsuario) :-
 
 
 
-mini_menu_refeicoes(Usuario, NovoUsuario) :-
+mini_menu_refeicoes(Usuario) :-
     writeln("\nEscolha que tipo de refeição com que você quer interagir"),
     writeln("1 - Café"),
     writeln("2 - Almoço"),
@@ -264,29 +226,25 @@ mini_menu_refeicoes(Usuario, NovoUsuario) :-
     read(Opcao),
 
     (Opcao = "1" ->
-        editar_refeicao("Café", Usuario, NovoUsuario1),
-        mini_menu_refeicoes(NovoUsuario1, NovoUsuario)
+        editar_refeicao("Café", Usuario)
     ; Opcao = "2" ->
-        editar_refeicao("Almoço", Usuario, NovoUsuario1),
-        mini_menu_refeicoes(NovoUsuario1, NovoUsuario)
+        editar_refeicao("Almoço", Usuario)
     ; Opcao = "3" ->
-        editar_refeicao("Lanche", Usuario, NovoUsuario1),
-        mini_menu_refeicoes(NovoUsuario1, NovoUsuario)
+        editar_refeicao("Lanche", Usuario)
     ; Opcao = "4" ->
-        editar_refeicao("Janta", Usuario, NovoUsuario1),
-        mini_menu_refeicoes(NovoUsuario1, NovoUsuario)
+        editar_refeicao("Janta", Usuario)
     ; Opcao = "5" ->
-        NovoUsuario = Usuario
+        menu(Usuario)
     ; 
         writeln("Opção inválida.\n"),
-        mini_menu_refeicoes(Usuario, NovoUsuario)
+        mini_menu_refeicoes(Usuario)
     ).
 
 
-editarRefeicao(Nome, Usuario, NovoUsuario) :-
+editarRefeicao(Nome, Usuario) :-
     write('Editando '), write(Nome), nl,
 
-
+                            Fazer um get da lista
     --------------------------------------------------------------------------
     (Nome = 'Café' -> ListaRefeicao = cafe(Usuario)
     ; Nome = 'Almoço' -> ListaRefeicao = almoco(Usuario)
@@ -302,52 +260,33 @@ editarRefeicao(Nome, Usuario, NovoUsuario) :-
     write('3 - Ver alimentos registrados'), nl,
     write('4 - Voltar'), nl,
     read(Opcao),
-    (Opcao = '1' -> adicionarAlimento(Nome, Usuario, NovoUsuario)
-    ; Opcao = '2' -> calcularValorNutricionalTotal(ListaRefeicao), editarRefeicao(Nome, Usuario, NovoUsuario)
-    ; Opcao = '3' -> listarAlimentosDisponiveis, editarRefeicao(Nome, Usuario, NovoUsuario)
-    ; Opcao = '4' -> NovoUsuario = Usuario
-    ; write('Opção inválida.'), nl, editarRefeicao(Nome, Usuario, NovoUsuario)
+
+    (Opcao = '1' -> adicionarAlimento(id, Usuario, ListaRefeicao, Nome)
+    ; Opcao = '2' -> calcularValorNutricionalTotal(ListaRefeicao), editarRefeicao(Nome, Usuario)
+    ; Opcao = '3' -> listarAlimentosDisponiveis, editarRefeicao(Nome, Usuario)
+    ; Opcao = '4' -> mini_menu_refeicoes(Usuario)
+    ; write('Opção inválida.'), nl, editarRefeicao(Nome, Usuario)
     ).
 
 
-adicionarAlimento(Nome, Usuario, NovoUsuario) :-
-    writeln("Digite o nome do alimento que deseja adicionar:"),
-    read(NomeAlimento),
+adicionarAlimento(id, Usuario, ListaRefeicao, Nome) :-
+    writeln("Digite o id do alimento que deseja adicionar:"),
+    read(id),
+    obterAlimentoPeloId(TXT, id, Alimento),
+
+    writeln("Digite quantos gramas de alimento: "),
+    read(QuantiaAlimento),
+    read_integer(QuantiaAlimento, Gramas),
+
+    criarAlimentoRegistrado(Alimento, Gramas, AlimentoRegistrado),
+
+    adicionarAlimentoNaRefeicao(ListaRefeicao, AlimentoRegistrado),
+    editarRefeicao(Nome, Usuario).
 
 
-    lerAlimentos(Alimentos),
-    obterAlimentoPeloNome(Alimentos, NomeAlimento, Alimento),
 
 
-    (Alimento \= 'Nenhum' ->
-        writeln("Digite quantos gramas de alimento: "),
-        read(QuantiaAlimento),
 
-----------------------------------------------------------------------
-        gramasFloat(QuantiaAlimento, Gramas),
-
-
-        criarAlimentoRegistrado(Alimento, Gramas, AlimentoRegistrado),
-
-
-        adicionarAlimentoNaRefeicao(ListaRefeicao, AlimentoRegistrado, NovaListaRefeicao),
-----------------------------------------------------------------------
-
-        (Nome = 'Café' ->
-            criarUsuarioAtualizado(Usuario, cafe, NovaListaRefeicao, NovoUsuario)
-        ; Nome = 'Almoço' ->
-            criarUsuarioAtualizado(Usuario, almoco, NovaListaRefeicao, NovoUsuario)
-        ; Nome = 'Lanche' ->
-            criarUsuarioAtualizado(Usuario, lanche, NovaListaRefeicao, NovoUsuario)
-        ; Nome = 'Janta' ->
-            criarUsuarioAtualizado(Usuario, janta, NovaListaRefeicao, NovoUsuario)
-        ),
-        writeln("Alimento adicionado à refeição.\n"),
-        editarRefeicao(Nome, NovoUsuario, NovoUsuario)
-    ; 
-        writeln("Alimento não encontrado no arquivo.\n"),
-        editarRefeicao(Nome, Usuario, NovoUsuario)
-    ).
 
 calcularValorNutricionalTotal(ListaRefeicao) :-
     valorTotal(ListaRefeicao, TotalKcal, TotalProteinas, TotalGorduras, TotalCarboidratos),
@@ -381,7 +320,7 @@ listarAlimentosDisponiveis :-
 
 
 
-submenu_exercicios(Usuario, NovoUsuario) :-
+submenu_exercicios(Usuario) :-
     writeln("\nEscolha uma opção:"),
     writeln("1 - Exercícios Anaeróbicos"),
     writeln("2 - Exercícios Aeróbicos"),
@@ -389,19 +328,17 @@ submenu_exercicios(Usuario, NovoUsuario) :-
     read(Opcao),
 
     (Opcao = "1" ->
-        submenu_exercicios_anaerobicos(Usuario, NovoUsuario1),
-        submenu_exercicios(NovoUsuario1, NovoUsuario)
+        submenu_exercicios_anaerobicos(Usuario)
     ; Opcao = "2" ->
-        submenu_exercicios_aerobicos(Usuario, NovoUsuario1),
-        submenu_exercicios(NovoUsuario1, NovoUsuario)
+        submenu_exercicios_aerobicos(Usuario)
     ; Opcao = "3" ->
-        NovoUsuario = Usuario
+        menu(Usuario)
     ; 
         writeln("Opção inválida.\n"),
-        submenu_exercicios(Usuario, NovoUsuario)
+        submenu_exercicios(Usuario)
     ).
 
-submenu_exercicios_anaerobicos(Usuario, NovoUsuario) :-
+submenu_exercicios_anaerobicos(Usuario) :-
     writeln("\nExercícios Anaeróbicos:"),
     writeln("1 - Ver exercícios do dia"),
     writeln("2 - Ver todos os exercícios já feitos"),
@@ -412,19 +349,18 @@ submenu_exercicios_anaerobicos(Usuario, NovoUsuario) :-
     (Opcao = "1" ->
         exercicios_anaerobicos_do_dia(Usuario, ExerciciosDoDia),
         writeln(ExerciciosDoDia),
-        submenu_exercicios_anaerobicos(Usuario, NovoUsuario)
+        submenu_exercicios_anaerobicos(Usuario)
     ; Opcao = "2" ->
         exercicios_anaerobicos_todos(Usuario, ExerciciosTodos),
         writeln(ExerciciosTodos),
-        submenu_exercicios_anaerobicos(Usuario, NovoUsuario)
+        submenu_exercicios_anaerobicos(Usuario)
     ; Opcao = "3" ->
-        adicionar_exercicio_anaerobico(Usuario, NovoUsuario1),
-        submenu_exercicios_anaerobicos(NovoUsuario1, NovoUsuario)
+        adicionar_exercicio_anaerobico(Usuario)
     ; Opcao = "4" ->
-        submenu_exercicios(Usuario, NovoUsuario)
+        submenu_exercicios(Usuario)
     ; 
         writeln("Opção inválida.\n"),
-        submenu_exercicios_anaerobicos(Usuario, NovoUsuario)
+        submenu_exercicios_anaerobicos(Usuario)
     ).
 
 submenu_exercicios_aerobicos(Usuario, NovoUsuario) :-
@@ -438,19 +374,18 @@ submenu_exercicios_aerobicos(Usuario, NovoUsuario) :-
     (Opcao = "1" ->
         exercicios_aerobicos_do_dia(Usuario, ExerciciosDoDia),
         writeln(ExerciciosDoDia),
-        submenu_exercicios_aerobicos(Usuario, NovoUsuario)
+        submenu_exercicios_aerobicos(Usuario)
     ; Opcao = "2" ->
         exercicios_aerobicos_todos(Usuario, ExerciciosTodos),
         writeln(ExerciciosTodos),
-        submenu_exercicios_aerobicos(Usuario, NovoUsuario)
+        submenu_exercicios_aerobicos(Usuario)
     ; Opcao = "3" ->
-        adicionar_exercicio_aerobico(Usuario, NovoUsuario1),
-        submenu_exercicios_aerobicos(NovoUsuario1, NovoUsuario)
+        adicionar_exercicio_aerobico(Usuario)
     ; Opcao = "4" ->
-        submenu_exercicios(Usuario, NovoUsuario)
+        submenu_exercicios(Usuario)
     ; 
         writeln("Opção inválida."),
-        submenu_exercicios_aerobicos(Usuario, NovoUsuario)
+        submenu_exercicios_aerobicos(Usuario)
     ).
 
 
