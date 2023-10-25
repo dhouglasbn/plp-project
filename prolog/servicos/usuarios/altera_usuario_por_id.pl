@@ -38,5 +38,5 @@ altera_arquivo_alimentos(VelhoUsuario, NovoUsuario):-
 sobrescrever(_, []).
 sobrescrever(Arquivo, [Linha|Resto]) :-
     write(Arquivo, Linha),
-    write(Arquivo, " .\n"),
+    write(Arquivo, ".\n"),
     sobrescrever(Arquivo, Resto).

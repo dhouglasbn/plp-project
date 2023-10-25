@@ -1,4 +1,3 @@
-nome|partesdocorpo.
 "agachamento"|"pernas, glúteos".
 "levantamento terra"|"costas, pernas, glúteos".
 "supino"|"peito, ombros, tríceps".

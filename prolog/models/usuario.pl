@@ -1,7 +1,6 @@
 :- module(usuario, [
     usuario/8,
     usuario/10,
-    usuario/12,
     usuario_get_senha/2,
     usuario_get_nome/2,
     usuario_get_genero/2,
@@ -27,21 +26,13 @@ usuario(Senha, Nome, Genero, Idade, Peso, Altura, MetaPeso, Usuario):-
     string_lower(Nome, NomeMinusculo),
     string_lower(Genero, GeneroMinusculo),
     quebrar_e_substituir(NomeMinusculo, NomeFormatado),
-    Usuario = (Senha|NomeFormatado|GeneroMinusculo|Idade|Peso|Altura|MetaPeso|0.0|0.0|[]|[]).
+    Usuario = (Senha|NomeFormatado|GeneroMinusculo|Idade|Peso|Altura|MetaPeso|0.0|0.0).
 
 usuario(Senha, Nome, Genero, Idade, Peso, Altura, MetaPeso, MetaKcal, KcalAtual, Usuario):-
     string_lower(Nome, NomeMinusculo),
     string_lower(Genero, GeneroMinusculo),
     quebrar_e_substituir(NomeMinusculo, NomeFormatado),
-    Usuario = (Senha|NomeFormatado|GeneroMinusculo|Idade|Peso|Altura|MetaPeso|MetaKcal|KcalAtual|[]|[]).
-
-usuario(Senha, Nome, Genero, Idade, Peso, Altura, MetaPeso, MetaKcal, 
-KcalAtual, ExerciciosAerobicos, ExerciciosAnaerobicos, Usuario):-
-    string_lower(Nome, NomeMinusculo),
-    string_lower(Genero, GeneroMinusculo),
-    quebrar_e_substituir(NomeMinusculo, NomeFormatado),
-    Usuario = (Senha|NomeFormatado|GeneroMinusculo|Idade|Peso|Altura|MetaPeso|MetaKcal|
-    KcalAtual|ExerciciosAerobicos|ExerciciosAnaerobicos).
+    Usuario = (Senha|NomeFormatado|GeneroMinusculo|Idade|Peso|Altura|MetaPeso|MetaKcal|KcalAtual).
 
 usuario_get_senha(Usuario, Senha):-
     (Senha|_) = Usuario.

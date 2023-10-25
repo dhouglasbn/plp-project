@@ -324,5 +324,5 @@ submenuExerciciosAerobicos usuario = do
 -- Função para limpar a tela
 clearScreen :: IO ()
 clearScreen = do
-  _ <- system "cls" -- Substitua "clear" por "cls" se estiver no Windows
+  _ <- system "clear" -- Substitua "clear" por "cls" se estiver no Windows
   return ()

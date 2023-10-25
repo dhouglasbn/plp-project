@@ -1,0 +1,11 @@
+"_5410"|20|123.
+"halt"|halt|123.
+"fgjaiodfkgadfo"|20|123.
+"Caminhada leve"|20|123.
+"''Caminhada leve"|20|123.
+"Caminhada moderada com intensidade"|20|123.
+"Vôlei competitivo"|120|123.
+"Basquete recreativo"|15|123.
+"Basquete recreativo"|1|123.
+"Caminhada leve"|50|123.
+"Basquete competitivo"|23|123.

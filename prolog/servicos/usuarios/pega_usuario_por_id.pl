@@ -6,6 +6,7 @@ pega_usuario_por_id(Id, Usuario):-
     lista_usuarios(Lista),
     consulta_usuario(Id, Lista, Usuario).
 
+consulta_usuario(_, [], "NOUSER").
 consulta_usuario(IdDesejado, [UsuarioHead|_], UsuarioHead):-
     (IdEncontrado|_) = UsuarioHead,
     IdEncontrado = IdDesejado, !.
