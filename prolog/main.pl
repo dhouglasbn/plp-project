@@ -466,4 +466,6 @@ adicionar_exercicio_anaerobico(Usuario):-
     usuario_get_peso(Usuario, PesoUsuario),
     pegar_data_atual(Data),
     usuario_get_nome(Usuario, NomeUsuario),
-    cadastrar_exercicio_anaerobico(NomeUsuario, NomeExercicio, Duracao, PesoUsuario, Data).
+    cadastrar_exercicio_anaerobico(NomeUsuario, NomeExercicio, Duracao, PesoUsuario, Data),
+    write("Exercicio registrado com sucesso."), nl,
+    submenu_exercicios_anaerobicos(Usuario).
