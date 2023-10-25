@@ -1,0 +1,3 @@
+"extensão de tríceps com corda"|15|50.0.
+"pulldown com triângulo"|2|50.0.
+"rosca inversa"|15|50.0.

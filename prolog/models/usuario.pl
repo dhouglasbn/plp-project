@@ -19,7 +19,8 @@
     usuario_set_altura/3,
     usuario_set_meta_peso/3,
     usuario_set_meta_kcal/3,
-    usuario_set_kcal_atual/3
+    usuario_set_kcal_atual/3,
+    quebrar_e_substituir/2
     ]).
 
 usuario(Senha, Nome, Genero, Idade, Peso, Altura, MetaPeso, Usuario):-
