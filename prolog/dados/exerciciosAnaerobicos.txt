@@ -1,0 +1,32 @@
+nome|partesdocorpo.
+"agachamento"|"pernas, glúteos".
+"levantamento terra"|"costas, pernas, glúteos".
+"supino"|"peito, ombros, tríceps".
+"pull up(barra fixa)"|"costas, bíceps".
+"flexão de braço(push-up)"|"peito, ombros, tríceps".
+"rosca direta"|"bíceps".
+"tríceps coice"|"tríceps".
+"agachamento frontal"|"pernas, glúteos".
+"leg press"|"pernas, glúteos".
+"desenvolvimento de ombros"|"ombros, tríceps".
+"abdominais crunch"|"abdômen".
+"prancha(plank)"|"abdômen, costas".
+"remada curvada"|"costas, bíceps".
+"pulldown na máquina"|"costas, bíceps".
+"curl de martelo"|"bíceps, antebraços".
+"agachamento sumô"|"pernas, glúteos".
+"deadlift romeno"|"costas, pernas, glúteos".
+"pulldown frontal"|"costas, bíceps".
+"flexão declinada"|"peito, ombros, tríceps".
+"mergulhos (dips)"|"peito, ombros, tríceps".
+"levantamento de pernas suspenso"|"abdômen".
+"elevação lateral(lateral raise)"|"ombros".
+"hip thrust"|"glúteos, pernas".
+"curl de concentração"|"bíceps".
+"extensão de tríceps com corda"|"tríceps".
+"agachamento com salto(jump squat)"|"pernas, glúteos".
+"puxada na corda(cable row)"|"costas, bíceps".
+"pulldown com triângulo"|"costas, bíceps".
+"elevação de pernas penduradas"|"abdômen".
+"rosca inversa"|"antebraços, bíceps".
+"rosca inversa"|"antebraços, bíceps".

@@ -7,7 +7,7 @@ listar_exercicios_anaerobicos():-
     listar_exercicios(ListaFormatada).
 
 leitura_exercicios(Leitura):-
-    open('../../dados/exerciciosAnaerobicos.txt', read, Fluxo),
+    open('dados/exerciciosAnaerobicos.txt', read, Fluxo),
     ler_exercicios(Fluxo, Leitura),
     close(Fluxo).
 
@@ -29,4 +29,4 @@ listar_exercicios([]).
 listar_exercicios([(Nome | PartesCorpo) | Resto]) :-
     write("Nome: "), write(Nome), nl,
     write("Partes do Corpo: "), write(PartesCorpo), nl, nl,
-    listar_exercicios(Resto), halt.
+    listar_exercicios(Resto).

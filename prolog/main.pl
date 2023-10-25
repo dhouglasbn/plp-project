@@ -4,7 +4,11 @@
 :- use_module(servicos/usuarios/altera_usuario_por_id).
 :- use_module(servicos/usuarios/patch_usuario).
 :- use_module(servicos/usuarios/cadastra_usuario).
+:- use_module(servicos/registros/registrar_dia).
+:- use_module(servicos/exerciciosanaerobicos/listar_exercicios_anaerobicos).
+:- use_module(models/exercicios_anaerobicos).
 :- use_module(models/usuario).
+:- use_module(library(date)).
 
 main() :- 
     writeln("Boas vindas ao +Saude!\n"),
@@ -20,11 +24,14 @@ login(2) :-
     writeln("\nDigite a senha:"),
     read(Senha),
     pega_usuario_por_id(Senha, Usuario),
-    menu(Usuario),!.
+    usuario_get_nome(Usuario, NomeUsuario),
+    pegar_data_atual(Data),
+    (verifica_dia_atual(Data, NomeUsuario) -> menu(Usuario)
+        ; registrar_dia(Data, NomeUsuario), menu(Usuario)).
 
 login(3) :- halt.
 login(_) :- 
-    writeln("\nOpção inválida!\n"),
+    writeln("\nOpção inválidasdfasdfasdfa!\n"),
     main.
 
 criar_conta() :-
@@ -383,3 +390,30 @@ submenu_exercicios_aerobicos(Usuario, NovoUsuario) :-
         submenu_exercicios_aerobicos(Usuario)
     ).
 
+
+
+% Pegar data atual
+pegar_data_atual(Data) :-
+    get_time(Stamp),
+    stamp_date_time(Stamp, DateTime, 'UTC'),
+    date_time_value(day, DateTime, Dia),
+    date_time_value(month, DateTime, Mes),
+    date_time_value(year, DateTime, Ano),
+    atomic_list_concat([Dia, Mes, Ano], Data). 
+
+
+
+
+
+
+adicionar_exercicio_anaerobico(Usuario):-
+    write("Lista de exercicios: "), nl,
+    listar_exercicios_anaerobicos(),
+    write("\nEscolha um exercício: "),
+    read(NomeExercicio),
+    write("\nDuração do exercício"),
+    read(Duracao),
+    usuario_get_peso(Usuario, PesoUsuario),
+    pegar_data_atual(Data),
+    usuario_get_nome(Usuario, NomeUsuario),
+    cadastrar_exercicio_anaerobico(NomeUsuario, NomeExercicio, Duracao, PesoUsuario, Data).
