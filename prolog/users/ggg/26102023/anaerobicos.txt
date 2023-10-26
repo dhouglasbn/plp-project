@@ -1,1 +1,5 @@
 "agachamento"|20|200.
+"rosca inversa"|4|200.
+"rosca inversa"|2|200.
+"rosca inversa"|4|200.
+"agachamento"|5|200.

@@ -1,1 +1,4 @@
 "Corrida leve"|20|200.
+"Basquete recreativo"|4|200.
+"Pular corda"|5|200.
+"Pular corda"|10|200.

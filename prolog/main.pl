@@ -364,9 +364,11 @@ mini_menu_refeicoes(Usuario) :-
 	alimento_set_quantidade(Alimento, Gramas, 0, NovoAlimento),
 
 
-    get_kcal(NovoAlimento, KcalAtual),
-    KcalAtualNumerico is KcalAtual,
-    usuario_set_kcal_atual(Usuario, KcalAtualNumerico, NovoUsuario),
+    get_kcal(NovoAlimento, KcalAlimento),
+    usuario_get_kcal_atual(Usuario, KcalUsuario),
+    KcalAtualNumerico is KcalAlimento,
+    KcalAtual is KcalAtualNumerico + KcalUsuario,
+    usuario_set_kcal_atual(Usuario, KcalAtual, NovoUsuario),
     usuario_get_senha(NovoUsuario, Senha),
     altera_usuario_por_id(Senha, NovoUsuario),
 
@@ -403,9 +405,11 @@ mini_menu_refeicoes(Usuario) :-
 	pegar_data_atual(Data),
 	alimento_set_quantidade(Alimento, Gramas, IdRefeicao, NovoAlimento),
 
-    get_kcal(NovoAlimento, KcalAtual),
-    KcalAtualNumerico is KcalAtual,
-    usuario_set_kcal_atual(Usuario, KcalAtualNumerico, NovoUsuario),
+    get_kcal(NovoAlimento, KcalAlimento),
+    usuario_get_kcal_atual(Usuario, KcalUsuario),
+    KcalAtualNumerico is KcalAlimento,
+    KcalAtual is KcalAtualNumerico + KcalUsuario,
+    usuario_set_kcal_atual(Usuario, KcalAtual, NovoUsuario),
     usuario_get_senha(NovoUsuario, Senha),
     altera_usuario_por_id(Senha, NovoUsuario),
 
@@ -560,7 +564,7 @@ adicionar_exercicio_anaerobico(Usuario):-
 
 
     write("Exercicio registrado com sucesso."), nl,
-    submenu_exercicios_anaerobicos(Usuario).
+    submenu_exercicios_anaerobicos(NovoUsuario).
 
 
 verifica_exercicio_anaerobico(Usuario, NomeExercicio):-
@@ -581,28 +585,41 @@ adicionar_exercicio_aerobico(Usuario):-
     listar_exercicios_aerobicos(),
     write("\nEscolha um exercício: "),
     read(NomeExercicio),
-    verifica_exercicio_aerobico(Usuario, NomeExercicio),
+    verifica_exercicio_aerobico(Usuario, NomeExercicio, ConstanteCalorica),
     write("\nDuração do exercício: "),
     read(Duracao),
     usuario_get_peso(Usuario, PesoUsuario),
     pegar_data_atual(Data),
     usuario_get_nome(Usuario, NomeUsuario),
     cadastrar_exercicio_aerobico(NomeUsuario, NomeExercicio, Duracao, PesoUsuario, Data),
+
+
+    calcular_perda_calorica_aerobico(
+        PesoUsuario,
+        Duracao,
+        NomeExercicio,
+        ConstanteCalorica,
+        PerdaCalorica),
+    usuario_get_kcal_atual(Usuario, Kcal),
+    Kcal_atual is Kcal - PerdaCalorica,
+    usuario_set_kcal_atual(Usuario, Kcal_atual, NovoUsuario),
+    usuario_get_senha(NovoUsuario, Senha),
+    altera_usuario_por_id(Senha, NovoUsuario),
     write("Exercicio registrado com sucesso."), nl,
-    submenu_exercicios_aerobicos(Usuario).
+    submenu_exercicios_aerobicos(NovoUsuario).
 
 
-verifica_exercicio_aerobico(Usuario, NomeExercicio):-
+verifica_exercicio_aerobico(Usuario, NomeExercicio, ConstanteCalorica):-
     leitura_exercicios_aerobicos(Exercicios),
-    exercicio_aerobico_existe(Usuario, NomeExercicio, Exercicios).
+    exercicio_aerobico_existe(Usuario, NomeExercicio, Exercicios, ConstanteCalorica).
 
-exercicio_aerobico_existe(Usuario, _, []):-
+exercicio_aerobico_existe(Usuario, _, [], _):-
     writeln("O nome do exercício está incorreto! Tente novamente."),
     adicionar_exercicio_aerobico(Usuario), !.
-exercicio_aerobico_existe(_, NomeExercicio, [(Nome|_)|_]):-
+exercicio_aerobico_existe(_, NomeExercicio, [(Nome|ConstanteCalorica)|_], ConstanteCalorica):-
     NomeExercicio = Nome, !.
-exercicio_aerobico_existe(Usuario, NomeExercicio, [_|Tail]):-
-    exercicio_aerobico_existe(Usuario, NomeExercicio, Tail).
+exercicio_aerobico_existe(Usuario, NomeExercicio, [_|Tail], ConstanteCalorica):-
+    exercicio_aerobico_existe(Usuario, NomeExercicio, Tail, ConstanteCalorica).
 
 
 exercicios_anaerobicos_do_dia(Usuario):-

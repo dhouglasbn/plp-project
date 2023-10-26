@@ -1,5 +1,17 @@
-:- module(cadastrar_exercicio_aerobico, [cadastrar_exercicio_aerobico/5]).
+:- module(cadastrar_exercicio_aerobico, [
+    cadastrar_exercicio_aerobico/5,
+    calcular_perda_calorica_aerobico/5
+    ]).
 
+
+calcular_perda_calorica_aerobico(
+    PesoUsuario,
+    DuracaoTreino,
+    NomeExercicio,
+    ConstanteCalorica,
+    PerdaCalorica):-
+    leitura_exercicios_aerobicos(ExerciciosAerobicos),
+    PerdaCalorica is (PesoUsuario * DuracaoTreino) * ConstanteCalorica.
 
 cadastrar_exercicio_aerobico(NomeUsuario, NomeExercicio, Duracao, PesoUsuario, Data):-
     absolute_file_name("users/", CaminhoAbsoluto),
