@@ -50,3 +50,7 @@ get_gordura(Alimento, Gordura):-
 	(_|_|_|_|Gordura|_) = Alimento.
 get_carbo(Alimento, Carbo):-
 	(_|_|_|_|_|Carbo|_) = Alimento.
+get_id(Alimento, ID):-
+	(ID|_) = Alimento.
+get_nome(Alimento, NomeAlimento):-
+	(_|NomeAlimento|_) = Alimento.
