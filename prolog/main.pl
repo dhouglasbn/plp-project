@@ -6,53 +6,32 @@
 :- use_module(servicos/usuarios/cadastra_usuario).
 :- use_module(servicos/registros/registrar_dia).
 :- use_module(servicos/exerciciosanaerobicos/listar_exercicios_anaerobicos).
-:- use_module(servicos/exerciciosaerobicos/listar_exercicios_aerobicos).
-:- use_module(servicos/exerciciosanaerobicos/listar_exercicios_anaerobicos_do_dia).
-:- use_module(servicos/exerciciosaerobicos/listar_exercicios_aerobicos_do_dia).
-:- use_module(servicos/todosexercicios/listar_todos_exercicios).
 :- use_module(models/exercicios_anaerobicos).
-:- use_module(models/exercicios_aerobicos).
 :- use_module(models/usuario).
 :- use_module(library(date)).
 
-main() :- 
-    writeln("==================================="),
-    writeln("       Boas vindas ao +Saude!"),
-    writeln("===================================\n"),
-    writeln("Selecione uma das opções abaixo:"),
-    writeln("===================================\n"),
+main() :-
+    writeln("Boas vindas ao +Saude!\n"),
+    writeln("Selecione uma das opções abaixo:\n"),
     writeln("1 - Criar Conta"),
     writeln("2 - Entrar em Conta"),
     writeln("3 - Sair\n"),
-    writeln("===================================\n"),
     read(Opcao),
     login(Opcao).
 
 login(1) :- criar_conta(),!.
-login(2) :- 
-    writeln("\nDigite o nome de usuário:"),
-    read(UsuarioNomeEntrada),
-    string_lower(UsuarioNomeEntrada, NomeMinusculo),
-    quebrar_e_substituir(NomeMinusculo, NomeEntradaFormatado),
-
-
+login(2) :-
     writeln("\nDigite a senha:"),
     read(Senha),
     pega_usuario_por_id(Senha, Usuario),
-    
-    usuario_get_nome(Usuario, NomeDoTXT),
-    (Usuario = "NOUSER" ; NomeDoTXT \== NomeEntradaFormatado
-    -> writeln("\nUsuário inexistente!."),
-    login(2)
-    ; usuario_get_nome(Usuario, NomeUsuario),
+    usuario_get_nome(Usuario, NomeUsuario),
     pegar_data_atual(Data),
     (verifica_dia_atual(Data, NomeUsuario) -> menu(Usuario)
-        ; registrar_dia(Data, NomeUsuario), menu(Usuario))).
-    
+        ; registrar_dia(Data, NomeUsuario), menu(Usuario)).
 
 login(3) :- halt.
-login(_) :- 
-    writeln("\nOpção inválida!\n"),
+login(_) :-
+    writeln("\nOpção inválidasdfasdfasdfa!\n"),
     main.
 
 criar_conta() :-
@@ -60,10 +39,8 @@ criar_conta() :-
     read(Nome),
     writeln("Digite sua senha: "),
     read(Senha),
-    senha_unica(Senha),
     writeln("Escolha seu gênero (m)asculino ou (f)eminino: "),
     read(Genero),
-    genero_valido(Genero),
     writeln("Digite sua idade: "),
     read(Idade),
     writeln("Digite seu peso: "),
@@ -78,6 +55,7 @@ criar_conta() :-
     read_float(AlturaStr, Altura),
     read_float(MetaStr, Meta),
 
+    genero_valido(Genero),
     idade_valida(Idade),
     peso_valido(Peso),
     altura_valida(Altura),
@@ -85,18 +63,9 @@ criar_conta() :-
 
     usuario(Senha, Nome, Genero, Idade, Peso, Altura, Meta, Usuario),
 
-    cadastra_usuario(Usuario),   
+    cadastra_usuario(Usuario),
     main()
     .
-
-senha_unica(Senha):- lista_usuarios(Lista), valida_senha(Senha, Lista).
-
-valida_senha(_, []):- !.
-valida_senha(Senha, [UsuarioHead|Tail]):- 
-    usuario_get_senha(UsuarioHead, SenhaHead),
-    (Senha =:= SenhaHead
-    -> writeln("Essa senha já existe! Tente novamente uma outra senha."), fail
-    ; valida_senha(Senha, Tail)).
 
 genero_valido("m") :- !.
 genero_valido("f") :- !.
@@ -151,25 +120,21 @@ read_float(Str, Float) :-
 
 menu(Usuario) :-
     usuario_get_nome(Usuario, Nome),
-    write("\nBem-vindo "), write(Nome), write("!\n"),
+    write("Bem-vindo "),
+    writeln(Nome),
     writeln("Escolha uma opção:\n"),
-    writeln("===================================\n"),
     writeln("1 - Configurar dados do usuario"),
     writeln("2 - Ver progresso calórico diário"),
     writeln("3 - Refeições"),
     writeln("4 - Exercícios"),
-    writeln("5 - Desconectar\n"),
-    writeln("===================================\n"),
+    writeln("5 - Sair e salvar\n"),
     read(Opcao),
 
     (Opcao = 1 ->
         mini_menu_configuracao(Usuario)
     ; Opcao = 2 ->
+        writeln(Usuario),
         calcular_progresso_calorico(Usuario, Kfinal),
-        usuario_set_kcal_atual(Usuario, Kfinal, NovoUsuario),
-        usuario_get_senha(NovoUsuario, Senha),
-        altera_usuario_por_id(Senha, NovoUsuario),
-        
         print(Kfinal),
         metaProteins is (Kfinal * 0.25) / 4.0,
         print(metaProteins),
@@ -177,8 +142,7 @@ menu(Usuario) :-
         print(metaLipids),
         metaCarbohydrates is (Kfinal * 0.5) / 4.0,
         print(metaCarbohydrates),
-        menu(NovoUsuario)
-
+        menu(Usuario)
 
     ; Opcao = 3 ->
         mini_menu_refeicoes(Usuario)
@@ -186,7 +150,7 @@ menu(Usuario) :-
         submenu_exercicios(Usuario)
     ; Opcao = 5 ->
         main()
-    ; 
+    ;
         writeln("Opção inválida!\n"),
         menu(Usuario)
     ).
@@ -194,42 +158,36 @@ menu(Usuario) :-
 
 mini_menu_configuracao(Usuario):-
     writeln("Escolha que tipo de dado voce deseja modificar:\n"),
-    writeln("===================================\n"),
-    writeln("1 - Meta de Peso"),
+    writeln("1 - Meta"),
     writeln("2 - Peso"),
     writeln("3 - Idade"),
-    writeln("4 - Voltar\n"),
-    writeln("===================================\n"),
+    writeln("4 - Voltar"),
     read(Opcao),
 
     (Opcao = 1 ->
         writeln("Qual sua nova meta de peso?:\n"),
-        read(Meta_Peso),
+        read(MetaStr),
+        read_float(MetaStr, Meta_Peso),
         usuario_set_meta_peso(Usuario, Meta_Peso, NovoUsuario),
-        usuario_get_senha(NovoUsuario, Senha),
-        altera_usuario_por_id(Senha, NovoUsuario),
         menu(NovoUsuario)
     ; Opcao = 2 ->
         writeln("Qual seu novo peso?:\n"),
-        read(Peso),
+        read(PesoStr),
+        read_float(PesoStr, Peso),
         usuario_set_peso(Usuario, Peso, NovoUsuario),
-        usuario_get_senha(NovoUsuario, Senha),
-        altera_usuario_por_id(Senha, NovoUsuario),
         menu(NovoUsuario)
     ; Opcao = 3 ->
         writeln("Qual é a sua idade?:\n"),
-        read(Idade),
+        read(IdadeStr),
+        read_integer(IdadeStr, Idade),
         usuario_set_idade(Usuario, Idade, NovoUsuario),
-        usuario_get_senha(NovoUsuario, Senha),
-        altera_usuario_por_id(Senha, NovoUsuario),
         menu(NovoUsuario)
     ; Opcao = 4 ->
         menu(Usuario)
-    ; 
+    ;
         writeln("Opção inválida!\n"),
         mini_menu_configuracao(Usuario)
     ).
-
 
 calcular_progresso_calorico(Usuario, Kfinal):-
     usuario_get_genero(Usuario, Genero),
@@ -238,11 +196,11 @@ calcular_progresso_calorico(Usuario, Kfinal):-
     usuario_get_meta_peso(Usuario, Meta),
     caloriasManterPeso(Genero, Peso, Altura, Calorias),
 
-    (Peso > Meta -> 
+    (Peso > Meta ->
     caloriasDiariasPerderPeso(Calorias, Peso, MetaPeso, Kcal),
     Kfinal is Kcal
     ;
-    Peso < Meta -> 
+    Peso < Meta ->
     caloriasDiariasGanharPeso(Calorias, Peso, MetaPeso, Kcal),
     Kfinal is Kcal
     ;
@@ -314,13 +272,11 @@ caloriasDiariasGanharPeso(KPadrao, Peso, MetaPeso, Calorias) :-
 
 mini_menu_refeicoes(Usuario) :-
     writeln("\nEscolha que tipo de refeição com que você quer interagir"),
-    writeln("===================================\n"),
     writeln("1 - Café"),
     writeln("2 - Almoço"),
     writeln("3 - Lanche"),
     writeln("4 - Janta"),
     writeln("5 - Voltar\n"),
-    writeln("===================================\n"),
     read(Opcao),
 
     (Opcao = 1 ->
@@ -333,7 +289,7 @@ mini_menu_refeicoes(Usuario) :-
         editar_refeicao("Janta", Usuario)
     ; Opcao = 5 ->
         menu(Usuario)
-    ; 
+    ;
         writeln("Opção inválida.\n"),
         mini_menu_refeicoes(Usuario)
     ).
@@ -384,17 +340,17 @@ adicionarAlimento(id, Usuario, ListaRefeicao, Nome) :-
 
 
 
-% calcularValorNutricionalTotal(ListaRefeicao) :-
-%    valorTotal(ListaRefeicao, TotalKcal, TotalProteinas, TotalGorduras, TotalCarboidratos),
-%    writeln("\nValor calórico total: ", TotalKcal, " kcal"),
-%    writeln("Proteínas totais: ", TotalProteinas, " g"),
-%    writeln("Gorduras totais: ", TotalGorduras, " g"),
-%   writeln("Carboidratos totais: ", TotalCarboidratos, " g").
+calcularValorNutricionalTotal(ListaRefeicao) :-
+    valorTotal(ListaRefeicao, TotalKcal, TotalProteinas, TotalGorduras, TotalCarboidratos),
+    writeln("\nValor calórico total: ", TotalKcal, " kcal"),
+    writeln("Proteínas totais: ", TotalProteinas, " g"),
+    writeln("Gorduras totais: ", TotalGorduras, " g"),
+    writeln("Carboidratos totais: ", TotalCarboidratos, " g").
 
-% listarAlimentosDisponiveis :-
-%   lerAlimentosComoString("alimentos.txt", ConteudoAlimentos),
-%   writeln("Alimentos disponíveis:"),
-%   writeln(ConteudoAlimentos).
+listarAlimentosDisponiveis :-
+    lerAlimentosComoString("alimentos.txt", ConteudoAlimentos),
+    writeln("Alimentos disponíveis:"),
+    writeln(ConteudoAlimentos).
 
 
 
@@ -418,11 +374,9 @@ adicionarAlimento(id, Usuario, ListaRefeicao, Nome) :-
 
 submenu_exercicios(Usuario) :-
     writeln("\nEscolha uma opção:"),
-    writeln("===================================\n"),
     writeln("1 - Exercícios Anaeróbicos"),
     writeln("2 - Exercícios Aeróbicos"),
     writeln("3 - Voltar ao Menu Principal\n"),
-    writeln("===================================\n"),
     read(Opcao),
 
     (Opcao = 1 ->
@@ -431,72 +385,62 @@ submenu_exercicios(Usuario) :-
         submenu_exercicios_aerobicos(Usuario)
     ; Opcao = 3 ->
         menu(Usuario)
-    ; 
+    ;
         writeln("Opção inválida.\n"),
         submenu_exercicios(Usuario)
     ).
 
 submenu_exercicios_anaerobicos(Usuario) :-
     writeln("\nExercícios Anaeróbicos:"),
-    writeln("===================================\n"),
     writeln("1 - Ver exercícios do dia"),
     writeln("2 - Ver todos os exercícios já feitos"),
     writeln("3 - Adicionar exercício realizado"),
-    writeln("4 - Sugerir Exercicio"),
-    writeln("5 - Voltar\n"),
-    writeln("===================================\n"),
+    writeln("4 - Voltar\n"),
     read(Opcao),
 
     (Opcao = 1 ->
-        exercicios_anaerobicos_do_dia(Usuario),
+        exercicios_anaerobicos_do_dia(Usuario, ExerciciosDoDia),
+        writeln(ExerciciosDoDia),
         submenu_exercicios_anaerobicos(Usuario)
     ; Opcao = 2 ->
-        todos_exercicios_feitos(Usuario),
+        exercicios_anaerobicos_todos(Usuario, ExerciciosTodos),
+        writeln(ExerciciosTodos),
         submenu_exercicios_anaerobicos(Usuario)
     ; Opcao = 3 ->
         adicionar_exercicio_anaerobico(Usuario)
     ; Opcao = 4 ->
-        exercicio_aleatorio_anaerobico(Exercicio),
-        writeln("Exercício Sugerido:"),
-        writeln(Exercicio),
-        submenu_exercicios_anaerobicos(Usuario)
-    ; Opcao = 5 ->
         submenu_exercicios(Usuario)
-    ; 
+    ;
         writeln("Opção inválida.\n"),
         submenu_exercicios_anaerobicos(Usuario)
     ).
 
-submenu_exercicios_aerobicos(Usuario) :-
+submenu_exercicios_aerobicos(Usuario, NovoUsuario) :-
     writeln("\nExercícios Aeróbicos:"),
-    writeln("===================================\n"),
     writeln("1 - Ver exercícios do dia"),
     writeln("2 - Ver todos os exercícios já feitos"),
     writeln("3 - Adicionar exercício realizado"),
-    writeln("4 - Sugerir Exercicio"),
-    writeln("5 - Voltar\n"),
-    writeln("===================================\n"),
+    writeln("4 - Voltar\n"),
     read(Opcao),
 
     (Opcao = 1 ->
-        exercicios_aerobicos_do_dia(Usuario),
+        exercicios_aerobicos_do_dia(Usuario, ExerciciosDoDia),
+        writeln(ExerciciosDoDia),
         submenu_exercicios_aerobicos(Usuario)
     ; Opcao = 2 ->
-        todos_exercicios_feitos(Usuario),
+        exercicios_aerobicos_todos(Usuario, ExerciciosTodos),
+        writeln(ExerciciosTodos),
         submenu_exercicios_aerobicos(Usuario)
     ; Opcao = 3 ->
         adicionar_exercicio_aerobico(Usuario)
     ; Opcao = 4 ->
-        exercicio_aleatorio_aerobico(Exercicio),
-        writeln("Exercício Sugerido:"),
-        writeln(Exercicio),
-        submenu_exercicios_aerobicos(Usuario)
-    ; Opcao = 5 ->
         submenu_exercicios(Usuario)
-    ; 
+    ;
         writeln("Opção inválida."),
         submenu_exercicios_aerobicos(Usuario)
     ).
+
+
 
 % Pegar data atual
 pegar_data_atual(Data) :-
@@ -505,7 +449,7 @@ pegar_data_atual(Data) :-
     date_time_value(day, DateTime, Dia),
     date_time_value(month, DateTime, Mes),
     date_time_value(year, DateTime, Ano),
-    atomic_list_concat([Dia, Mes, Ano], Data). 
+    atomic_list_concat([Dia, Mes, Ano], Data).
 
 
 
@@ -513,12 +457,11 @@ pegar_data_atual(Data) :-
 
 
 adicionar_exercicio_anaerobico(Usuario):-
-    write("Lista de exercicios anaerobicos: "), nl,
+    write("Lista de exercicios: "), nl,
     listar_exercicios_anaerobicos(),
     write("\nEscolha um exercício: "),
     read(NomeExercicio),
-    verifica_exercicio_anaerobico(Usuario, NomeExercicio),
-    write("\nDuração do exercício: "),
+    write("\nDuração do exercício"),
     read(Duracao),
     usuario_get_peso(Usuario, PesoUsuario),
     pegar_data_atual(Data),
@@ -526,65 +469,3 @@ adicionar_exercicio_anaerobico(Usuario):-
     cadastrar_exercicio_anaerobico(NomeUsuario, NomeExercicio, Duracao, PesoUsuario, Data),
     write("Exercicio registrado com sucesso."), nl,
     submenu_exercicios_anaerobicos(Usuario).
-
-
-verifica_exercicio_anaerobico(Usuario, NomeExercicio):-
-    leitura_exercicios(Exercicios),
-    exercicio_anaerobico_existe(Usuario, NomeExercicio, Exercicios).
-
-exercicio_anaerobico_existe(Usuario, _, []):-
-    writeln("O nome do exercício está incorreto! Tente novamente."),
-    adicionar_exercicio_anaerobico(Usuario), !.
-exercicio_anaerobico_existe(_, NomeExercicio, [(Nome|_)|_]):- 
-    NomeExercicio = Nome, !.
-exercicio_anaerobico_existe(Usuario, NomeExercicio, [_|Tail]):- 
-    exercicio_anaerobico_existe(Usuario, NomeExercicio, Tail).
-
-
-adicionar_exercicio_aerobico(Usuario):-
-    write("Lista de exercicios aerobicos: "), nl,
-    listar_exercicios_aerobicos(),
-    write("\nEscolha um exercício: "),
-    read(NomeExercicio),
-    verifica_exercicio_aerobico(Usuario, NomeExercicio),
-    write("\nDuração do exercício: "),
-    read(Duracao),
-    usuario_get_peso(Usuario, PesoUsuario),
-    pegar_data_atual(Data),
-    usuario_get_nome(Usuario, NomeUsuario),
-    cadastrar_exercicio_aerobico(NomeUsuario, NomeExercicio, Duracao, PesoUsuario, Data),
-    write("Exercicio registrado com sucesso."), nl,
-    submenu_exercicios_aerobicos(Usuario).
-
-
-verifica_exercicio_aerobico(Usuario, NomeExercicio):-
-    leitura_exercicios_aerobicos(Exercicios),
-    exercicio_aerobico_existe(Usuario, NomeExercicio, Exercicios).
-
-exercicio_aerobico_existe(Usuario, _, []):-
-    writeln("O nome do exercício está incorreto! Tente novamente."),
-    adicionar_exercicio_aerobico(Usuario), !.
-exercicio_aerobico_existe(_, NomeExercicio, [(Nome|_)|_]):- 
-    NomeExercicio = Nome, !.
-exercicio_aerobico_existe(Usuario, NomeExercicio, [_|Tail]):- 
-    exercicio_aerobico_existe(Usuario, NomeExercicio, Tail).
-
-
-exercicios_anaerobicos_do_dia(Usuario):-
-    write("Lista de exercicios anaerobicos: "), nl,
-    pegar_data_atual(Data),
-    usuario_get_nome(Usuario, NomeUsuario),
-    listar_exercicios_anaerobicos_do_dia(Data, NomeUsuario), nl.
-
-exercicios_aerobicos_do_dia(Usuario):-
-    write("Lista de exercicios aerobicos: "), nl,
-    pegar_data_atual(Data),
-    usuario_get_nome(Usuario, NomeUsuario),
-    listar_exercicios_aerobicos_do_dia(Data, NomeUsuario), nl.
-
-
-todos_exercicios_feitos(Usuario):-
-    write("\nExercícios realizados pelo Usuario: "),
-    write(NomeUsuario), nl,
-    usuario_get_nome(Usuario, NomeUsuario),
-    listar_todos_exercicios(NomeUsuario).
