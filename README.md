@@ -62,3 +62,25 @@ execute o comando:
 ```
 swipl main.hs
 ```
+
+# Regras de uso no programa prolog
+
+## Cadastro
+
+Evite cadastrar usuários com caractéres especiais como ã, @, §
+Prolog pode ter problemas durante a leitura do txt
+
+## leituras
+
+Algumas leituras como nome de usuário e sexo podem necessitar que o usuário
+insira o dado entre aspas, como no exemplo
+```
+Escolha seu gênero (m)asculino ou (f)eminino:
+|: "m".
+```
+
+Isso ocorre por que o prolog pode acabar interpretando sua entrada como um átomo.
+
+Portanto para toda entrada de tipo texto sempre ponha entre aspas.
+
+Em nosso projeto optamos por usar as entradas normalmente em prolog. Portanto toda entrada deve ser precedida do ponto final.
