@@ -3,7 +3,7 @@
 - []  Registrar Refeição.
 - [X] Sugestão de Exercicios.
 - [] Sugestões de Refeições.
-
+- [] Interação do menu com a registro de alimentos.
 ----
 
 - [X] verificação se o exercicio anaerobicos existe.
@@ -13,3 +13,4 @@
 
 
 - [] calculo calorico dos exercicios.
+^^^^^^^^^^^ta lindo^^^^^^

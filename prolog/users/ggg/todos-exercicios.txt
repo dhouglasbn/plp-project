@@ -1,2 +1,4 @@
 "agachamento".
 "Corrida leve".
+"agachamento".
+"Corrida leve".
