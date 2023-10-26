@@ -3,8 +3,6 @@ module(alimento, [
 	alimento_set_quantidade/3
 	]).
 
-alimento
-
 alimento(ID, Nome, Kcal, Proteinas, Gorduras, Carboidratos, Quantidade):-
 	string_lower(Nome, NomeMinusculo),
 	Alimento = (ID|NomeMinusculo|Kcal|Proteinas|Gorduras|
