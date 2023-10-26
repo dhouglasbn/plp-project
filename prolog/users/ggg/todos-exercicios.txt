@@ -9,3 +9,7 @@
 "Pular corda".
 "Pular corda".
 "agachamento".
+"agachamento".
+"agachamento".
+"Pular corda".
+"Pular corda".

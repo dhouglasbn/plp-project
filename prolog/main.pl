@@ -363,33 +363,30 @@ mini_menu_refeicoes(Usuario) :-
 	pegar_data_atual(Data),
 	alimento_set_quantidade(Alimento, Gramas, 0, NovoAlimento),
 
-
-    get_kcal(NovoAlimento, KcalAlimento),
-    usuario_get_kcal_atual(Usuario, KcalUsuario),
-    KcalAtualNumerico is KcalAlimento,
-    KcalAtual is KcalAtualNumerico + KcalUsuario,
-    usuario_set_kcal_atual(Usuario, KcalAtual, NovoUsuario),
-    usuario_get_senha(NovoUsuario, Senha),
-    altera_usuario_por_id(Senha, NovoUsuario),
+	get_kcal(NovoAlimento, KcalAlimento),
+	usuario_get_kcal_atual(Usuario, KcalUsuario),
+	KcalAtual is KcalAlimento + KcalUsuario,
+	usuario_set_kcal_atual(Usuario, KcalAtual, NovoUsuario),
+	usuario_get_senha(NovoUsuario, Senha),
+	altera_usuario_por_id(Senha, NovoUsuario),
 
 
 	registrar_alimento(NovoAlimento, NomeUsuario, Data),
-    mini_menu_refeicoes(Usuario)
+    mini_menu_refeicoes(NovoUsuario)
 
     ; Opcao = 2 ->
 	usuario_get_nome(Usuario, NomeUsuario),
 	pegar_data_atual(Data),
-    calcula_macros_do_dia(NomeUsuario, Data, Tupla),
+    	calcula_macros_do_dia(NomeUsuario, Data, Tupla),
 	tupla_formatada(Tupla),
-    mini_menu_refeicoes(Usuario)
+   	mini_menu_refeicoes(Usuario)
 
     ; Opcao = 3 ->
 	usuario_get_nome(Usuario, NomeUsuario),
 	pegar_data_atual(Data),
 	listar_alimentos_do_dia(NomeUsuario, Data, Lista),
-    listar_alimentos_formatados(Lista), nl,
-
-    mini_menu_refeicoes(Usuario)
+    	listar_alimentos_formatados(Lista), nl,
+    	mini_menu_refeicoes(Usuario)
 
     ; Opcao = 4 ->
     listar_alimentos(Lista),
@@ -404,18 +401,14 @@ mini_menu_refeicoes(Usuario) :-
 	usuario_get_nome(Usuario, NomeUsuario),
 	pegar_data_atual(Data),
 	alimento_set_quantidade(Alimento, Gramas, IdRefeicao, NovoAlimento),
-
-    get_kcal(NovoAlimento, KcalAlimento),
-    usuario_get_kcal_atual(Usuario, KcalUsuario),
-    KcalAtualNumerico is KcalAlimento,
-    KcalAtual is KcalAtualNumerico + KcalUsuario,
-    usuario_set_kcal_atual(Usuario, KcalAtual, NovoUsuario),
-    usuario_get_senha(NovoUsuario, Senha),
-    altera_usuario_por_id(Senha, NovoUsuario),
-
-
+    	get_kcal(NovoAlimento, KcalAlimento),
+    	usuario_get_kcal_atual(Usuario, KcalUsuario),
+    	KcalAtual is KcalAlimento + KcalUsuario,
+    	usuario_set_kcal_atual(Usuario, KcalAtual, NovoUsuario),
+    	usuario_get_senha(NovoUsuario, Senha),
+    	altera_usuario_por_id(Senha, NovoUsuario),
 	registrar_alimento(NovoAlimento, NomeUsuario, Data),
-    mini_menu_refeicoes(Usuario)
+    	mini_menu_refeicoes(NovoUsuario)
 
     ; Opcao = 5 ->
         menu(Usuario)

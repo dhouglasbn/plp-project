@@ -1,7 +1,7 @@
 :- module(cadastrar_exercicio_anaerobico, [cadastrar_exercicio_anaerobico/5 , calcular_perda_calorica_anaerobico/3]).
 
 calcular_perda_calorica_anaerobico(PesoUsuario, DuracaoTreino, PerdaCalorica):-
-    PerdaCalorica is (PesoUsuario * DuracaoTreino) * 4.
+    PerdaCalorica is (PesoUsuario * DuracaoTreino) * 4 / 100.
 
 cadastrar_exercicio_anaerobico(NomeUsuario, NomeExercicio, Duracao, PesoUsuario, Data):-
     absolute_file_name("users/", CaminhoAbsoluto),

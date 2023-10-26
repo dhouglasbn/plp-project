@@ -11,7 +11,7 @@ calcular_perda_calorica_aerobico(
     ConstanteCalorica,
     PerdaCalorica):-
     leitura_exercicios_aerobicos(ExerciciosAerobicos),
-    PerdaCalorica is (PesoUsuario * DuracaoTreino) * ConstanteCalorica.
+    PerdaCalorica is (PesoUsuario * DuracaoTreino) * ConstanteCalorica / 100.
 
 cadastrar_exercicio_aerobico(NomeUsuario, NomeExercicio, Duracao, PesoUsuario, Data):-
     absolute_file_name("users/", CaminhoAbsoluto),
