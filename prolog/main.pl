@@ -347,7 +347,8 @@ mini_menu_refeicoes(Usuario) :-
     writeln("2 - Ver valor nutricional total"),
     writeln("3 - Ver alimentos registrados"),
     writeln("4 - Adicionar alimento a uma refeição"),
-    writeln("5 - Voltar\n"),
+    writeln("5 - Sugerir alimento"),
+    writeln("6 - Voltar\n"),
     writeln("===================================\n"),
     read(Opcao),
 
@@ -411,6 +412,13 @@ mini_menu_refeicoes(Usuario) :-
     	mini_menu_refeicoes(NovoUsuario)
 
     ; Opcao = 5 ->
+	    alimento_aleatorio((ID|NomeDoAlimento|_)),
+	    write("Recomendação do Saúde+ :\n"),
+	    atomic_list_concat([ID, " - ", NomeDoAlimento], AlimentoFormatado),
+	    write(AlimentoFormatado), nl,
+    	mini_menu_refeicoes(Usuario)
+
+    ; Opcao = 6 ->
         menu(Usuario)
     ;
         writeln("Opção inválida.\n"),

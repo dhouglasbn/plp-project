@@ -1,4 +1,4 @@
-:- module(listar_alimentos, [listar_alimentos/1, listar_alimentos/2, listar_alimentos_formatados/1]).
+:- module(listar_alimentos, [listar_alimentos/1, listar_alimentos/2, listar_alimentos_formatados/1, alimento_aleatorio/1]).
 
 listar_alimentos(Lista):-
     open('dados/alimentos.txt', read, Fluxo),
@@ -29,3 +29,9 @@ ler_alimentos(F, [X|L]):-
 remover_ultimo([_], []):-!.
 remover_ultimo([X|Resto], [X|Resultado]) :-
     remover_ultimo(Resto, Resultado).
+
+alimento_aleatorio(Alimento) :-
+    listar_alimentos(Lista),
+    length(Lista, ListLength),
+    random(1, ListLength, RandomIndex),
+    nth1(RandomIndex, Lista, Alimento).
