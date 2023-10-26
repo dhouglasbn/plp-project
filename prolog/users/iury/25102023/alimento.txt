@@ -1,2 +1,4 @@
-1|"arroz, integral, cozido"|124|2.6|1|25.8|100.
-14|"frango, peito, sem pele, grelhado"|159|32|2.5|0|100.
+1|"arroz, integral, cozido"|124|2|1|25|100.
+14|"frango, peito, sem pele, grelhado"|159|32|2|0|100.
+1|arroz, integral, cozido|124|2|1|25|100.
+1|arroz, integral, cozido|124|2|1|25|100.
