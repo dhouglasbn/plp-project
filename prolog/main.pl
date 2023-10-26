@@ -362,6 +362,15 @@ mini_menu_refeicoes(Usuario) :-
 	usuario_get_nome(Usuario, NomeUsuario),
 	pegar_data_atual(Data),
 	alimento_set_quantidade(Alimento, Gramas, 0, NovoAlimento),
+
+
+    get_kcal(NovoAlimento, KcalAtual),
+    KcalAtualNumerico is KcalAtual,
+    usuario_set_kcal_atual(Usuario, KcalAtualNumerico, NovoUsuario),
+    usuario_get_senha(NovoUsuario, Senha),
+    altera_usuario_por_id(Senha, NovoUsuario),
+
+
 	registrar_alimento(NovoAlimento, NomeUsuario, Data),
     mini_menu_refeicoes(Usuario)
 
@@ -393,6 +402,14 @@ mini_menu_refeicoes(Usuario) :-
 	usuario_get_nome(Usuario, NomeUsuario),
 	pegar_data_atual(Data),
 	alimento_set_quantidade(Alimento, Gramas, IdRefeicao, NovoAlimento),
+
+    get_kcal(NovoAlimento, KcalAtual),
+    KcalAtualNumerico is KcalAtual,
+    usuario_set_kcal_atual(Usuario, KcalAtualNumerico, NovoUsuario),
+    usuario_get_senha(NovoUsuario, Senha),
+    altera_usuario_por_id(Senha, NovoUsuario),
+
+
 	registrar_alimento(NovoAlimento, NomeUsuario, Data),
     mini_menu_refeicoes(Usuario)
 

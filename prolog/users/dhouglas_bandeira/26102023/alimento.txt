@@ -1,0 +1,2 @@
+19|"ovo, de galinha, inteiro, frito"|240*800|15.6*800|18.6*800|1.2*800|800|0.
+19|"ovo, de galinha, inteiro, frito"|240*50|15.6*50|18.6*50|1.2*50|50|2.
