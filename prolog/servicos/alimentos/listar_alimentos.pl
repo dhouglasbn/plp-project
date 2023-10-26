@@ -19,6 +19,6 @@ ler_alimentos(F, [X|L]):-
     read(F, X),
     ler_alimentos(F, L).
 
-remover_ultimo([_], []).
+remover_ultimo([_], []):-!.
 remover_ultimo([X|Resto], [X|Resultado]) :-
     remover_ultimo(Resto, Resultado).

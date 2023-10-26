@@ -20,27 +20,27 @@ calcula_macros_do_dia(NomeUsuario, Data, (Kcal|Proteina|Gordura|Carboidrato)):-
 
 calcula_calorias_do_dia([], 0):-!.
 calcula_calorias_do_dia([H|T], Soma):-
-	Soma is CaloriaAtual + CaloriaAcumulada,
 	calcula_calorias_do_dia(T, CaloriaAcumulada),
-	get_caloria(H, CaloriaAtual).
+	get_kcal(H, CaloriaAtual),
+	Soma is CaloriaAtual + CaloriaAcumulada.
 
 calcula_proteinas_do_dia([], 0):-!.
 calcula_proteinas_do_dia([H|T], Soma):-
-	Soma is ProteinaAtual + ProteinaAcumulada,
 	calcula_proteinas_do_dia(T, ProteinaAcumulada),
-	get_proteina(H, ProteinaAtual).
+	get_proteina(H, ProteinaAtual),
+	Soma is ProteinaAtual + ProteinaAcumulada.
 
 calcula_gorduras_do_dia([], 0):-!.
 calcula_gorduras_do_dia([H|T], Soma):-
-	Soma is GorduraAtual + GorduraAcumulada,
+	get_gordura(H, GorduraAtual),
 	calcula_gorduras_do_dia(T, GorduraAcumulada),
-	get_gordura(H, GorduraAtual).
+	Soma is GorduraAtual + GorduraAcumulada.
 
 calcula_carboidratos_do_dia([], 0):-!.
 calcula_carboidratos_do_dia([H|T], Soma):-
-	Soma is CarboidratoAtual + CarboidratoAcumulado,
 	calcula_carboidratos_do_dia(T, CarboidratoAcumulado),
-	get_carbo(H, CarboidratoAtual).
+	get_carbo(H, CarboidratoAtual),
+	Soma is CarboidratoAtual + CarboidratoAcumulado.
 
 get_kcal(Alimento, Kcal):-
 	(_|_|Kcal|_) = Alimento.
