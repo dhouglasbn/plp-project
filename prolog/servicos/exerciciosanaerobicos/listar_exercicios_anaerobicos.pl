@@ -32,8 +32,6 @@ listar_exercicios([(Nome | PartesCorpo) | Resto]) :-
     write("Partes do Corpo: "), write(PartesCorpo), nl, nl,
     listar_exercicios(Resto).
 
-
-
 % Predicado para obter um exercício aleatório.
 exercicio_aleatorio_anaerobico(Exercicio) :-
     leitura_exercicios(Leitura),

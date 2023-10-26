@@ -1,4 +1,4 @@
-:- module(registrar_alimento, [registrar_alimento/1]).
+:- module(registrar_alimento, [registrar_alimento/3]).
 
 :- consult('../../models/alimento').
 

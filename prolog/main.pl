@@ -10,6 +10,8 @@
 :- use_module(servicos/exerciciosanaerobicos/listar_exercicios_anaerobicos_do_dia).
 :- use_module(servicos/exerciciosaerobicos/listar_exercicios_aerobicos_do_dia).
 :- use_module(servicos/todosexercicios/listar_todos_exercicios).
+:- use_module(servicos/alimentos/listar_alimentos).
+:- use_module(servicos/alimentos/registrar_alimento).
 :- use_module(models/exercicios_anaerobicos).
 :- use_module(models/exercicios_aerobicos).
 :- use_module(models/usuario).
@@ -346,8 +348,8 @@ mini_menu_refeicoes(Usuario) :-
     read(Opcao),
 
     (Opcao = 1 ->
-	listar_alimentos_formatado(Lista), %TODO
-	write(Lista), nl,
+    listar_alimentos(Lista),
+	listar_alimentos_formatados(Lista), nl,
 	writeln("Escolha o alimento pelo índice:"),
 	read(IdAlimento),
 	writeln("Escolha a quantidade em gramas:"),
@@ -356,32 +358,40 @@ mini_menu_refeicoes(Usuario) :-
 	usuario_get_nome(Usuario, NomeUsuario),
 	pegar_data_atual(Data),
 	alimento_set_quantidade(Alimento, Gramas, 0, NovoAlimento),
-	registrar_alimento(NovoAlimento, NomeUsuario, Data)
+	registrar_alimento(NovoAlimento, NomeUsuario, Data),
+    mini_menu_refeicoes(Usuario)
+
     ; Opcao = 2 ->
 	usuario_get_nome(Usuario, NomeUsuario),
 	pegar_data_atual(Data),
         calcula_macros_do_dia(NomeUsuario, Data, Tupla),
-	tupla_formatada(Tupla). %TODO
+	tupla_formatada(Tupla),
+    mini_menu_refeicoes(Usuario)
+
     ; Opcao = 3 ->
 	usuario_get_nome(Usuario, NomeUsuario),
 	pegar_data_atual(Data),
-	listar_alimentos_do_dia(NomeUsuario, Data, Lista)
+	listar_alimentos_do_dia(NomeUsuario, Data, Lista),
+    mini_menu_refeicoes(Usuario)
+
     ; Opcao = 4 ->
-	listar_alimentos_formatado(Lista), %TODO
-	write(Lista), nl,
+    listar_alimentos(Lista),
+	listar_alimentos_formatados(Lista), nl,
 	writeln("Escolha o alimento pelo índice:"),
 	read(IdAlimento),
 	writeln("Escolha a quantidade em gramas:"),
 	read(Gramas),
 	writeln("Escolha a refeição (1 para café, 2 para almoço, 3 para lanche, 4 para janta):"),
-	read(IdRefeição),
+	read(IdRefeicao),
 	pegar_alimento_por_id(IdAlimento, Alimento),
 	usuario_get_nome(Usuario, NomeUsuario),
 	pegar_data_atual(Data),
-	alimento_set_quantidade(Alimento, Gramas, IdRefeição, NovoAlimento),
-	registrar_alimento(NovoAlimento, NomeUsuario, Data)
+	alimento_set_quantidade(Alimento, Gramas, IdRefeicao, NovoAlimento),
+	registrar_alimento(NovoAlimento, NomeUsuario, Data),
+    mini_menu_refeicoes(Usuario)
+
     ; Opcao = 5 ->
-        mini_menu_refeicoes(Usuario)
+        menu(Usuario)
     ;
         writeln("Opção inválida.\n"),
         mini_menu_refeicoes(Usuario)
@@ -588,3 +598,11 @@ todos_exercicios_feitos(Usuario):-
     write(NomeUsuario), nl,
     usuario_get_nome(Usuario, NomeUsuario),
     listar_todos_exercicios(NomeUsuario).
+
+tupla_formatada((Kcal|Proteina|Gordura|Carboidrato)):-
+atomic_list_concat([
+"Calorias: ", Kcal, "G\n",
+"Proteínas: ", Proteina, "G\n",
+"Gorduras: ", Gordura, "G\n",
+"Carboidratos: ", Carboidrato, "G\n"], Ftupla),
+write(Ftupla).
