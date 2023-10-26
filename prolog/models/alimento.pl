@@ -1,4 +1,4 @@
-module(alimento, [
+:- module(alimento, [
 	alimento/8,
 	alimento_set_quantidade/4
 	]).

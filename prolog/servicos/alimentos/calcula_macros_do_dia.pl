@@ -7,9 +7,10 @@
 		get_kcal/2,
 		get_proteina/2,
 		get_gordura/2,
-		get_carbo/2]).
+		get_carbo/2,
+		set_nome_alimento/3]).
 
-:- use_module(listar_alimentos_do_dia).
+:- consult(listar_alimentos_do_dia).
 
 calcula_macros_do_dia(NomeUsuario, Data, (Kcal|Proteina|Gordura|Carboidrato)):-
 	listar_alimentos_do_dia(NomeUsuario, Data, Lista),
@@ -54,3 +55,7 @@ get_id(Alimento, ID):-
 	(ID|_) = Alimento.
 get_nome(Alimento, NomeAlimento):-
 	(_|NomeAlimento|_) = Alimento.
+
+set_nome_alimento(Alimento, NomeAlimento, NovoAlimento):-
+    (A|_|Dados) = Alimento,
+    NovoAlimento = (A|NomeAlimento|Dados).

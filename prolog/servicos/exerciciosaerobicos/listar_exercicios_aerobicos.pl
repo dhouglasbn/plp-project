@@ -22,7 +22,7 @@ ler_exercicios(F, [X|L]):-
 
 % Predicado para listar todos os exercícios
 listar_exercicios([]):- !.
-listar_exercicios([(Nome) | Resto]) :-
+listar_exercicios([(Nome | _) | Resto]) :-
     write(Nome), write("\n"),
     listar_exercicios(Resto).
 

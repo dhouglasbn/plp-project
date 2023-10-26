@@ -1,8 +1,8 @@
-:- module(pega_alimento_por_id, [pega_alimento_por_id/2]).
+:- module(pegar_alimento_por_id, [pegar_alimento_por_id/2]).
 
 :- use_module(listar_alimentos).
 
-pega_alimento_por_id(Id, Alimento):-
+pegar_alimento_por_id(Id, Alimento):-
     listar_alimentos(Lista),
     consulta_alimento(Id, Lista, Alimento).
 

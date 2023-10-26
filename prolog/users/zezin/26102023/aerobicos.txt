@@ -1,0 +1,3 @@
+"Corrida leve"|20|45.
+"Tênis lazer"|15|45.
+"Bicicleta moderada"|20|45.

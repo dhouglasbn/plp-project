@@ -12,9 +12,13 @@
 :- use_module(servicos/todosexercicios/listar_todos_exercicios).
 :- use_module(servicos/alimentos/listar_alimentos).
 :- use_module(servicos/alimentos/registrar_alimento).
+:- use_module(servicos/alimentos/pegar_alimento_por_id).
+:- use_module(servicos/alimentos/calcula_macros_do_dia).
+:- use_module(servicos/alimentos/listar_alimentos_do_dia).
 :- use_module(models/exercicios_anaerobicos).
 :- use_module(models/exercicios_aerobicos).
 :- use_module(models/usuario).
+:- use_module(models/alimento).
 :- use_module(library(date)).
 :- use_module(library(clpq)).
 
@@ -364,7 +368,7 @@ mini_menu_refeicoes(Usuario) :-
     ; Opcao = 2 ->
 	usuario_get_nome(Usuario, NomeUsuario),
 	pegar_data_atual(Data),
-        calcula_macros_do_dia(NomeUsuario, Data, Tupla),
+    calcula_macros_do_dia(NomeUsuario, Data, Tupla),
 	tupla_formatada(Tupla),
     mini_menu_refeicoes(Usuario)
 
@@ -372,11 +376,13 @@ mini_menu_refeicoes(Usuario) :-
 	usuario_get_nome(Usuario, NomeUsuario),
 	pegar_data_atual(Data),
 	listar_alimentos_do_dia(NomeUsuario, Data, Lista),
+    listar_alimentos_formatados(Lista), nl,
+
     mini_menu_refeicoes(Usuario)
 
     ; Opcao = 4 ->
     listar_alimentos(Lista),
-	listar_alimentos_formatados(Lista), nl,
+	listar_alimentos_formatados(Lista),
 	writeln("Escolha o alimento pelo índice:"),
 	read(IdAlimento),
 	writeln("Escolha a quantidade em gramas:"),
@@ -458,7 +464,8 @@ submenu_exercicios_anaerobicos(Usuario) :-
     ; Opcao = 4 ->
         exercicio_aleatorio_anaerobico(Exercicio),
         writeln("Exercício Sugerido:"),
-        writeln(Exercicio),
+        (NomeExercicio | _) = Exercicio,
+        writeln(NomeExercicio),
         submenu_exercicios_anaerobicos(Usuario)
     ; Opcao = 5 ->
         submenu_exercicios(Usuario)
@@ -489,7 +496,8 @@ submenu_exercicios_aerobicos(Usuario) :-
     ; Opcao = 4 ->
         exercicio_aleatorio_aerobico(Exercicio),
         writeln("Exercício Sugerido:"),
-        writeln(Exercicio),
+        (NomeExercicio | _) = Exercicio,
+        writeln(NomeExercicio),
         submenu_exercicios_aerobicos(Usuario)
     ; Opcao = 5 ->
         submenu_exercicios(Usuario)
@@ -595,8 +603,8 @@ exercicios_aerobicos_do_dia(Usuario):-
 
 todos_exercicios_feitos(Usuario):-
     write("\nExercícios realizados pelo Usuario: "),
-    write(NomeUsuario), nl,
     usuario_get_nome(Usuario, NomeUsuario),
+    write(NomeUsuario), nl,
     listar_todos_exercicios(NomeUsuario).
 
 tupla_formatada((Kcal|Proteina|Gordura|Carboidrato)):-
