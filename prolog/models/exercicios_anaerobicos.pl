@@ -1,13 +1,8 @@
-:- module(cadastrar_exercicio_anaerobico, [cadastrar_exercicio_anaerobico/5]).
+:- module(cadastrar_exercicio_anaerobico, [cadastrar_exercicio_anaerobico/5, calcular_perda_calorica_anaerobico/3]).
 
-%calcular_perda_calorica_anaerobico(PesoUsuario, DuracaoTreino, PerdaCalorica):-
-%    PerdaCalorica = (PesoUsuario * DuracaoTreino) * 4.
+calcular_perda_calorica_anaerobico(PesoUsuario, DuracaoTreino, PerdaCalorica):-
+    PerdaCalorica = (PesoUsuario * DuracaoTreino) * 4.
 
-
-% Metodo só calcula o peso total de exercicios anaerobicos
-%calcular_perda_calorica_total_por_dia(ListaExercicios, PesoUsuario, ValorTotal):-
-%    ValorTotalCurrent is ValorTotal,
-%    calcular_perda_calorica_total_por_dia()
 
 cadastrar_exercicio_anaerobico(NomeUsuario, NomeExercicio, Duracao, PesoUsuario, Data):-
     absolute_file_name("users/", CaminhoAbsoluto),

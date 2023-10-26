@@ -14,6 +14,7 @@
 :- use_module(models/exercicios_aerobicos).
 :- use_module(models/usuario).
 :- use_module(library(date)).
+:- use_module(library(clpq)).
 
 main() :- 
     writeln("==================================="),
@@ -166,20 +167,23 @@ menu(Usuario) :-
         mini_menu_configuracao(Usuario)
     ; Opcao = 2 ->
         calcular_progresso_calorico(Usuario, Kfinal),
-        usuario_set_kcal_atual(Usuario, Kfinal, NovoUsuario),
+        usuario_set_meta_kcal(Usuario, Kfinal, NovoUsuario),
+        usuario_get_kcal_atual(NovoUsuario, KcalAtual),
         usuario_get_senha(NovoUsuario, Senha),
         altera_usuario_por_id(Senha, NovoUsuario),
         
-        print(Kfinal),
-        metaProteins is (Kfinal * 0.25) / 4.0,
-        print(metaProteins),
-        metaLipids is (Kfinal * 0.25) / 9.0,
-        print(metaLipids),
-        metaCarbohydrates is (Kfinal * 0.5) / 4.0,
-        print(metaCarbohydrates),
+        calcula_macros(Kfinal, MetaProteins, MetaLipids, MetaCarbohydrates),
+        arredonda_para_uma_casa_decimal(KcalAtual, KcalAtualArredondado),
+        arredonda_para_uma_casa_decimal(Kfinal, KfinalArredondado),
+
+        
+        write("KcalAtual/Meta de Kcal: "),
+        write(KcalAtualArredondado), write("/"), write(KfinalArredondado),
+        write("\n"),
+        write("Meta de Proteínas: "), write(MetaProteins), write("\n"),
+        write("Meta de Lipídios: "), write(MetaLipids), write("\n"),
+        write("Meta de Carboidratos: "), write(MetaCarbohydrates), write("\n"),
         menu(NovoUsuario)
-
-
     ; Opcao = 3 ->
         mini_menu_refeicoes(Usuario)
     ; Opcao = 4 ->
@@ -191,6 +195,22 @@ menu(Usuario) :-
         menu(Usuario)
     ).
 
+calcula_macros(
+    Kfinal,
+    MetaProteinsArredondado,
+    MetaLipidsArredondado,
+    MetaCarbohydratesArredondado
+    ):-
+        MetaProteins is Kfinal * 0.25 / 4.0,
+        MetaLipids is Kfinal * 0.25 / 9.0,
+        MetaCarbohydrates is Kfinal * 0.5 / 4.0,
+        arredonda_para_uma_casa_decimal(MetaProteins, MetaProteinsArredondado),
+        arredonda_para_uma_casa_decimal(MetaLipids, MetaLipidsArredondado),
+        arredonda_para_uma_casa_decimal(MetaCarbohydrates, MetaCarbohydratesArredondado).
+
+
+arredonda_para_uma_casa_decimal(Numero, Resultado) :-
+    Resultado is round(Numero * 10) / 10.
 
 mini_menu_configuracao(Usuario):-
     writeln("Escolha que tipo de dado voce deseja modificar:\n"),
@@ -235,32 +255,34 @@ calcular_progresso_calorico(Usuario, Kfinal):-
     usuario_get_genero(Usuario, Genero),
     usuario_get_peso(Usuario, Peso),
     usuario_get_altura(Usuario, Altura),
-    usuario_get_meta_peso(Usuario, Meta),
-    caloriasManterPeso(Genero, Peso, Altura, Calorias),
-
-    (Peso > Meta -> 
+    usuario_get_meta_peso(Usuario, MetaPeso),
+    atom_string(Genero, GeneroString),
+    caloriasManterPeso(GeneroString, Peso, Altura, Calorias),
+    
+    (Peso > MetaPeso -> 
     caloriasDiariasPerderPeso(Calorias, Peso, MetaPeso, Kcal),
     Kfinal is Kcal
     ;
-    Peso < Meta -> 
+    Peso < MetaPeso -> 
     caloriasDiariasGanharPeso(Calorias, Peso, MetaPeso, Kcal),
     Kfinal is Kcal
     ;
-    Kfinal is Calorias).
-
+    Kfinal is Calorias
+    ).
+    
 caloriasManterPeso("m", Peso, Altura, Calorias) :-
     Calorias is 888.362 + (13.397 * Peso) + (4.799 * Altura).
 
 caloriasManterPeso("f", Peso, Altura, Calorias) :-
     Calorias is 447.593 + (9.247 * Peso) + (3.098 * Altura).
 
-caloriasManterPeso(_, _, 0.0).
+caloriasDiariasPerderPeso(Calorias, Peso, MetaPeso, Kcal) :-
+    Kcal is Calorias - (25 * (Peso - MetaPeso)).
 
-caloriasDiariasPerderPeso(KPadrao, Peso, MetaPeso, Calorias) :-
-    Calorias is KPadrao - (25 * (Peso - MetaPeso)).
-
-caloriasDiariasGanharPeso(KPadrao, Peso, MetaPeso, Calorias) :-
-    Calorias is KPadrao + (25 * (MetaPeso - Peso)).
+caloriasDiariasGanharPeso(Calorias, Peso, MetaPeso, Kcal) :-
+    A is MetaPeso - Peso,
+    B is 25 * A,
+    Kcal is Calorias + B.
 
 
 
@@ -384,17 +406,6 @@ adicionarAlimento(id, Usuario, ListaRefeicao, Nome) :-
 
 
 
-% calcularValorNutricionalTotal(ListaRefeicao) :-
-%    valorTotal(ListaRefeicao, TotalKcal, TotalProteinas, TotalGorduras, TotalCarboidratos),
-%    writeln("\nValor calórico total: ", TotalKcal, " kcal"),
-%    writeln("Proteínas totais: ", TotalProteinas, " g"),
-%    writeln("Gorduras totais: ", TotalGorduras, " g"),
-%   writeln("Carboidratos totais: ", TotalCarboidratos, " g").
-
-% listarAlimentosDisponiveis :-
-%   lerAlimentosComoString("alimentos.txt", ConteudoAlimentos),
-%   writeln("Alimentos disponíveis:"),
-%   writeln(ConteudoAlimentos).
 
 
 
@@ -455,6 +466,9 @@ submenu_exercicios_anaerobicos(Usuario) :-
         submenu_exercicios_anaerobicos(Usuario)
     ; Opcao = 3 ->
         adicionar_exercicio_anaerobico(Usuario)
+
+
+
     ; Opcao = 4 ->
         exercicio_aleatorio_anaerobico(Exercicio),
         writeln("Exercício Sugerido:"),
@@ -524,6 +538,16 @@ adicionar_exercicio_anaerobico(Usuario):-
     pegar_data_atual(Data),
     usuario_get_nome(Usuario, NomeUsuario),
     cadastrar_exercicio_anaerobico(NomeUsuario, NomeExercicio, Duracao, PesoUsuario, Data),
+
+    
+    calcular_perda_calorica_anaerobico(PesoUsuario, Duracao, PerdaCalorica),
+    usuario_get_kcal_atual(Usuario, Kcal),
+    Kcal_atual is Kcal - PerdaCalorica,
+    usuario_set_kcal_atual(Usuario, Kcal_atual, NovoUsuario),
+    usuario_get_senha(NovoUsuario, Senha),
+    altera_usuario_por_id(Senha, NovoUsuario),
+
+
     write("Exercicio registrado com sucesso."), nl,
     submenu_exercicios_anaerobicos(Usuario).
 
