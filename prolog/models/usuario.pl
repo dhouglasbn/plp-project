@@ -33,7 +33,7 @@ usuario(Senha, Nome, Genero, Idade, Peso, Altura, MetaPeso, MetaKcal, KcalAtual,
     string_lower(Genero, GeneroMinusculo),
     quebrar_e_substituir(NomeMinusculo, NomeFormatado),
     Usuario = (Senha|NomeFormatado|GeneroMinusculo|Idade|Peso|Altura|MetaPeso|MetaKcal|KcalAtual).
-
+    
 usuario_get_senha(Usuario, Senha):-
     (Senha|_) = Usuario.
 
@@ -59,7 +59,7 @@ usuario_get_meta_kcal(Usuario, MetaKcal):-
     (_|_|_|_|_|_|_|MetaKcal|_) = Usuario.
 
 usuario_get_kcal_atual(Usuario, KcalAtual):-
-    (_|_|_|_|_|_|_|_|KcalAtual|_) = Usuario.
+    (_|_|_|_|_|_|_|_|KcalAtual) = Usuario.
 
 usuario_set_senha(Usuario, Senha, NovoUsuario):-
     (_|Dados) = Usuario,
@@ -97,8 +97,8 @@ usuario_set_meta_kcal(Usuario, MetaKcal, NovoUsuario):-
     NovoUsuario = (A|B|C|D|E|F|G|MetaKcal|Dados).
 
 usuario_set_kcal_atual(Usuario, KcalAtual, NovoUsuario):-
-    (A|B|C|D|E|F|G|H|_|Dados) = Usuario,
-    NovoUsuario = (A|B|C|D|E|F|G|H|KcalAtual|Dados).
+    (A|B|C|D|E|F|G|H|_) = Usuario,
+    NovoUsuario = (A|B|C|D|E|F|G|H|KcalAtual).
 
 quebrar_e_substituir(String, Resultado) :-
     atomic_list_concat(Palavras, ' ', String),
